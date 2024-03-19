@@ -1,0 +1,11 @@
+.navbar {
+    height: 40px;
+    width: 100%;
+    position: fixed;
+    z-index: 250;
+    background-color: rgba(15, 15, 15, 1);
+    overflow: hidden;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 8px;
+}
