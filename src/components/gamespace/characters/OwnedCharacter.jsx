@@ -1,7 +1,6 @@
 import React from 'react';
 
 const OwnedCharacter = ({gameFieldContext, avatar, attributes, position}) => {
-    console.log(avatar)
     return (
         <div className="owned-character"
              style={{

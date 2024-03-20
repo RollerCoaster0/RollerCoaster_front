@@ -1,32 +1,22 @@
-import React, {useRef, useState} from 'react';
+import React, {useContext, useRef} from 'react';
 import '../gamespace.css'
-import {useFetchGameFieldData} from "../../../api/game/fetchGameFieldData";
-import {devConsts} from "../../../util/util";
 import Character from "../characters/Character";
-import OwnedCharacter from "../characters/OwnedCharacter";
+import {GameContext} from "../../GameContext";
 
 const GameField = ({children}) => {
-    const [waitingForMove, setWaitingForMove] = useState(false);
-
     const fieldRef = useRef(null);
-    const data = useFetchGameFieldData();
-    const fieldWidth = devConsts.defaultCellSize * data?.size[0];
-    const fieldHeigth = devConsts.defaultCellSize * data?.size[1];
-    const fieldContext = {
-        fieldWidth,
-        fieldHeigth,
-        setWaitingForMove,
-        cellSize: devConsts.defaultCellSize,
-    }
-
-
+    const {characters, ownedCharacters, fieldParams} = useContext(GameContext);
     return (
         <div className="game-field"
-             style={{backgroundImage: `url(${data?.background})`, width: fieldWidth, height: fieldHeigth}}
+             style={{
+                 backgroundImage: `url(${fieldParams?.background})`,
+                 width: fieldParams?.cellSize * fieldParams?.fieldSize[0],
+                 height: fieldParams?.cellSize * fieldParams?.fieldSize[1]
+             }}
              ref={fieldRef}>
-            {data?.characters.map((character) => <Character gameFieldContext={fieldContext} {...character}/>)}
-            {data?.ownedCharacters.map((character) => <OwnedCharacter gameFieldContext={fieldContext} {...character}/>)}
-
+            {characters?.map((character) => <Character {...character}/>)}
+            {/*{ownedCharacters?.map((character) => <OwnedCharacter {...character}/>)}*/}
+            {children}
         </div>
     );
 };
