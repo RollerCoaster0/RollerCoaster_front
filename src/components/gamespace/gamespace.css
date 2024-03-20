@@ -7,7 +7,7 @@
     background-size: cover;
 }
 
-.character {
+.character, .owned-character {
     position: absolute;
     background-size: cover;
     aspect-ratio: 1;
