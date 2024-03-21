@@ -1,4 +1,4 @@
-import {createContext, useEffect, useState} from "react";
+import {createContext, useEffect, useRef, useState} from "react";
 import {getStaticCharacters, getStaticField} from "../util/util";
 import {useFieldParams} from "../hooks/useFieldParams";
 
@@ -9,7 +9,8 @@ export const GameContextProvider = ({children}) => {
     const [characters, setCharacters] = useState([]);
     const [ownedCharacters, setOwnedCharacters] = useState([]);
     const fieldParams = useFieldParams(0);
-
+    const [pickedCharacter, setPickedCharacter] = useState(0);
+    const waitingForMove = useRef(true);
 
     useEffect(() => {
         const [c, oC] = getStaticCharacters();
@@ -17,7 +18,7 @@ export const GameContextProvider = ({children}) => {
         setOwnedCharacters(oC);
     }, [field]);
 
-    return <GameContext.Provider value={{field, fieldParams, characters, ownedCharacters}}>
+    return <GameContext.Provider value={{field, setField, fieldParams, characters, ownedCharacters, pickedCharacter, setPickedCharacter, waitingForMove}}>
         {children}
     </GameContext.Provider>
 }
