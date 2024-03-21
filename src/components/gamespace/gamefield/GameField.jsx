@@ -15,27 +15,30 @@ const GameField = ({children}) => {
                  height: fieldParams?.cellSize * fieldParams?.fieldSize[1]
              }}
              ref={fieldRef}
-             onClick={(e) => handleClick(e, waitingForMove, pickedCharacter, ownedCharacters, field, setField)}>
+             onClick={(e) => handleClick(e, waitingForMove, pickedCharacter, ownedCharacters, field, setField, fieldRef, fieldParams.cellSize)}>
 
             {characters?.map((character) => <Character {...character}/>)}
-            {/*{ow}nedCharacters?.map((character) => <OwnedCharacter {...character}/>)}*/}
+            {/*ownedCharacters?.map((character) => <OwnedCharacter {...character}/>)}*/}
             {children}
         </div>
     );
 };
 
-function handleClick(e, waitingForMove, pickedCharacter, ownedCharacters, field, setField) {
+function handleClick(e, waitingForMove, pickedCharacter, ownedCharacters, field, setField, fieldRef, cellSize) {
     // console.log(waitingForMove, pickedCharacter)
     if (!waitingForMove.current || pickedCharacter == null) return;
-    const pos = calcPositionByCoords(0, 0); //event coords
+    const x = e.clientX - fieldRef.current.getBoundingClientRect().left;
+    const y = e.clientY - fieldRef.current.getBoundingClientRect().top;
+    const pos = calcPositionByCoords(x, y, cellSize); //event coords
     field = structuredClone(field);
-    move(pickedCharacter, pos,field );
+    move(pickedCharacter, pos,field);
     setField(field);
-    console.log(field)
 }
 
-function calcPositionByCoords(x, y) {
-    return [3, 3];
+function calcPositionByCoords(x, y, cellSize) {
+    const xPos = Math.floor(x / cellSize);
+    const yPos = Math.floor(y / cellSize);
+    return [xPos, yPos];
 }
 
 function move(pickedCharacter, pos, field) {
@@ -50,5 +53,6 @@ function move(pickedCharacter, pos, field) {
         }
         const [x, y] = pos;
         field[y][x] = pickedCharacter;
+        console.log(field, pickedCharacter)
 }
     export default GameField;
