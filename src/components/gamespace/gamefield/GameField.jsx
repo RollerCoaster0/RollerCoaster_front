@@ -26,10 +26,10 @@ const GameField = ({children}) => {
 
 function handleClick(e, waitingForMove, pickedCharacter, ownedCharacters, field, setField) {
     // console.log(waitingForMove, pickedCharacter)
-    if (!waitingForMove.current || pickedCharacter == null ) return;
-    const [xPos, yPos] = calcPositionByCoords(0, 0); //event coords
+    if (!waitingForMove.current || pickedCharacter == null) return;
+    const pos = calcPositionByCoords(0, 0); //event coords
     field = structuredClone(field);
-    field[xPos][yPos] = pickedCharacter;
+    move(pickedCharacter, pos,field );
     setField(field);
     console.log(field)
 }
@@ -47,14 +47,8 @@ function move(pickedCharacter, pos, field) {
                     break out;
                 }
             }
-            out2:
-                for (let i = 0; i < field?.length; i++) {
-                    for (let j = 0; j < field[i].length; j++) {
-                        if (field[i][j] === pickedCharacter) {
-                            field[i][j] = 0;
-                            break out2;
-                        }
-                    }
-                }
         }
-export default GameField;
+        const [x, y] = pos;
+        field[y][x] = pickedCharacter;
+}
+    export default GameField;
