@@ -33,9 +33,6 @@ const Form = () => {
                                onChange={handleConfirmPasswordChange}/>
                         {match === true ? <span>&#10004;</span> : match === false ? <span>&#10060;</span> : null}
                     </div>
-                    <div className="form-field">
-                        <input type="text" placeholder="Email"/>
-                    </div>
                 </div>
                 <Button></Button>
             </div>

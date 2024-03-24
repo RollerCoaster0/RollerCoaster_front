@@ -19,9 +19,6 @@ const Button = () => {
                 <Navigate></Navigate>
 
             </div>
-            <div className="or">OR</div>
-            <button className="button">Google</button>
-
         </>
     );
 };
