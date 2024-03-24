@@ -4,6 +4,8 @@ import './index.css';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import HomePage from "./components/pages/homepage/HomePage";
 import GamePage from "./components/pages/gamepage/GamePage";
+import RegistrationPage from "./components/pages/registrationpage/RegistrationPage";
+import Authentication from "./components/pages/authentication/Authentication";
 
 
 const router = createBrowserRouter([
@@ -14,6 +16,14 @@ const router = createBrowserRouter([
     {
         path: '/game/:sessionId',
         element: <GamePage/>
+    },
+    {
+        path:'/registration',
+        element:<RegistrationPage/>
+    },
+    {
+        path:'/authentication',
+        element:<Authentication/>
     }
 ]);
 
