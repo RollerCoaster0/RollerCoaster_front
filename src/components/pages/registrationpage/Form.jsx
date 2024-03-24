@@ -29,7 +29,7 @@ const Form = () => {
                     </div>
                     <div className="form-field">
                         <input type="password" placeholder="Password" value={password} onChange={handlePasswordChange}/><br/>
-                        <input type="password" placeholder="Повторите Password" value={confirmPassword}
+                        <input type="password" placeholder="Repeat Password" value={confirmPassword}
                                onChange={handleConfirmPasswordChange}/>
                         {match === true ? <span>&#10004;</span> : match === false ? <span>&#10060;</span> : null}
                     </div>

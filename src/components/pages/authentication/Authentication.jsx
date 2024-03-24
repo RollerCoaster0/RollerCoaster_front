@@ -1,4 +1,5 @@
 import React, {useState} from 'react';//поле Реги
+import './style.css'
 
 const PasswordCheck = () => {
     const [password, setPassword] = useState('');
@@ -19,15 +20,20 @@ const PasswordCheck = () => {
     }
 
     return (
-        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
-            <div>
+        <><main>
+        <div className="register-form-container">
+            <h1 className="form-title">RollerCoaster</h1>
+            <div className="form-fields">
                 <input type="text" placeholder="Имя/nickname"/><br/>
-                <input type="password" placeholder="Password" value={password} onChange={handlePasswordChange}/><br/>
-                <input type="password" placeholder="Повторите Password" value={confirmPassword}
-                       onChange={handleConfirmPasswordChange}/>
-                {match === true ? <span>&#10004;</span> : match === false ? <span>&#10060;</span> : null}
+                    <input type="password" placeholder="Password" value={password}
+                           onChange={handlePasswordChange}/><br/>
+                    <input type="password" placeholder="Повторите Password" value={confirmPassword}
+                           onChange={handleConfirmPasswordChange}/>
+                    {match === true ? <span>&#10004;</span> : match === false ? <span>&#10060;</span> : null}
             </div>
         </div>
+        </main>
+            </>
     );
 }
 
