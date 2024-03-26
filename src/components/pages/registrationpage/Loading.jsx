@@ -1,14 +1,19 @@
-import React from 'react';
 import './styles.css'
-import logo from './Imagine/RUXO.gif'
+import logo from './Imagine/dragon1.mp4'
 import './styles.css'
+import React, {useEffect} from "react";
+
 function Loading() {
+
+    useEffect(() => {
+        const video = document.getElementById('background-video');
+        video.play();
+    }, []);
 
     return (
         <>
-            <img src={logo} alt="loading..." className="gif"/>
+ <video id = "background-video" autoPlay loop muted> <source src={logo} type="video/mp4"/></video>
         </>
     );
 }
-
 export default Loading;
