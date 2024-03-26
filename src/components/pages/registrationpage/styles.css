@@ -126,3 +126,14 @@ input {
     width: 100vw;
     height: 125vh;
 }
+.navbar {
+    height: 40px;
+    width: 100%;
+    position: fixed;
+    z-index: 250;
+    background-color: darkolivegreen;
+    overflow: hidden;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 8px;
+}

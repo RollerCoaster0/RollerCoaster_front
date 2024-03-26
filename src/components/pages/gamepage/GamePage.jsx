@@ -6,10 +6,12 @@ import {GameContextProvider} from "../../GameContext";
 const GamePage = () => {
     return (
         <>
-            <Navbar/>
+            <div><Navbar/></div>
+            <div>
             <GameContextProvider>
                 <GameField/>
             </GameContextProvider>
+            </div>
         </>
     );
 };
