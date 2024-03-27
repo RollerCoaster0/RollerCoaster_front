@@ -1,0 +1,25 @@
+
+.homepage{
+    display: flex;
+    margin-left: 2%;
+    margin-right: 2%;
+
+    height: 100vh; /* Высота контейнера равна высоте окна браузера */
+
+}
+.sidebar-left {
+
+    background: rebeccapurple;
+
+}
+.main-content{
+
+    background: red;
+
+}
+.sidebar-right{
+
+    background: rebeccapurple;
+
+
+}

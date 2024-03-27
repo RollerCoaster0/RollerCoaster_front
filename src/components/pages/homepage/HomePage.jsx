@@ -18,7 +18,7 @@ const HomePage = () => {
                     <h1>Добро пожаловать в ад </h1>
                     <p>здесь вы получите передоз ДНД</p>
                 </div>
-                <div className="sidebar-raight">
+                <div className="sidebar-right">
                 <h2>Рассказы про днд епта</h2>
                 <p>Сюда нужна хуйня или кнопки</p>
                 </div>
