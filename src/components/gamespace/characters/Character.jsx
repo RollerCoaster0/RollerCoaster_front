@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import '../gamespace.css'
-import {GameContext} from "../../GameContext";
+import {GameContext} from "../GameContext";
 
 const Character = ({id, avatar, attributes}) => {
     const {field, fieldParams, setPickedCharacter} = useContext(GameContext);

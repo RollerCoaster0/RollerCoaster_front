@@ -1,7 +1,7 @@
 import React, {useContext, useRef} from 'react';
 import '../gamespace.css'
 import Character from "../characters/Character";
-import {GameContext} from "../../GameContext";
+import {GameContext} from "../GameContext";
 
 const GameField = ({children}) => {
     const fieldRef = useRef(null);
