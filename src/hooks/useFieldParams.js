@@ -9,4 +9,4 @@ export function useFieldParams(id) {
         setParams(p);
     }, []);
     return params;
-}//это хуйня
+}
