@@ -3,20 +3,30 @@
     display: flex;
     justify-content: space-between;
     gap: 10%;
-    margin-left: 2%;
-    margin-right: 2%;
     height: 100vh; /* Высота контейнера равна высоте окна браузера */
+    background-size: cover;
+    background-repeat: no-repeat; /* запрет на повторение картинки */
+    background-position: center; /* позиция картинки на фоне */
+    background-image: url('images/dk2.jpg');
 
 }
 
 .sidebar-left {
-    background: rebeccapurple;
+    p { color: #f80202; }/*Красным то что нужно сделать в будущем*/
 }
 
 .main-content {
-    background: red;
+
+    p { color: #f9f7f7; }
+
 }
 
 .sidebar-right {
-    background: rebeccapurple;
+    p { color: #ff0000; }/*Красным то что нужно сделать в будущем*/
+}
+.color{
+    color: #f0f0f0;
+}
+.color2{
+    color: #e1eeee;
 }
