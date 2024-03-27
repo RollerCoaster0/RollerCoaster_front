@@ -1,15 +1,16 @@
 import React from 'react';
 import Navbar from "../../common/navbar/Navbar";
 import './style_home.css'
-import {redirect} from "react-router-dom";
-
+import img1 from './images/dk.jpg'
+import img2 from './images/dk2.jpg'
+import img3 from './images/theCoinOnWhich.jpg'
 
 const HomePage = () => {
     return (
         <>
 
             <Navbar/>
-            <div className="homepage" style={{backgroundImage: `url(../images/${getRandomImage()})`}}>
+            <div className="homepage" style={{backgroundImage: `url(${getRandomImage()})`}}>
                 <div className="sidebar-left">
                     <h2 class="color">Известные игроки и мастера</h2>
                     <p>Список с авто обновлением</p>
@@ -29,9 +30,8 @@ const HomePage = () => {
 };
 
 const getRandomImage = () => {
-    const images = ['dk2.jpg', 'dk.jpg', 'theCoinOnWhich.jpg']; // замените названия файлов на ваши
+    const images = [img1, img2, img3];
     const randomNumber = Math.floor(Math.random() * images.length);
-
     return images[randomNumber];
 };
 
