@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
 import './navbar.css'
-import './NavigateBar'
-import NavigateBar from "./NavigateBar";
 import {Link} from "react-router-dom";
 
 function Navbar() {
@@ -17,18 +15,17 @@ function Navbar() {
             : setToggleIcon("nav__toggler");
 
     }
+
     return (
         <>
             <nav className="nav">
                 <p className="nav__brand">RollerCoaster</p>
                 <ul className={active}>
                     <li className="nav__item">
-                        <a href="/" className="nav__link">Home</a></li>
-                    <li><a href="/authentication" className="nav__link">Log in</a></li>
-                    <li>
-                        <a href="/game/:sessionId" className="nav__link">Game</a></li>
-                    <li><a href="https://vk.com/dmitrishakurrr" className="nav__link">About</a>
-                    </li>
+                        <Link to={"/"} className="nav__link">Home</Link></li>
+                    <li><Link to={"/authentication"} className="nav__link">Log in</Link></li>
+                    <li><Link to={"/game/:sessionId"} className="nav__link">Game</Link></li>
+                    <li><a href="https://vk.com/dmitrishakurrr" className="nav__link">About</a></li>
                 </ul>
                 <div onClick={navToggle} className={toggleIcon}>
                     <div className="line1"></div>

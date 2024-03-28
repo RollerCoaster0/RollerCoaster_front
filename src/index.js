@@ -6,25 +6,33 @@ import HomePage from "./components/pages/homepage/HomePage";
 import GamePage from "./components/pages/gamepage/GamePage";
 import RegistrationPage from "./components/pages/registrationpage/RegistrationPage";
 import Authentication from "./components/pages/authentication/Authentication";
+import PageLayout from "./components/pages/pagelayout/PageLayout";
 
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <HomePage/>,
+        element: <PageLayout/>,
+        children: [
+            {
+             path: '',
+             element: <HomePage/>
+            },
+            {
+                path: 'game/:sessionId',
+                element: <GamePage/>
+            },
+            {
+                path:'registration',
+                element:<RegistrationPage/>
+            },
+            {
+                path:'authentication',
+                element:<Authentication/>
+            }
+        ]
     },
-    {
-        path: '/game/:sessionId',
-        element: <GamePage/>
-    },
-    {
-        path:'/registration',
-        element:<RegistrationPage/>
-    },
-    {
-        path:'/authentication',
-        element:<Authentication/>
-    }
+
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

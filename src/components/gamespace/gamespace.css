@@ -1,8 +1,6 @@
 .game-field {
     position: relative;
     margin: 70px auto;
-    /*width: 800px;*/
-    /*height: 800px;*/
     background-color: darkgreen;
     background-size: cover;
 }

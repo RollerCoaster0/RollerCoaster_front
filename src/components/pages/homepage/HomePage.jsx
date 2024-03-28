@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from "../../common/navbar/Navbar";
 import './style_home.css'
 import img1 from './images/dk.jpg'
 import img2 from './images/dk2.jpg'
@@ -8,8 +7,6 @@ import img3 from './images/theCoinOnWhich.jpg'
 const HomePage = () => {
     return (
         <>
-
-            <Navbar/>
             <div className="homepage" style={{backgroundImage: `url(${getRandomImage()})`}}>
                 <div className="sidebar-left">
                     <h2 class="color">Известные игроки и мастера</h2>

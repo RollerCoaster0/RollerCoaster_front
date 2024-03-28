@@ -12,8 +12,11 @@ function Loading() {
 
     return (
         <>
- <video id = "background-video" autoPlay loop muted className="gif"> <source src={logo} type="video/mp4"/></video>
+            <video id="background-video" autoPlay loop muted className="gif">
+                <source src={logo} type="video/mp4"/>
+            </video>
         </>
     );
 }
+
 export default Loading;

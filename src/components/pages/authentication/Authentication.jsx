@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';//поле Реги
 import './style.css'
 import Loading from "../registrationpage/Loading";
 import FormA from "./FormA";
-import Navbar from "../../common/navbar/Navbar";
 
 
 const PasswordCheck = () => {
@@ -19,12 +18,10 @@ const PasswordCheck = () => {
         return <Loading/>;
     }
 
-
     return (
         <>
-            <Navbar/>
-            <FormA></FormA>
-            </>
+            <FormA/>
+        </>
     );
 }
 

@@ -30,7 +30,8 @@ a {
     justify-content: space-around;
     height: 8vh;
     background: darkolivegreen;
-    background-image: url("./background/dice.png")
+    background-image: url("./background/dice.png");
+
 }
 .nav__brand {
     text-transform: uppercase;
