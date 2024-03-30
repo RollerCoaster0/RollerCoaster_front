@@ -1,0 +1,20 @@
+.postpage {
+    display: flex;
+    background: gray;
+    height: 100vh;
+    justify-content: space-between;
+    gap: 10%;
+
+}
+
+.Top-row {
+    p {
+        color: whitesmoke
+    }
+}
+
+.color {
+    p {
+        color: whitesmoke
+    }
+}
