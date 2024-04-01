@@ -1,89 +1,37 @@
-*,
-*::after,
-*::before {
-    margin: 0;
-    box-sizing: border-box;
+nav {
+    width: 100%;
+    height: 60px;
+    background-color: darkolivegreen;
+    position: fixed;
+    z-index: 500;
+    overflow: hidden;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
-html {
-    font-size: 62.5%;
-}
-body {
-    font-size: 1.6rem;
-}
-li {
-    list-style: none;
-}
-a {
-    text-decoration: none;
-    color: rgb(204, 204, 204);
-}
-.nav__brand{
-    font-family: "Truculenta", sans-serif;
-    font-size: 40px;
-    font-weight: 200;
-    font-style: normal;
-    font-variation-settings: "wdth" 100;
-}
-.nav {
+.navbar__content {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 50px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: space-around;
-    height: 8vh;
-    background: darkolivegreen;
-    background-image: url("./background/dice.png");
 
 }
-.nav__brand {
-    text-transform: uppercase;
+.navbar__user-profile {
+    border-radius: 100%;
+    height: 46px;
+    aspect-ratio: 1;
+    background-color: #D9D9D9;
 }
 
-.nav__menu {
+.navbar__links {
     display: flex;
-    align-items: center;
-    justify-content: space-around;
-    gap: 3rem;
+    width: 510px;
+    margin-left: 20%;
+    justify-content: space-between;
 }
-.nav__toggler {
-    display: none;
-}
-.nav__toggler div {
-    width: 2.5rem;
-    height: 0.2rem;
-    margin: 0.4rem;
-    background: rgb(245, 0, 0);
-    transition: 0.3s ease-in;
-}
-
-@media screen and (max-width: 768px) {
-    .nav__toggler {
-        display: block;
-        cursor: pointer;
-    }
-    .nav__menu {
-        position: fixed;
-        top: 7vh;
-        right: 0;
-        height: 93vh;
-        width: 50vw;
-        background:darkolivegreen;
-        flex-direction: column;
-        transform: translateX(100%);
-        transition: 0.5s ease-in;
-    }
-}
-/* Active Class */
-.nav__active {
-    transform: translateX(0%);
-}
-
-/* Toggle Icon Animation */
-
-.toggle .line1 {
-    transform: rotate(-45deg) translate(-4px, 5px);
-}
-.toggle .line2 {
-    opacity: 0;
-}
-.toggle .line3 {
-    transform: rotate(45deg) translate(-4px, -5px);
+.navbar__links__item {
+    font-size: 32px;
+    font-family: Kelly Slab, serif;
 }

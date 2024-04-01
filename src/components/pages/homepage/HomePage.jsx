@@ -1,45 +1,36 @@
-import React from 'react';
-import './style_home.css'
-import img1 from './images/dk.jpg'
-import img2 from './images/dk2.jpg'
-import img3 from './images/theCoinOnWhich.jpg'
-
+import './homepage.css'
+import img1 from './assets/slider.png'
+import img2 from './assets/Rectangle 7(1).png'
+import img3 from './assets/Rectangle 8.png'
 const HomePage = () => {
     return (
-
-            <div id={'cover'} style={{backgroundImage: `url(${getRandomImage()})`}}>
-                <main>
-                    <div className="homepage">
-                        <div className="sidebar-left">
-                            <h2 class="color">Известные игроки и мастера</h2>
-                            <p>Список с авто обновлением</p>
-                        </div>
-                        <div className="main-content">
-                            <h1 class="color2">Добро пожаловать в D&D </h1>
-                            <p>Добро пожаловать в мир приключений и фэнтези! Здесь вы сможете погрузиться в
-                                захватывающий
-                                мир игры Dungeons & Dragons и отправиться в увлекательные приключения вместе с друзьями.
-                                Подготовьтесь к захватывающим сражениям, встречам с загадочными существами и
-                                неожиданными
-                                поворотам сюжета. Готовы ли вы стать настоящим героем? Добро пожаловать в наш мир!
-                            </p>
-                        </div>
-                        <div className="sidebar-right">
-                            <h2 class="color">Скрины прекрассной игры</h2>
-                            <p>Сюда нужны скрины</p>
-                        </div>
-
+            <main className="wrapper-container">
+                <div className="content">
+                    <p className="content__grid-item1">Добро пожаловать в мир приключений и фэнтези! </p>
+                    <img src={img1} className="content__grid-item2" alt="aboba"/>
+                    <img src={img2} className="content__grid-item3" alt="aboba"/>
+                    <p className="content__grid-item4">Здесь вы сможете погрузиться в захватывающие миры и отправиться в
+                        увлекательные приключения вместе с друзьями. </p>
+                    <p className="content__grid-item5">Подготовьтесь к захватывающим сражениям, встречам с загадочными
+                        существами и
+                        неожиданным поворотам сюжета! </p>
+                    <img src={img3} className="content__grid-item6" alt="aboba"/>
+                    <div className="content__grid-item7"><p>Готовы стать настоящим героем?
+                        Добро пожаловать в наш мир</p>
+                        <button className="content__grid-item7__play-button">
+                            <p style={{
+                                fontSize: 50,
+                                fontFamily: 'Kelly Slab, serif',
+                                color: 'white',
+                                margin: 'auto'
+                            }}>Играть!</p>
+                        </button>
                     </div>
-                </main>
-            </div>
-    );
+                </div>
+            </main>
+    )
 };
 
-const getRandomImage = () => {
-    const images = [img1, img2, img3];
-    const randomNumber = Math.floor(Math.random() * images.length);
-    return images[randomNumber];
-};
 
 export default HomePage;
 

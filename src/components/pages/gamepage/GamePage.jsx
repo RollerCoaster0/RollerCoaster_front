@@ -1,6 +1,6 @@
 import React from 'react';
 import GameField from "../../gamespace/gamefield/GameField";
-import {GameContextProvider} from "../../gamespace/GameContext";
+import {GameContextProvider} from "../../../contexts/GameContext";
 
 const GamePage = () => {
     return (

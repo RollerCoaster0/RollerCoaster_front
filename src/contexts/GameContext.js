@@ -1,6 +1,6 @@
 import {createContext, useEffect, useRef, useState} from "react";
-import {getStaticCharacters, getStaticField} from "../../util/util";
-import {useFieldParams} from "../../hooks/useFieldParams";
+import {getStaticCharacters, getStaticField} from "../util/util";
+import {useFieldParams} from "../hooks/useFieldParams";
 
 export const GameContext = createContext(undefined);
 

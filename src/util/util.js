@@ -3,7 +3,8 @@ import greenAvatar from "../devassets/green_player.png";
 import background from "../devassets/grid.png"
 
 export const devConsts = {
-    defaultCellSize: 100
+    defaultCellSize: 100,
+    api: 'http://localhost:5050'
 };
 
 
