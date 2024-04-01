@@ -5,9 +5,7 @@ import React from "react";
 const FormA = () => {
 
     return (
-        <>
-            <main>
-
+            <div className="wrapper">
                 <div className="register-form-container">
                     <h1 className="form-title">RollerCoaster</h1>
                     <div className="form-fields">
@@ -22,8 +20,7 @@ const FormA = () => {
                         <ButtonA></ButtonA>
                     </div>
                 </div>
-            </main>
-        </>
+            </div>
     );
 };
 

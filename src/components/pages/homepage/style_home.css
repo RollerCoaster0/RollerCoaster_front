@@ -7,8 +7,6 @@
     background-size: cover;
     background-repeat: no-repeat; /* запрет на повторение картинки */
     background-position: center; /* позиция картинки на фоне */
-    background-image: url('images/dk2.jpg');
-
 }
 
 .sidebar-left {
@@ -16,7 +14,6 @@
 }
 
 .main-content {
-
     p { color: #f9f7f7; }
 
 }
