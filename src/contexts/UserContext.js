@@ -10,7 +10,10 @@ const UserContextProvider = ({children}) => {
         const response = await fetch(devConsts.api + '/auth/register?' + new URLSearchParams({login, password}), {
             method: 'POST',
         });
-        setUser(response.ok ? {login} : null);
+        if (response.ok) {
+            storeToken(await response.json().token);
+            setUser({name: login});
+        }
         return response.status;
     }
 
@@ -18,7 +21,10 @@ const UserContextProvider = ({children}) => {
         const response = await fetch(devConsts.api + '/auth/login?' + new URLSearchParams({login, password}), {
             method: 'POST',
         });
-        setUser(response.ok ? {login} : null);
+        if (response.ok) {
+            storeToken(await response.json().token);
+            setUser({name: login});
+        }
         return response.status;
     }
 

@@ -4,11 +4,9 @@ import {GameContextProvider} from "../../../contexts/GameContext";
 
 const GamePage = () => {
     return (
-        <>
             <GameContextProvider>
                 <GameField/>
             </GameContextProvider>
-        </>
     );
 };
 
