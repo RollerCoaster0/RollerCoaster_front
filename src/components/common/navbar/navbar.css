@@ -66,4 +66,5 @@ nav {
 .navbar__links__item {
     font-size: 32px;
     font-family: Kelly Slab, serif;
+    cursor: pointer;
 }

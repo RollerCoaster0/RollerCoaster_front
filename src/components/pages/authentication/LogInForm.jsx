@@ -1,39 +1,44 @@
 import './loginform.css'
 import React, {useContext, useRef, useState} from "react";
-import {UserContext} from "../../../contexts/UserContext";
+import {authResult, UserContext} from "../../../contexts/UserContext";
 import {useNavigate} from "react-router-dom";
 import Loader from "../../common/loader/Loader";
+import AuthResultMessage from "./AuthResultMessage";
 
 const LogInForm = () => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const {user, logIn} = useContext(UserContext);
-    const authResult = useRef(null);
+    const result = useRef(null);
     const redirect = useNavigate();
 
     const [isAccessibleToLogIn, setIsAccessibleToLogIn] = useState(true);
     const [isPending, setIsPending] = useState(false);
     const [authResultShown, setAuthResultShown] = useState(false);
+
     const showAuthResult = () => {
         setAuthResultShown(true);
         setTimeout(() => {
             setAuthResultShown(false);
-            if (authResult.current >= 200 && authResult.current < 300) {
+            if (result.current === authResult.OK) {
                 redirect('/');
             } else {
                 setAuthResultShown(false);
                 setIsAccessibleToLogIn(true);
+                setPassword('');
             }
         }, 2000);
     }
     const onLogin = async () => {
         setIsAccessibleToLogIn(false);
         setIsPending(true);
-        authResult.current = await logIn(login, password);
+
+        result.current = await logIn(login, password);
         setIsPending(false);
+
         showAuthResult();
     }
-    console.log(isPending)
+
     return (
         <div className='auth-form-wrapper'>
             <div className="auth-form-container">
@@ -48,7 +53,7 @@ const LogInForm = () => {
                 <button className="auth-button"
                         onClick={onLogin} disabled={!isAccessibleToLogIn}>логин
                 </button>
-                {authResultShown ? <p style={{fontSize: 50}}>{authResult.current}</p> : null}
+                {authResultShown ? <AuthResultMessage result={result.current}/> : null}
             </div>
         </div>
     );
