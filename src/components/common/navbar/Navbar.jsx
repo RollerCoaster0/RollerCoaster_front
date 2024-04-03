@@ -1,8 +1,10 @@
 import './navbar.css'
 import logo from './logo/logo.svg'
 import {useNavigate} from "react-router-dom";
+import UserProfile from "./usermenu/UserProfile";
 const Navbar = () => {
     const navigate = useNavigate();
+    const menuItems = ['Log out'];
     return (
         <>
             <nav>
@@ -13,7 +15,7 @@ const Navbar = () => {
                         <a className="navbar__links__item">Join a game</a>
                         <a className="navbar__links__item">Community</a>
                     </div>
-                    <div className="navbar__user-profile"></div>
+                    <UserProfile items={menuItems}/>
                 </div>
             </nav>
         </>

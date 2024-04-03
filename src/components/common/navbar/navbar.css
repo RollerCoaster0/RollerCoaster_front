@@ -25,6 +25,38 @@ nav {
     background-color: #D9D9D9;
 }
 
+.navbar__user-profile__user-menu {
+    position: fixed;
+    padding: 10px;
+    right: 4%;
+    min-width: 200px;
+    min-height: 40px;
+    background-color: gray;
+    top: 54px;
+    border-radius: 20px;
+    transition: opacity 0.5s;
+}
+.navbar__user-profile__user-menu-inactive {
+    position: fixed;
+    padding: 10px;
+    right: 4%;
+    min-width: 200px;
+    min-height: 40px;
+    background-color: gray;
+    top: 54px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: height, opacity 0.5s;
+}
+
+.navbar__user-profile__user-menu__item {
+    font-family: "Kelly Slab", serif;
+    font-size: 20px;
+    width: 100%;
+    margin: 0 auto;
+    border-bottom: 1px black;
+    text-align: center;
+}
 .navbar__links {
     display: flex;
     width: 510px;

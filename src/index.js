@@ -5,8 +5,8 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import HomePage from "./components/pages/homepage/HomePage";
 import GamePage from "./components/pages/gamepage/GamePage";
 import RegistrationPage from "./components/pages/registrationpage/RegistrationPage";
-import Authentication from "./components/pages/authentication/LogInForm";
 import PageLayout from "./components/pages/pagelayout/PageLayout";
+import LogInPage from "./components/pages/authentication/LogInPage";
 
 
 const router = createBrowserRouter([
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
             },
             {
                 path:'authentication',
-                element:<Authentication/>
+                element: <LogInPage/>
             }
         ]
     },

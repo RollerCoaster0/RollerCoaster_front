@@ -4,7 +4,9 @@ import background from "../devassets/grid.png"
 
 export const devConsts = {
     defaultCellSize: 100,
-    api: 'http://localhost:5050'
+    api: 'http://localhost:5050',
+    tokenKey: 'RollerCoasterToken',
+    userKey: 'RollerCoasterUser'
 };
 
 

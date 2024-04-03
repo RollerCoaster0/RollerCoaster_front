@@ -41,14 +41,19 @@
 }
 
 .auth-button {
+    display: block;
     width: 250px;
     height: 50px;
     background-color: black;
     color: white;
     border-radius: 30px;
-    margin: 40px auto 0;
+    margin: 10px auto;
 }
 
 .auth-form-wrapper {
-    height: 60vh;
+    position: absolute;
+    margin-right: auto;
+    margin-left: auto;
+    left: 0;
+    right: 0;
 }

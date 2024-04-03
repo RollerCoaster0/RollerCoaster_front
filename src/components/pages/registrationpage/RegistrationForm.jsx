@@ -1,5 +1,4 @@
 import React, {useContext, useRef, useState} from 'react';
-import './styles.css'
 import '../authentication/loginform.css'
 import {UserContext} from "../../../contexts/UserContext";
 import {useNavigate} from "react-router-dom";

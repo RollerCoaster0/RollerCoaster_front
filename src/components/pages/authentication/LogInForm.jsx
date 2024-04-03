@@ -7,7 +7,7 @@ import Loader from "../../common/loader/Loader";
 const LogInForm = () => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
-    const {user, register, logIn} = useContext(UserContext);
+    const {user, logIn} = useContext(UserContext);
     const authResult = useRef(null);
     const redirect = useNavigate();
 

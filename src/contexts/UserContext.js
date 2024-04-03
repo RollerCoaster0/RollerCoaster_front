@@ -11,26 +11,24 @@ const UserContextProvider = ({children}) => {
             method: 'POST',
         });
         if (response.ok) {
-            storeToken(await response.json().token);
+            storeUser({...await response.json()})
             setUser({name: login});
         }
         return response.status;
     }
 
+    const logOut = () => {
+        setUser(null);
+    }
     const logIn = async (login, password) => {
         const response = await fetch(devConsts.api + '/auth/login?' + new URLSearchParams({login, password}), {
             method: 'POST',
         });
         if (response.ok) {
-            storeToken(await response.json().token);
+            storeUser({...await response.json()})
             setUser({name: login});
         }
         return response.status;
-    }
-
-    const saveUser = (user) => {
-        storeUser(user);
-        setUser(user);
     }
 
     useEffect(() => {
@@ -45,20 +43,12 @@ const UserContextProvider = ({children}) => {
 };
 
 
-function getStoredUser(userId) {
-    return localStorage.getItem('id');
+function getStoredUser() {
+    return localStorage.getItem(devConsts.userKey);
 }
 
 function storeUser(user) {
-    localStorage.setItem(`${user.id}`, user);
-}
-
-function storeToken(token) {
-    localStorage.setItem('rcToken', token);
-}
-
-function getToken(token) {
-    return localStorage.getItem('rcToken');
+    localStorage.setItem(devConsts.userKey, user);
 }
 
 export default UserContextProvider;

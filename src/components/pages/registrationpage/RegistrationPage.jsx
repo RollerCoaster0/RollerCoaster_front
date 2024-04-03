@@ -1,11 +1,11 @@
-import './styles.css'
 import RegistrationForm from "./RegistrationForm";
-import Loading from "./Loading";
 import React, {useState, useEffect} from 'react';
 
 const RegistrationPage = () => {
     return (
-        <RegistrationForm/>
+        <div style={{height: '100vh'}}>
+            <RegistrationForm/>
+        </div>
     );
 };
 
