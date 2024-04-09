@@ -4,6 +4,6 @@ import HomePage from "./HomePage";
 
 test('tests for Homepage', ()=>{
     render(<HomePage />);
-    const content = screen.getElement(content)
+    const content = screen.getByText(content)
     expect(content).toBeInTheDocument();
 });
