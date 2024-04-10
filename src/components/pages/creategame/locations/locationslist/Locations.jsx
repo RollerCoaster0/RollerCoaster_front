@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {Box, IconButton, List, ListItem, ListItemIcon, ListItemText} from "@mui/material";
+import {IconButton, List, ListItem, ListItemIcon, ListItemText} from "@mui/material";
 import '../../creategame.css'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import {Modal} from "react-bootstrap";
+import NewLocationModal from "../createlocationmodal/NewLocationModal";
 
 const Locations = ({locations, setLocations}) => {
     const [newLocationToggled, setNewLocationToggled] = useState(false);
@@ -22,11 +22,7 @@ const Locations = ({locations, setLocations}) => {
                 <AddCircleIcon sx={{fontSize: 60}}/>
             </IconButton>
 
-            <Modal open={newLocationToggled}
-                   onClose={() => setNewLocationToggled(false)}>
-                {/*<Box className='new-location-modal'></Box>*/}
-                <div style={{width: 500, height: 500, backgroundColor: 'black'}}></div>
-            </Modal>
+            <NewLocationModal setClose={() => setNewLocationToggled(false)} isOpened={newLocationToggled} onClose={() => setNewLocationToggled(false)}/>
         </div>
     );
 };

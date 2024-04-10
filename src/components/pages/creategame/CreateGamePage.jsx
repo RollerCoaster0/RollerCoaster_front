@@ -9,14 +9,14 @@ const CreateGamePage = () => {
         name: 'test', description: 'test'
     });
     const [locations, setLocations] = useState(getStaticLocations());
-    const [items, setItems] = useState();
+    const [items, setItems] = useState([]);
     const [npcs, setNPCs] = useState([]);
-    return (<>
-            <main className='create-game-container'>
-                <StageTabs/>
-                <Locations locations={locations} setLocations={setLocations}/>
-            </main>
-        </>);
+    return (
+        <main className='create-game-container'>
+            <StageTabs/>
+            <Locations locations={locations} setLocations={setLocations}/>
+        </main>
+    );
 };
 
 export default CreateGamePage;

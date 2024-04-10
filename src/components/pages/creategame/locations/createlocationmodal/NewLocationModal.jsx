@@ -1,16 +1,20 @@
 import React from 'react';
-import {Modal} from "react-bootstrap";
-import {Box} from "@mui/material";
+import {Box, IconButton, Modal} from "@mui/material";
 import '../../creategame.css'
-const NewLocationModal = ({isOpened}) => {
-    return (
-       <>
-           <Modal open={isOpened}>
-            <Box className='new-location-modal'>
+import CloseIcon from '@mui/icons-material/Close';
 
-            </Box>
-           </Modal>
-       </>
+const NewLocationModal = ({isOpened, onClose, setClose}) => {
+    return (
+        <>
+            <Modal open={isOpened}
+                   onClose={onClose}>
+                <Box className='new-location-modal'>
+                    <IconButton className='new-location-modal__close' onClick={setClose}>
+                        <CloseIcon sx={{fontSize: 25}}/>
+                    </IconButton>
+                </Box>
+            </Modal>
+        </>
     );
 };
 

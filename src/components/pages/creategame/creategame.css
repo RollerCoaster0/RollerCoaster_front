@@ -63,7 +63,26 @@
 }
 
 .new-location-modal {
+    position: absolute;
+    padding: 2%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 800px;
-    height: 800px;
+    height: 900px;
     background-color: white;
+    margin: auto;
+    border-radius: 20px;
+}
+
+.new-location-modal__close {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    width: 30px;
+    aspect-ratio: 1;
+}
+.new-location-modal__form {
+    display: grid;
+    grid-template-columns: 200px 500px;
 }
