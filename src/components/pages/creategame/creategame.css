@@ -57,8 +57,13 @@
 }
 
 .add-location-button {
-    border-radius: 100%;
-    width: 60px;
+    width: 50px;
     aspect-ratio: 1;
     align-self: center;
+}
+
+.new-location-modal {
+    width: 800px;
+    height: 800px;
+    background-color: white;
 }

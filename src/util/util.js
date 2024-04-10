@@ -1,6 +1,10 @@
 import redAvatar from "../devassets/red_player.png";
 import greenAvatar from "../devassets/green_player.png";
 import background from "../devassets/grid.png"
+import map from '../devassets/location_map.jpg'
+import {ListItem, ListItemIcon, ListItemText} from "@mui/material";
+import locationMap from "../devassets/location_map.jpg";
+import React from "react";
 
 export const devConsts = {
     defaultCellSize: 100,
@@ -30,4 +34,21 @@ export function getStaticFieldParams() {
         cellSize: devConsts.defaultCellSize,
         background: background
     };
+}
+
+export function getStaticLocations() {
+    return [{
+        name: 'Location 1',
+        description: 'descr',
+        map: map
+    },
+        {
+            name: 'Location 2',
+            description: 'descr',
+            map: map
+        }, {
+            name: 'Location 3',
+            description: 'descr',
+            map: map
+        },];
 }
