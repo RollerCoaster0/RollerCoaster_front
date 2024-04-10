@@ -7,7 +7,7 @@ const Navbar = () => {
     const menuItems = ['Log out'];
     return (
         <>
-            <nav>
+            <nav className='navbar'>
                 <div className="navbar__content">
                     <img src={logo} alt="aboba" onClick={() => navigate('/')} style={{cursor: 'pointer'}}/>
                     <div className="navbar__links">

@@ -2,34 +2,38 @@ import {createContext, useEffect, useState} from "react";
 import React from 'react';
 import {devConsts} from "../util/util";
 
-export const authResult = {
+export const queryResult = {
     OK: 0,
     NOT_FOUND: 1,
-    SERVER_SIDE_ERROR: 2,
-    CLIENT_SIDE_ERROR: 3
+    SERVER_ERROR: 2,
+    CLIENT_ERROR: 3,
+    UNAUTHORIZED: 4,
+    FORBIDDEN: 5,
+    BAD_REQUEST: 6
 };
 export const UserContext = createContext(undefined);
 
 const UserContextProvider = ({children}) => {
     const [user, setUser] = useState(null);
+
     const register = async (login, password) => {
         try {
             const response = await fetch(devConsts.api + '/auth/register?' + new URLSearchParams({login, password}), {
                 method: 'POST',
             });
             if (response.ok) {
-                storeUser({...await response.json()})
+                storeCredentials({...await response.json()})
                 setUser({name: login});
             }
-            return toAuthResult(response.status);
+            return toQueryResult(response.status);
         } catch (e) {
-            return authResult.CLIENT_SIDE_ERROR;
+            return queryResult.CLIENT_ERROR;
         }
     }
 
     const logOut = () => {
         setUser(null);
-        removeUser();
+        removeCredentials();
     }
     const logIn = async (login, password) => {
         try {
@@ -37,17 +41,36 @@ const UserContextProvider = ({children}) => {
                 method: 'POST',
             });
             if (response.ok) {
-                storeUser({...await response.json()})
+                storeCredentials({...await response.json()})
                 setUser({name: login});
+                //setUser(getMe());
             }
-            return toAuthResult(response.status);
+            return toQueryResult(response.status);
         } catch (e) {
-            return authResult.CLIENT_SIDE_ERROR;
+            return queryResult.CLIENT_ERROR;
         }
     }
 
+   const getMe = async () => {
+       try {
+           const response = await fetch(devConsts.api + '/users/me', {
+               headers: {
+                   'Content-Type': 'text/plain'
+               },
+               body: JSON.stringify(getCredentials())
+           });
+
+           const user = await response.json();
+           setUser(user);
+           return queryResult.OK;
+       } catch (e) {
+            return queryResult.CLIENT_ERROR;
+       }
+   }
+
     useEffect(() => {
-        setUser(getStoredUser());
+        //setUser(getMe())
+        setUser(getCredentials());
     }, []);
 
     return (
@@ -58,29 +81,36 @@ const UserContextProvider = ({children}) => {
 };
 
 
-function getStoredUser() {
+function getCredentials() {
     return localStorage.getItem(devConsts.userKey);
 }
 
-function storeUser(user) {
+function storeCredentials(user) {
     localStorage.setItem(devConsts.userKey, user);
 }
 
-function removeUser() {
+function removeCredentials() {
     localStorage.removeItem(devConsts.userKey);
 }
 
-function toAuthResult(statusCode) {
+function toQueryResult(statusCode) {
 
     if (statusCode >= 200 && statusCode < 300) {
-        return authResult.OK;
+        return queryResult.OK;
     }
 
-    if (statusCode >= 400 && statusCode < 500) {
-        return authResult.NOT_FOUND;
+    if (statusCode === 401) {
+        return queryResult.UNAUTHORIZED;
     }
 
-    return authResult.SERVER_SIDE_ERROR;
+    if (statusCode === 403) {
+        return queryResult.FORBIDDEN;
+    }
+    if (statusCode === 400) {
+        return queryResult.BAD_REQUEST;
+    }
+
+    return queryResult.SERVER_ERROR;
 
 }
 

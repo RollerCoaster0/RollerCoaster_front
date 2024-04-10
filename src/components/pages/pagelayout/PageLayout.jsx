@@ -9,7 +9,7 @@ const PageLayout = ({children}) => {
         <>
             <UserContextProvider>
                 <Navbar/>
-                <div style={{marginTop: 60}}>
+                <div className="wrapper">
                     <Outlet/>
                 </div>
                 <Footer/>

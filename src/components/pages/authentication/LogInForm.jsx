@@ -1,6 +1,6 @@
 import './loginform.css'
 import React, {useContext, useRef, useState} from "react";
-import {authResult, UserContext} from "../../../contexts/UserContext";
+import {queryResult, UserContext} from "../../../contexts/UserContext";
 import {useNavigate} from "react-router-dom";
 import Loader from "../../common/loader/Loader";
 import AuthResultMessage from "./AuthResultMessage";
@@ -20,7 +20,7 @@ const LogInForm = () => {
         setAuthResultShown(true);
         setTimeout(() => {
             setAuthResultShown(false);
-            if (result.current === authResult.OK) {
+            if (result.current === queryResult.OK) {
                 redirect('/');
             } else {
                 setAuthResultShown(false);
@@ -29,6 +29,7 @@ const LogInForm = () => {
             }
         }, 2000);
     }
+
     const onLogin = async () => {
         setIsAccessibleToLogIn(false);
         setIsPending(true);
