@@ -12,11 +12,13 @@
     font-size: 30px;
     font-family: "Kelly Slab", serif;
 }
+
 .stage-tab-active {
     font-size: 30px;
     font-family: "Kelly Slab", serif;
     color: darkolivegreen;
 }
+
 .stage-tab:hover {
     color: darkolivegreen;
 }
@@ -40,6 +42,7 @@
     height: 80px;
     border-radius: 20px;
 }
+
 .locations-container {
     display: flex;
     flex-direction: column;
@@ -60,13 +63,13 @@
     text-align: center;
 }
 
-.add-location-button {
+.add-element-button {
     width: 50px;
     aspect-ratio: 1;
     align-self: center;
 }
 
-.new-location-modal {
+.new-element-modal {
     position: absolute;
     padding: 2%;
     top: 50%;
@@ -79,14 +82,54 @@
     border-radius: 20px;
 }
 
-.new-location-modal__close {
+.new-element-modal__close {
     position: absolute;
     right: 15px;
     bottom: 15px;
     width: 30px;
     aspect-ratio: 1;
 }
+
 .new-location-modal__form {
     display: grid;
     grid-template-columns: 200px 500px;
 }
+
+.game-items-container {
+    margin: 50px auto;
+    display: flex;
+    gap: 5%;
+    flex-wrap: wrap;
+    width: 1200px;
+}
+
+.game-item-card {
+    width: 240px;
+    height: 274px;
+}
+
+.game-item-card__header {
+    text-align: center;
+}
+
+.game-item-card__item-type {
+    text-align: left;
+}
+
+.game-item-card__option-name {
+    font-size: 22px;
+}
+
+.game-item-card__option-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.game-item-card__option {
+    width: 140px;
+    height: 40px;
+    background-color: lightgrey;
+    border-radius: 10px;
+}
+

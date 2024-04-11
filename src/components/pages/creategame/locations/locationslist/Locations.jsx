@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {IconButton, List, ListItem, ListItemIcon, ListItemText} from "@mui/material";
 import '../../creategame.css'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import NewLocationModal from "../createlocationmodal/NewLocationModal";
+import NewGameElementModal from "../../NewGameElementModal";
 
 const Locations = ({locations, setLocations}) => {
     const [newLocationToggled, setNewLocationToggled] = useState(false);
@@ -18,11 +18,10 @@ const Locations = ({locations, setLocations}) => {
                         <ListItemText className='location-list__item__name' primary={location.name}/>
                     </ListItem>)}
             </List>
-            <IconButton className='add-location-button' onClick={() => setNewLocationToggled(true)}>
+            <IconButton className='add-element-button' onClick={() => setNewLocationToggled(true)}>
                 <AddCircleIcon sx={{fontSize: 60}}/>
             </IconButton>
-
-            <NewLocationModal setClose={() => setNewLocationToggled(false)} isOpened={newLocationToggled} onClose={() => setNewLocationToggled(false)}/>
+            <NewGameElementModal setClose={() => setNewLocationToggled(false)} isOpened={newLocationToggled} onClose={() => setNewLocationToggled(false)}/>
         </div>
     );
 };

@@ -3,6 +3,7 @@ import './creategame.css'
 import StageTabs from "./tabs/StageTabs";
 import Locations from "./locations/locationslist/Locations";
 import {getStaticLocations} from "../../../util/util";
+import Items from "./items/Items";
 
 
 const CreateGamePage = () => {
@@ -20,17 +21,17 @@ const CreateGamePage = () => {
             current: useCurrent(true)
         },
         {
+            name: 'Items',
+            form: <Items/>,
+            current: useCurrent(false)
+        },
+        {
             name: 'Quests',
             form: null,
             current: useCurrent(false)
         },
         {
             name: 'NPCs',
-            form: null,
-            current: useCurrent(false)
-        },
-        {
-            name: 'Items',
             form: null,
             current: useCurrent(false)
         },

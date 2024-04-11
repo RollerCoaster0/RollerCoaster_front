@@ -8,7 +8,6 @@ import RegistrationPage from "./components/pages/registrationpage/RegistrationPa
 import PageLayout from "./components/pages/pagelayout/PageLayout";
 import LogInPage from "./components/pages/authentication/LogInPage";
 import CreateGamePage from "./components/pages/creategame/CreateGamePage";
-import Test from "./components/pages/Test";
 
 
 const router = createBrowserRouter([
