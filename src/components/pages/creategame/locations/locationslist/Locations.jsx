@@ -11,7 +11,7 @@ const Locations = ({locations, setLocations}) => {
         <div className='locations-container'>
             <List className='locations-list'>
                 {locations.map(location =>
-                    <ListItem className='locations-list__item'>
+                    <ListItem className='locations-list__item' key={location.name}>
                         <ListItemIcon>
                             <img className='location-list__item__preview' src={location.map} alt='x'/>
                         </ListItemIcon>
