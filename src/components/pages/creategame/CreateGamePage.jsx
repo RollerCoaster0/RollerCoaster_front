@@ -23,7 +23,7 @@ const CreateGamePage = () => {
         },
         {
             name: 'Items',
-            form: <Items/>,
+            form: <Items items={items} setItems={setItems}/>,
             current: useCurrent(false)
         },
         {

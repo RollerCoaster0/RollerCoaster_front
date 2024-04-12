@@ -11,12 +11,14 @@
 .stage-tab {
     font-size: 30px;
     font-family: "Kelly Slab", serif;
+    cursor: pointer;
 }
 
 .stage-tab-active {
     font-size: 30px;
     font-family: "Kelly Slab", serif;
     color: darkolivegreen;
+    cursor: pointer;
 }
 
 .stage-tab:hover {
@@ -98,6 +100,7 @@
 .game-items-container {
     margin: 40px auto;
     display: flex;
+    align-content: stretch ;
     column-gap: 6.6%;
     row-gap: 50px;
     flex-wrap: wrap;
@@ -153,4 +156,10 @@
     z-index: 100;
     width: 100%;
     height: 274px;
+}
+
+.card-wrapper {
+    height: 274px;
+    width: 240px;
+    overflow: visible;
 }

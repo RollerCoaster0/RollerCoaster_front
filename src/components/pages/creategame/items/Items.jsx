@@ -4,17 +4,8 @@ import ItemCard from "./ItemCard";
 import {IconButton} from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-const Items = () => {
-    const idCounter = useRef(0);
-    const [item, setItem] = useState({name: 'ItemName', description: ''})
-    const [items, setItems] = useState([]);
-
-    const useItem = () => {
-        const [name, setName] = useState(`Item${items.length + 1}`);
-        const [description, setDescription] = useState('');
-        items.push({name, setName, description, setDescription})
-        setItems(structuredClone(items));
-    }
+const Items = ({items, setItems}) => {
+    const idCounter = useRef(0);            // TODO: перенести наверх
 
     const addItem = () => {
         items.push({name: '', description: '', id: idCounter.current});
@@ -25,7 +16,7 @@ const Items = () => {
     return (
         <div className='game-items-container'>
             {items.map(item =>
-                <ItemCard id={item.id} name={item.name} description={item.description}/>
+                <ItemCard itemsList={items} setItemsList={setItems} id={item.id} name={item.name} description={item.description}/>
             )}
             <div className='game-items-container__add-button-wrapper'>
                 <IconButton className='add-element-button' onClick={addItem}>
