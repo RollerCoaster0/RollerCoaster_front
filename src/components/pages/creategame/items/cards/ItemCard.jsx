@@ -58,7 +58,7 @@ const ItemCard = ({itemsList, setItemsList, name, description, id}) => {
         setItemsList(itemsList.filter(item => item.id !== id))
     }
     return (
-        <ClickAwayListener onClickAway={e => onSave(e)}>
+        <ClickAwayListener onClickAway={editMode ? e => onSave(e) : () => {}}>
             <div className='card-wrapper'>
                 <Badge badgeContent={editMode ? <IconButton onClick={onDelete}> <DeleteIcon color='error'/></IconButton> : null}>
                     <Card className='game-item-card' onClick={e => {setEditMode(true); e.stopPropagation()}}>
