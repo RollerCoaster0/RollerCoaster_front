@@ -1,5 +1,5 @@
 import React, {cloneElement, useEffect, useState} from 'react';
-import '../creategame.css'
+import '../../creategame.css'
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
     Badge,
@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 
-const ItemType = {
+export const ItemType = {
     ARMOR: 'Armor',
     WEAPON: 'Weapon',
     OTHER: 'Other'
@@ -96,18 +96,16 @@ const ItemCard = ({itemsList, setItemsList, name, description, id}) => {
                                            onChange={e => setNewItemDescription(e.target.value)}/>
                             </div>
 
-                            <Collapse in={editMode} unmountOnExit timeout='auto'>
-                                <Button onClick={e => onSave(e)} color='success'>Save</Button>
-                            </Collapse>
                         </CardContent>
-
+                        <Collapse in={editMode} unmountOnExit timeout='auto'>
+                            <Button onClick={e => onSave(e)} color='success'>Save</Button>
+                        </Collapse>
                     </Card>
 
                 </Badge>
             </div>
         </ClickAwayListener>
-    )
-        ;
+    );
 };
 
 export default ItemCard;

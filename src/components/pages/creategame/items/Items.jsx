@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
 import '../creategame.css'
-import ItemCard from "./ItemCard";
+import ItemCard from "./cards/ItemCard";
 import {IconButton} from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
