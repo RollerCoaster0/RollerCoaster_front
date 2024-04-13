@@ -3,10 +3,10 @@ import {IconButton, List, ListItem, ListItemIcon, ListItemText} from "@mui/mater
 import '../../creategame.css'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import NewGameElementModal from "../../NewGameElementModal";
+import LocationForm from "./LocationForm";
 
 const Locations = ({locations, setLocations}) => {
     const [newLocationToggled, setNewLocationToggled] = useState(false);
-    console.log(newLocationToggled)
     return (
         <div className='locations-container'>
             <List className='locations-list'>
@@ -21,7 +21,9 @@ const Locations = ({locations, setLocations}) => {
             <IconButton className='add-element-button' onClick={() => setNewLocationToggled(true)}>
                 <AddCircleIcon sx={{fontSize: 60}}/>
             </IconButton>
-            <NewGameElementModal setClose={() => setNewLocationToggled(false)} isOpened={newLocationToggled} onClose={() => setNewLocationToggled(false)}/>
+            <NewGameElementModal setClose={() => setNewLocationToggled(false)} isOpened={newLocationToggled} onClose={() => setNewLocationToggled(false)}>
+                <LocationForm locations={locations} />
+            </NewGameElementModal>
         </div>
     );
 };

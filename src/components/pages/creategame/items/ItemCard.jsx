@@ -1,4 +1,4 @@
-import React, {cloneElement, useState} from 'react';
+import React, {cloneElement, useEffect, useState} from 'react';
 import '../creategame.css'
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
@@ -22,9 +22,15 @@ const ItemType = {
 const ItemCard = ({itemsList, setItemsList, name, description, id}) => {
     const [anchorEl, setAnchorElement] = useState(null);
     const [itemType, setItemType] = useState(ItemType.ARMOR);
-    const [newItemName, setNewItemName] = useState('');
-    const [newItemDescription, setNewItemDescription] = useState('');
-    const [editMode, setEditMode] = useState(true);
+    const [newItemName, setNewItemName] = useState(name);
+    const [newItemDescription, setNewItemDescription] = useState(description);
+    const [editMode, setEditMode] = useState(false);
+
+    useEffect(() => {
+        setEditMode(name === '');
+    }, []);
+
+
     const handleTypeMenuClick = (e) => {
         setAnchorElement(e.currentTarget);
     }
@@ -52,18 +58,17 @@ const ItemCard = ({itemsList, setItemsList, name, description, id}) => {
         setItemsList(itemsList.filter(item => item.id !== id))
     }
     return (
-        <ClickAwayListener onClickAway={() => setEditMode(false)}>
+        <ClickAwayListener onClickAway={e => onSave(e)}>
             <div className='card-wrapper'>
                 <Badge badgeContent={editMode ? <IconButton onClick={onDelete}> <DeleteIcon color='error'/></IconButton> : null}>
-                    <Card className='game-item-card' onClick={() => setEditMode(true)}>
+                    <Card className='game-item-card' onClick={e => {setEditMode(true); e.stopPropagation()}}>
                         {!editMode
-                            ? <div className='game-item-card__forward-wrapper' onClick={() => setEditMode(true)}/>
                             : null}
                         <CardHeader className='game-item-card__header' sx={{paddingTop: '15px', paddingBottom: '0px'}}
                                     title=
                                         {<TextField variant='standard' defaultValue={name} placeholder='Name'
-                                                    onChange={() => {
-                                                    }} InputProps={{disableUnderline: true, style: {fontSize: 25}}}/>}/>
+                                                    onChange={e =>  setNewItemName(e.target.value)}
+                                                    InputProps={{disableUnderline: true, style: {fontSize: 25}}}/>}/>
                         <CardContent>
                             <div className='game-item-card__option-wrapper'>
                                 <h2 className='game-item-card__option-name'>Type:</h2>
