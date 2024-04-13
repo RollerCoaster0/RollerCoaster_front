@@ -14,6 +14,7 @@ const CreateGamePage = () => {
     const [items, setItems] = useState([]);
     const [npcs, setNPCs] = useState([]);
 
+
     const stages = [
         {
             name: 'Locations',
