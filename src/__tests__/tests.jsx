@@ -4,9 +4,15 @@ import HomePage from "../components/pages/homepage/HomePage";
 
 test('tests for Homepage', ()=>{
     render(<HomePage />);
-    const content = screen.getByText(content)
+    const content = screen.getByText(/Добро пожаловать в мир приключений и фэнтези!/)
     expect(content).toBeInTheDocument();
 });
-test('My first test', () => {
-    expect(Math.max(1, 5, 10)).toBe(10);
+
+test('hello world', () => {
+    const { getByText } = render(<p className="content__grid-item4">Здесь вы сможете погрузиться в захватывающие миры и
+        отправиться в
+        увлекательные приключения вместе с друзьями. </p>);
+    expect(getByText('Здесь вы сможете погрузиться в захватывающие миры и\n' +
+        '        отправиться в\n' +
+        '        увлекательные приключения вместе с друзьями.')).toBeTruthy();
 });
