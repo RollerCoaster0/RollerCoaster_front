@@ -3,6 +3,7 @@ import {Box, IconButton, Modal} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
 const NewGameElementModal = ({isOpened, onClose, setClose, children}) => {
+
     return (
             <Modal open={isOpened}
                    onClose={onClose}>
@@ -10,7 +11,6 @@ const NewGameElementModal = ({isOpened, onClose, setClose, children}) => {
                     <IconButton className='new-element-modal__close' onClick={setClose}>
                         <CloseIcon sx={{fontSize: 25}}/>
                     </IconButton>
-                    {children}
                 </Box>
             </Modal>
     );

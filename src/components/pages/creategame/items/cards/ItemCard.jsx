@@ -74,7 +74,7 @@ const ItemCard = ({itemsList, setItemsList, name, description, id}) => {
                             <div className='game-item-card__option-wrapper'>
                                 <h2 className='game-item-card__option-name'>Type:</h2>
                                 {editMode
-                                    ? <Button className='game-item-card__option' variant='contained'
+                                    ? <Button color='success' className='game-item-card__option' variant='contained'
                                               onClick={e => handleTypeMenuClick(e)}>{itemType}</Button>
                                     : <h2 className='game-item-card__option-name'>{itemType}</h2>}
 
@@ -98,10 +98,9 @@ const ItemCard = ({itemsList, setItemsList, name, description, id}) => {
 
                         </CardContent>
                         <Collapse in={editMode} unmountOnExit timeout='auto'>
-                            <Button onClick={e => onSave(e)} color='success'>Save</Button>
+                            <Button style={{marginBottom: 10, marginLeft: 'auto', marginRight: 'auto', display: 'block'}} variant='contained' onClick={e => onSave(e)} color='success'>Save</Button>
                         </Collapse>
                     </Card>
-
                 </Badge>
             </div>
         </ClickAwayListener>

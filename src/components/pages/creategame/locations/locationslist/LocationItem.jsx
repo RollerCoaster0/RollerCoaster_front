@@ -1,0 +1,24 @@
+import React, {useState} from 'react';
+import {ListItem, ListItemIcon, ListItemText} from "@mui/material";
+import '../../creategame.css'
+
+const LocationItem = ({location, locations, setLocations, setEditableLocation, setModalShown}) => {
+
+    const handleClick = () => {
+       setEditableLocation(location);
+       setModalShown(true);
+    }
+
+    return (
+        <>
+            <ListItem className='locations-list__item' key={location.name} onClick={handleClick}>
+                <ListItemIcon>
+                    <img className='location-list__item__preview' src={location.map} alt='x'/>
+                </ListItemIcon>
+                <ListItemText className='location-list__item__name' primary={location.name}/>
+            </ListItem>
+        </>
+    );
+};
+
+export default LocationItem;

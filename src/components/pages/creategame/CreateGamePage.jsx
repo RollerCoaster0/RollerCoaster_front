@@ -13,17 +13,18 @@ const CreateGamePage = () => {
     const [locations, setLocations] = useState(getStaticLocations());
     const [items, setItems] = useState([]);
     const [npcs, setNPCs] = useState([]);
-    const idCounter = useRef(0);
+    const itemIdCounter = useRef(0);
+    const locationIdCounter = useRef(0);
 
     const stages = [
         {
             name: 'Locations',
-            form: <Locations key={'Locations'} locations={locations} setLocations={setLocations}/>,
+            form: <Locations key={'Locations'} locations={locations} setLocations={setLocations} idCounter={locationIdCounter}/>,
             current: useCurrent(true)
         },
         {
             name: 'Items',
-            form: <Items key={'Items'} items={items} setItems={setItems} idCounter={idCounter}/>,
+            form: <Items key={'Items'} items={items} setItems={setItems} idCounter={itemIdCounter}/>,
             current: useCurrent(false)
         },
         {
