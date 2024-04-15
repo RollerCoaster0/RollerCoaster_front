@@ -1,7 +1,6 @@
 import {ListItem, ListItemIcon, ListItemText} from "@mui/material";
 import '../../creategame.css'
-
-const LocationItem = ({location, locations, setLocations, setEditableLocation, setModalShown}) => {
+const LocationItem = ({location, setEditableLocation, setModalShown}) => {
 
     const handleClick = () => {
        setEditableLocation(location);
@@ -12,7 +11,7 @@ const LocationItem = ({location, locations, setLocations, setEditableLocation, s
         <>
             <ListItem className='locations-list__item' key={location.name} onClick={handleClick}>
                 <ListItemIcon>
-                    <img className='location-list__item__preview' src={location.map} alt='x'/>
+                    <img className='location-list__item__preview' src={ location.map != null ?  URL.createObjectURL(location.map) : null} alt='x'/>
                 </ListItemIcon>
                 <ListItemText className='location-list__item__name' primary={location.name}/>
             </ListItem>

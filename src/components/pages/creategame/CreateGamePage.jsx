@@ -2,7 +2,6 @@ import React, {useRef, useState} from 'react';
 import './creategame.css'
 import StageTabs from "./tabs/StageTabs";
 import Locations from "./locations/locationslist/Locations";
-import {getStaticLocations} from "../../../util/util";
 import Items from "./items/Items";
 
 
@@ -10,7 +9,7 @@ const CreateGamePage = () => {
     const [gameInfo, setGameInfo] = useState({
         name: 'test', description: 'test'
     });
-    const [locations, setLocations] = useState(getStaticLocations());
+    const [locations, setLocations] = useState([]);
     const [items, setItems] = useState([]);
     const [npcs, setNPCs] = useState([]);
     const itemIdCounter = useRef(0);

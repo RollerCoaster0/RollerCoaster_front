@@ -1,34 +1,52 @@
 import React, {useEffect, useState} from 'react';
 import '../../creategame.css'
-import {Box, Button, IconButton, Modal, TextField} from "@mui/material";
+import {Box, Button, IconButton, Input, Modal, TextField} from "@mui/material";
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import CloseIcon from "@mui/icons-material/Close";
 
-const LocationForm = ({location, locations, setlocations, idCounter, opened, setOpened}) => {
-    const [newLocationName, setNewLocationName] = useState(location?.name);
-    const [newLocationDescription, setNewLocationDescription] = useState(location?.description);
-    // const [newLocationMap, setNewLocationMap] = useState(location?.map)
+const LocationForm = ({
+                          editableLocation,
+                          setEditableLocation,
+                          locations,
+                          setlocations,
+                          idCounter,
+                          opened,
+                          setOpened
+                      }) => {
 
     const saveLocation = () => {
-        console.log(idCounter)
-        if (location == null) {
-            locations.push({name: newLocationName, description: newLocationDescription, id: idCounter.current++})
+        if (editableLocation.id < 0) {
+            locations.push({
+                name: editableLocation.name,
+                description: editableLocation.description,
+                map: editableLocation.map,
+                id: idCounter.current++
+            });
             setlocations(structuredClone(locations));
         } else {
-            setlocations(locations.map(loc => {
-                if (loc.id === location.id) {
-                    return {name: newLocationName, description: newLocationDescription, id: loc.id};
+            setlocations(locations.map(location => {
+                if (location.id === editableLocation.id) {
+                    return {
+                        name: editableLocation.name,
+                        description: editableLocation.description,
+                        map: editableLocation.map,
+                        id: editableLocation.id
+                    }
                 }
-                return loc;
+                return location;
             }));
         }
+        console.log(locations)
         setOpened(false);
     }
 
+    const handleMapUpload = (e) => {
+        setEditableLocation({...editableLocation, map: e.target.files?.[0]});
+    }
 
     return (
         <Modal open={opened}
-               onClose={saveLocation}>
+               onClose={() => setOpened(false)}>
             <Box className='new-element-modal'>
                 <IconButton className='new-element-modal__close' onClick={() => setOpened(false)}>
                     <CloseIcon sx={{fontSize: 25}}/>
@@ -36,12 +54,16 @@ const LocationForm = ({location, locations, setlocations, idCounter, opened, set
 
                 <div className='new-location-modal__form'>
                     <h3 className='new-location-modal__form__label'>Name:</h3>
-                    <TextField inputProps={{style: {height: 15}}} variant='outlined' defaultValue={location?.name}
-                               onChange={e => setNewLocationName(e.target.value)}/>
+                    <TextField inputProps={{style: {height: 15}}} variant='outlined'
+                               defaultValue={editableLocation?.name}
+                               onChange={e => setEditableLocation({...editableLocation, name: e.target.value})}/>
                     <h3 className='new-location-modal__form__label'>Description:</h3>
                     <TextField multiline={true} minRows={15} maxRows={15} variant='outlined'
-                               defaultValue={location?.description}
-                               onChange={e => setNewLocationDescription(e.target.value)}/>
+                               defaultValue={editableLocation?.description}
+                               onChange={e => {
+                                   setEditableLocation({...editableLocation, description: e.target.value});
+                                   console.log(e.target.files)
+                               }}/>
                     <h3 className='new-location-modal__form__label'>Size:</h3>
                     <div className='new-location-modal__form__field-size'>
                         <TextField variant='outlined'/>
@@ -49,9 +71,11 @@ const LocationForm = ({location, locations, setlocations, idCounter, opened, set
                         <TextField variant='outlined'/>
                     </div>
                     <h3 className='new-location-modal__form__label'>Upload map:</h3>
-                    <IconButton style={{height: 65, aspectRatio: 1}}>
-                        <AttachFileIcon style={{fontSize: 50}}/>
-                    </IconButton>
+                    <div>
+                        <Input type='file' inputProps={{accept: 'image/png, image/jpg, image/jpeg'}} placeholder={`${editableLocation?.map?.name}`}
+                               onChange={e => handleMapUpload(e)}/>
+                            <AttachFileIcon style={{fontSize: 50}}/>
+                    </div>
                     <Button color='success' variant='contained'
                             className='new-location-modal__form__save-button' onClick={saveLocation}>Save</Button>
                 </div>
