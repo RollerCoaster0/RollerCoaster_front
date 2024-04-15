@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import '../../creategame.css'
 import {Box, Button, IconButton, Modal, TextField} from "@mui/material";
 import AttachFileIcon from '@mui/icons-material/AttachFile';
@@ -7,12 +7,13 @@ import CloseIcon from "@mui/icons-material/Close";
 const LocationForm = ({location, locations, setlocations, idCounter, opened, setOpened}) => {
     const [newLocationName, setNewLocationName] = useState(location?.name);
     const [newLocationDescription, setNewLocationDescription] = useState(location?.description);
-    const [newLocationMap, setNewLocationMap] = useState(location?.map)
+    // const [newLocationMap, setNewLocationMap] = useState(location?.map)
 
     const saveLocation = () => {
+        console.log(idCounter)
         if (location == null) {
-            locations.push({name: newLocationName, description: newLocationDescription, id: idCounter++})
-            setlocations(locations);
+            locations.push({name: newLocationName, description: newLocationDescription, id: idCounter.current++})
+            setlocations(structuredClone(locations));
         } else {
             setlocations(locations.map(loc => {
                 if (loc.id === location.id) {
@@ -22,12 +23,6 @@ const LocationForm = ({location, locations, setlocations, idCounter, opened, set
             }));
         }
         setOpened(false);
-    }
-
-    const onSave = () => {
-        if (location == null) {
-
-        }
     }
 
 

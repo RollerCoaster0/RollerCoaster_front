@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {IconButton, List, ListItem, ListItemIcon, ListItemText} from "@mui/material";
+import {IconButton, List, } from "@mui/material";
 import '../../creategame.css'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import LocationForm from "./LocationForm";
@@ -12,7 +12,7 @@ const Locations = ({locations, setLocations, idCounter}) => {
         <div className='locations-container'>
             <List className='locations-list'>
                 {locations.map(location =>
-                    <LocationItem setLocations={setLocations} setEditableLocation={setEditableLocation}
+                    <LocationItem key={location.id} setLocations={setLocations} setEditableLocation={setEditableLocation}
                                   locations={location} setModalShown={setModalOpened} location={location}/>)}
             </List>
             <IconButton className='add-element-button' onClick={() => { setModalOpened(true)

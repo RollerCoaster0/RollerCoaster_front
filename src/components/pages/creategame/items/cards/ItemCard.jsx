@@ -97,7 +97,7 @@ const ItemCard = ({itemsList, setItemsList, name, description, id}) => {
                             </div>
 
                         </CardContent>
-                        <Collapse in={editMode} unmountOnExit timeout='auto'>
+                        <Collapse in={editMode} unmountOnExit={false} timeout='auto'>
                             <Button style={{marginBottom: 10, marginLeft: 'auto', marginRight: 'auto', display: 'block'}} variant='contained' onClick={e => onSave(e)} color='success'>Save</Button>
                         </Collapse>
                     </Card>
