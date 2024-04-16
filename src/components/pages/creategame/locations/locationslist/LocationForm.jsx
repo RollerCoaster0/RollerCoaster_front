@@ -66,9 +66,9 @@ const LocationForm = ({
                                }}/>
                     <h3 className='new-location-modal__form__label'>Size:</h3>
                     <div className='new-location-modal__form__field-size'>
-                        <TextField variant='outlined'/>
+                        <TextField variant='outlined' placeholder='Width'/>
                         <span style={{fontSize: 15,}}>X</span>
-                        <TextField variant='outlined'/>
+                        <TextField variant='outlined' placeholder='Height'/>
                     </div>
                     <h3 className='new-location-modal__form__label'>Upload map:</h3>
                     <div>
