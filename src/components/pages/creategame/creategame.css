@@ -130,10 +130,10 @@
     margin: 40px auto;
     display: flex;
     align-content: stretch ;
-    column-gap: 6.6%;
+    column-gap: 100px;
     row-gap: 50px;
     flex-wrap: wrap;
-    width: 1200px;
+    width: 1600px;
 }
 
 .game-item-card {

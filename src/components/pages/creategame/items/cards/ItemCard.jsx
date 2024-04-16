@@ -58,17 +58,22 @@ const ItemCard = ({itemsList, setItemsList, name, description, id}) => {
         setItemsList(itemsList.filter(item => item.id !== id))
     }
     return (
-        <ClickAwayListener onClickAway={editMode ? e => onSave(e) : () => {}}>
+        <ClickAwayListener onClickAway={editMode ? e => onSave(e) : () => {
+        }}>
             <div className='card-wrapper'>
-                <Badge badgeContent={editMode ? <IconButton onClick={onDelete}> <DeleteIcon color='error'/></IconButton> : null}>
-                    <Card className='game-item-card' onClick={e => {setEditMode(true); e.stopPropagation()}}>
+                <Badge badgeContent={editMode ?
+                    <IconButton onClick={onDelete}> <DeleteIcon color='error'/></IconButton> : null}>
+                    <Card className='game-item-card' onClick={e => {
+                        setEditMode(true);
+                        e.stopPropagation()
+                    }}>
                         {!editMode
                             ? <div className='game-item-card__forward-wrapper' onClick={() => setEditMode(true)}/>
                             : null}
                         <CardHeader className='game-item-card__header' sx={{paddingTop: '15px', paddingBottom: '0px'}}
                                     title=
                                         {<TextField variant='standard' defaultValue={name} placeholder='Name'
-                                                    onChange={e =>  setNewItemName(e.target.value)}
+                                                    onChange={e => setNewItemName(e.target.value)}
                                                     InputProps={{disableUnderline: true, style: {fontSize: 25}}}/>}/>
                         <CardContent>
                             <div className='game-item-card__option-wrapper'>
@@ -98,7 +103,9 @@ const ItemCard = ({itemsList, setItemsList, name, description, id}) => {
 
                         </CardContent>
                         <Collapse in={editMode} unmountOnExit={false} timeout='auto'>
-                            <Button style={{marginBottom: 10, marginLeft: 'auto', marginRight: 'auto', display: 'block'}} variant='contained' onClick={e => onSave(e)} color='success'>Save</Button>
+                            <Button
+                                style={{marginBottom: 10, marginLeft: 'auto', marginRight: 'auto', display: 'block'}}
+                                variant='contained' onClick={e => onSave(e)} color='success'>Save</Button>
                         </Collapse>
                     </Card>
                 </Badge>

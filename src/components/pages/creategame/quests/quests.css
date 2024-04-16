@@ -1,0 +1,46 @@
+.quests-container {
+    margin: 40px auto;
+    display: flex;
+    gap: 50px;
+    align-content: stretch;
+    flex-wrap: wrap;
+    width: 1600px;
+}
+.quests__quest-card {
+    position: relative;
+}
+
+.quests__quest-card__description-input {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.quests__quest-card__header {
+    font-size: 40px;
+    font-weight: normal;
+    font-family: "Kelly Slab", serif;
+}
+
+.quests__quest-card-wrapper {
+    width: 500px;
+    height: 316px;
+    overflow: visible;
+}
+
+.quests__quest-card__face-wrapper {
+    width: 100%;
+/*    */
+}
+
+.quests__quest-card__param-name {
+   font-size: 22px;
+}
+
+
+.quests__add-quest-button-wrapper {
+    height: 316px ;
+    width: 500px;
+    border: 1px black dashed;
+    padding-top: 128px ;
+    padding-left: 220px;
+}
