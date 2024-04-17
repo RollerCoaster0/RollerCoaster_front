@@ -33,7 +33,7 @@ const QuestCardEditMode = ({quest, quests, setQuests, editMode, setEditMode}) =>
     }
 
     return (
-            <Badge  badgeContent={ <IconButton sx={{zIndex: 1001}} onClick={onDelete}> <DeleteIcon sx={{zIndex: 1001}} color='error'/></IconButton> }>
+            <Badge className='quest__badge' sx={{zIndex: 1001}}  badgeContent={ <IconButton style={{zIndex: 1001}} onClick={onDelete}> <DeleteIcon style={{zIndex: 1001}} color='error'/></IconButton> }>
                 <div className='quests__quest-card-wrapper' style={{zIndex: 1000}}>
                     <Card>
                         <CardHeader title={
