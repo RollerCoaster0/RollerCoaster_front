@@ -4,6 +4,7 @@ import StageTabs from "./tabs/StageTabs";
 import Locations from "./locations/locationslist/Locations";
 import {getStaticLocations} from "../../../util/util";
 import Items from "./items/Items";
+import Quests from "./quests/Quests";
 
 
 const CreateGamePage = () => {
@@ -12,9 +13,11 @@ const CreateGamePage = () => {
     });
     const [locations, setLocations] = useState(getStaticLocations());
     const [items, setItems] = useState([]);
+    const [quests, setQuests] = useState([]);
     const [npcs, setNPCs] = useState([]);
     const itemIdCounter = useRef(0);
     const locationIdCounter = useRef(0);
+    const questIdCounter = useRef(0);
 
     const stages = [
         {
@@ -29,7 +32,7 @@ const CreateGamePage = () => {
         },
         {
             name: 'Quests',
-            form: null,
+            form: <Quests key={'Quests'} setQuests={setQuests} quests={quests} idCounter={questIdCounter}/>,
             current: useCurrent(false)
         },
         {
