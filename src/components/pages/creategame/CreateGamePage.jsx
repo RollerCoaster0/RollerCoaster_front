@@ -4,6 +4,7 @@ import StageTabs from "./tabs/StageTabs";
 import Locations from "./locations/locationslist/Locations";
 import Items from "./items/Items";
 import Quests from "./quests/Quests";
+import NPCs from "./NPCs/NPCs";
 
 
 const CreateGamePage = () => {
@@ -36,7 +37,7 @@ const CreateGamePage = () => {
         },
         {
             name: 'NPCs',
-            form: null,
+            form: <NPCs/>,
             current: useCurrent(false)
         },
     ];

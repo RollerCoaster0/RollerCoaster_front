@@ -33,8 +33,9 @@ const QuestCard = ({quest, quests, setQuests}) => {
         setEditMode(false);
     }
     const onDelete = () => {
-
+        setQuests(quests.filter(q => q.id !== quest.id));
     }
+
     const onCancel = () => {
         setQuestName(quest?.name);
         setQuestDescription(quest?.description)
@@ -47,7 +48,7 @@ const QuestCard = ({quest, quests, setQuests}) => {
     }
     return (
         <ClickAwayListener onClickAway={onCancel}>
-            <Badge badgeContent={editMode ? <IconButton> <DeleteIcon color='error'/></IconButton> : null}>
+            <Badge badgeContent={editMode ? <IconButton onClick={onDelete}> <DeleteIcon color='error'/></IconButton> : null}>
                 <div className='quests__quest-card-wrapper' onClick={e => onClick(e)}>
                     <Card>
                         <CardHeader title={editMode ?

@@ -6,6 +6,7 @@
     flex-wrap: wrap;
     width: 1600px;
 }
+
 .quests__quest-card {
     position: relative;
 }
