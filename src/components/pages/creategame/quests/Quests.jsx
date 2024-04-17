@@ -1,6 +1,6 @@
 import React from 'react';
 import QuestCard from "./QuestCard";
-import {IconButton} from "@mui/material";
+import {ClickAwayListener, IconButton} from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import '../creategame.css'
 import './quests.css'
@@ -14,11 +14,11 @@ const Quests = ({quests, setQuests, idCounter}) => {
     return (
         <div className='quests-container'>
             {quests.map(quest =>
-                <QuestCard key={quest.id} setQuests={setQuests} quest={quest} quests={quests}/>)}
+                <QuestCard key={quest?.id} setQuests={setQuests} quest={quest} quests={quests}/>)}
             <div className='quests__add-quest-button-wrapper'>
-                <IconButton className='add-element-button' onClick={onAdd}>
-                    <AddCircleIcon sx={{fontSize: 60}}/>
-                </IconButton>
+                    <IconButton className='add-element-button' onClick={onAdd}>
+                        <AddCircleIcon sx={{fontSize: 60}}/>
+                    </IconButton>
             </div>
         </div>
     );
