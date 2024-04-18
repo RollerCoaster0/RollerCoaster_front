@@ -18,6 +18,7 @@ const CreateGamePage = () => {
     const itemIdCounter = useRef(0);
     const locationIdCounter = useRef(0);
     const questIdCounter = useRef(0);
+    const npcIdCounter = useRef(0);
 
     const stages = [
         {
@@ -37,7 +38,7 @@ const CreateGamePage = () => {
         },
         {
             name: 'NPCs',
-            form: <NPCs/>,
+            form: <NPCs key={'NPCs'} NPCs={npcs} setNPCs={setNPCs} idCounter={npcIdCounter} locations={locations}/>,
             current: useCurrent(false)
         },
     ];

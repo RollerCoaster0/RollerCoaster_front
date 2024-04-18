@@ -1,19 +1,20 @@
 import React from 'react';
 import './NPCs.css'
-import {TextField} from "@mui/material";
+import {Button, TextField} from "@mui/material";
 
-const NpCcardInfo = ({name, locationName, editMode}) => {
+const NpCcardInfo = ({name, location, setName, setLocation, editMode, setOpenLocationPickModal}) => {
+    console.log(name)
     return (
         <>
             <div className='npcs__npc-card__npc-info'>
                 {!editMode
                     ? <>
-                            <h2 className='npcs__npc-card__npc-info__name'>The Rock</h2>
-                            <h3 className='npcs__npc-card__npc-info__location'>Локация: Дагестан</h3>
+                            <h2 className='npcs__npc-card__npc-info__name'>{name}</h2>
+                            <h3 className='npcs__npc-card__npc-info__location'>Location: {location?.name}</h3>
                         </>
                     : <>
-                        <TextField placeholder='Имя' inputProps={{disableUnderline: true,}} sx={{borderColor: 'white', backgroundColor: 'white', borderRadius: '10px', zIndex: 100, fontSize: 40}}/>
-                        <TextField variant='outlined' placeholder='Локация' sx={{ marginTop: '10px', backgroundColor: 'white', borderRadius: '10px', zIndex: 100, fontSize: 25}}/>
+                        <TextField defaultValue={name} onChange={e => setName(e.target.value)} placeholder='Name' inputProps={{disableUnderline: true,}} sx={{borderColor: 'white', backgroundColor: 'white', borderRadius: '10px', zIndex: 100, fontSize: 40}}/>
+                        <Button onClick={() => setOpenLocationPickModal(true)} variant='outlined' sx={{ marginTop: '10px', backgroundColor: 'white', borderRadius: '10px', zIndex: 100, fontSize: 15}}>{location?.name ?? 'Location'}</Button>
                     </>}
             </div>
         </>

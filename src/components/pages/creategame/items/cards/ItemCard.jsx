@@ -51,6 +51,7 @@ const ItemCard = ({itemsList, setItemsList, name, description, id}) => {
         }
         setNewItemName(name);
         setNewItemName(description);
+        setEditMode(false);
     }
 
     const onSave = (e) => {

@@ -30,7 +30,6 @@
 
 .quests__quest-card__face-wrapper {
     width: 100%;
-/*    */
 }
 
 .quests__quest-card__param-name {
@@ -45,7 +44,3 @@
     padding-top: 128px ;
     padding-left: 220px;
 }
-
-/*.MiuBadge-badge {*/
-/*    z-index: 1001;*/
-/*}*/
