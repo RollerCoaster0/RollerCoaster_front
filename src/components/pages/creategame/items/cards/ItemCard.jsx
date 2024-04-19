@@ -43,6 +43,16 @@ const ItemCard = ({itemsList, setItemsList, name, description, id}) => {
         setItemType(type);
         handleTypeMenuClose();
     }
+
+    const onCancel = () => {
+        if (name === '' || description === '') {
+            onDelete();
+            return;
+        }
+        setNewItemName(name);
+        setNewItemName(description);
+    }
+
     const onSave = (e) => {
         e.stopPropagation();
         setEditMode(false);
@@ -58,7 +68,7 @@ const ItemCard = ({itemsList, setItemsList, name, description, id}) => {
         setItemsList(itemsList.filter(item => item.id !== id))
     }
     return (
-        <ClickAwayListener onClickAway={editMode ? e => onSave(e) : () => {
+        <ClickAwayListener onClickAway={editMode ? e => onCancel() : () => {
         }}>
             <div className='card-wrapper'>
                 <Badge badgeContent={editMode ?

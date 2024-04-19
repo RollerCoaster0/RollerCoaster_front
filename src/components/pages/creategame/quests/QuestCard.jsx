@@ -1,15 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {
-    Badge,
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    ClickAwayListener,
-    Collapse,
-    IconButton,
-    TextField
-} from "@mui/material";
 import './quests.css'
 import DeleteIcon from "@mui/icons-material/Delete";
 import QuestCardEditMode from "./QuestCardEditMode";
