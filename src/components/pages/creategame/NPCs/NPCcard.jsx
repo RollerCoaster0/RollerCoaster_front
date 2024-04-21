@@ -9,7 +9,6 @@ import {
     Collapse,
     IconButton
 } from "@mui/material";
-import back from '../../../../devassets/dagestan.jpg'
 import './NPCs.css'
 import DeleteIcon from "@mui/icons-material/Delete";
 import NPCcardInfo from "./NPCcardInfo";
@@ -58,7 +57,7 @@ const NPCcard = ({NPC, setNPCs, NPCs, locations}) => {
         setNPCavatar(e.target.files?.[0]);
     }
 
-   const getBackgroundImage = () => {
+    const getBackgroundImage = () => {
         if (NPClocation === null || NPClocation.map === null) return null;
         console.log(URL.createObjectURL(NPClocation.map))
         return `url(${URL.createObjectURL(NPClocation.map)})`;
@@ -67,7 +66,8 @@ const NPCcard = ({NPC, setNPCs, NPCs, locations}) => {
     return (
         <>
             <ClickAwayListener onClickAway={onCancel}>
-                <Badge badgeContent={editMode ? <IconButton onClick={onDelete}> <DeleteIcon color='error'/></IconButton> : null}>
+                <Badge badgeContent={editMode ?
+                    <IconButton onClick={onDelete}> <DeleteIcon color='error'/></IconButton> : null}>
                     <div className='npcs__npc-card-wrapper' onClick={e => onClick(e)}>
                         <Card sx={{
                             position: 'relative',
@@ -99,7 +99,8 @@ const NPCcard = ({NPC, setNPCs, NPCs, locations}) => {
                             <CardContent>
                                 <div className='npcs__npc-card__npc-info__background'/>
                                 <NPCcardInfo name={NPC?.name} location={NPC?.location} setName={setNPCname}
-                                             setLocation={setNPClocation} editMode={editMode} setOpenLocationPickModal={setOpenLocationsPickModal}/>
+                                             setLocation={setNPClocation} editMode={editMode}
+                                             setOpenLocationPickModal={setOpenLocationsPickModal}/>
                             </CardContent>
                             <Collapse in={editMode} unmountOnExit={false} timeout='auto'>
                                 <Button onClick={e => onSave(e)}
@@ -122,5 +123,12 @@ const NPCcard = ({NPC, setNPCs, NPCs, locations}) => {
         </>
     );
 };
+
+function validateNPCname(name) {
+    if (name.length === 0) {
+        return {ok: false, message: 'Name must contain at least one symbol'};
+    }
+    return {ok: true, message: null};
+}
 
 export default NPCcard;
