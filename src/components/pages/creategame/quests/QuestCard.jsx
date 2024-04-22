@@ -12,7 +12,7 @@ const QuestCard = ({quest, quests, setQuests}) => {
     useEffect(() => {
         setEditMode(quest?.name == '');
     }, []);
-    console.log(editMode)
+
     return (
         <>
             {editMode

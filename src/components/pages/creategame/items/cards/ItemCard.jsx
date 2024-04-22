@@ -74,7 +74,7 @@ const ItemCard = ({itemsList, setItemsList, name, description, id}) => {
             <div className='card-wrapper'>
                 <Badge badgeContent={editMode ?
                     <IconButton onClick={onDelete}> <DeleteIcon color='error'/></IconButton> : null}>
-                    <Card className='game-item-card' onClick={e => {
+                    <Card className='game-item-card' sx={{borderRadius: '10px'}} onClick={e => {
                         setEditMode(true);
                         e.stopPropagation()
                     }}>

@@ -22,12 +22,13 @@ const NPCcard = ({NPC, setNPCs, NPCs, locations}) => {
     const [NPClocation, setNPClocation] = useState(NPC?.location);
     const [NPCavatar, setNPCavatar] = useState(NPC?.avatar);
     const [openLocationsPickModal, setOpenLocationsPickModal] = useState(false);
+    const [errorShown, setErrorShown] = useState(false);
+    const currentError = useRef('');
     useEffect(() => {
         setEditMode(NPC?.name === '');
     }, []);
 
     const onCancel = () => {
-        console.log(NPC)
         if (NPC.name === '' || NPC.location === null) {
             onDelete();
             return;
@@ -44,6 +45,11 @@ const NPCcard = ({NPC, setNPCs, NPCs, locations}) => {
     }
     const onSave = (e) => {
         e.stopPropagation();
+        const res = validateNPCname(NPCname);
+        if (!res.ok) {
+            showError(res.message);
+            return;
+        }
         setNPCs(NPCs.map(npc => {
             if (npc.id === NPC.id) {
                 return {name: NPCname, location: NPClocation, avatar: NPCavatar, id: NPC.id};
@@ -61,6 +67,14 @@ const NPCcard = ({NPC, setNPCs, NPCs, locations}) => {
         if (NPClocation === null || NPClocation.map === null) return null;
         console.log(URL.createObjectURL(NPClocation.map))
         return `url(${URL.createObjectURL(NPClocation.map)})`;
+    }
+
+    const showError = (message) => {
+        currentError.current = message;
+        setErrorShown(true);
+        setTimeout(() => {
+            setErrorShown(false);
+        }, 1000);
     }
 
     return (
@@ -97,12 +111,18 @@ const NPCcard = ({NPC, setNPCs, NPCs, locations}) => {
                                 </div>
                                 : null}
                             <CardContent>
-                                <div className='npcs__npc-card__npc-info__background'/>
+                                {!editMode ? <div className='npcs__npc-card__npc-info__background'/> : null}
                                 <NPCcardInfo name={NPC?.name} location={NPC?.location} setName={setNPCname}
                                              setLocation={setNPClocation} editMode={editMode}
                                              setOpenLocationPickModal={setOpenLocationsPickModal}/>
                             </CardContent>
                             <Collapse in={editMode} unmountOnExit={false} timeout='auto'>
+                                <p style={{
+                                    textAlign: 'center',
+                                    color: errorShown ? 'red' : 'transparent',
+                                    zIndex: 100,
+                                    fontSize: 15,
+                                }}>{currentError.current}</p>
                                 <Button onClick={e => onSave(e)}
                                         style={{
                                             zIndex: 100,

@@ -1,14 +1,7 @@
-import React, {useEffect, useState} from 'react';
 import {
-    Badge,
-    Button,
     Card,
     CardContent,
     CardHeader,
-    ClickAwayListener,
-    Collapse,
-    IconButton,
-    TextField
 } from "@mui/material";
 import './quests.css'
 
@@ -19,7 +12,7 @@ const QuestCardViewMode = ({quest, quests, setQuests, setEditMode}) => {
     }
     return (
         <div className='quests__quest-card-wrapper' onClick={e => onClick(e)}>
-            <Card>
+            <Card  sx={{borderRadius: '10px'}}>
                 <CardHeader title={<h2 className='quests__quest-card__header'>{quest?.name}</h2>}/>
                 <CardContent>
                     <h2 className='quests__quest-card__param-name'>Description:</h2>

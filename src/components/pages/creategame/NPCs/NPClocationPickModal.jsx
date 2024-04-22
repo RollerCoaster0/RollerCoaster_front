@@ -4,7 +4,6 @@ import '../creategame.css'
 
 const NPClocationPickModal = ({location, setLocation, locations, open, setOpen}) => {
     const noElements = locations.length === 0;
-    console.log(noElements)
     const handleLocationPick = (location) => {
         setLocation(location);
         setOpen(false);
@@ -13,7 +12,7 @@ const NPClocationPickModal = ({location, setLocation, locations, open, setOpen})
         <Modal open={open} onClose={() => setOpen(false)}>
             <Box className='npcs__npc-card__npc-location-pick-modal'>
                 {!noElements
-                    ? <List>
+                    ? <List style={{display: 'flex', flexDirection: 'column', gap: '30px'}}>
                         {locations.map(loc =>
                             <ListItem className='npcs__npc-card__npc-location-pick-modal__location-item' onClick={() => handleLocationPick(loc)}>
                                 <ListItemIcon>
