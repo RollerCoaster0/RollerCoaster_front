@@ -1,7 +1,34 @@
 .create-game-container {
-    max-width: 1680px;
+    position: relative;
+    width: 100%;
     margin: 0 auto;
     padding-top: 60px;
+}
+
+.create-game-container__arrow-icon {
+    color: white;
+    font-size: 90px;
+    opacity: inherit;
+}
+
+.create-game-container__prev-button, .create-game-container__next-button {
+    position: absolute;
+    bottom: 0;
+    height: 60px;
+    aspect-ratio: 1;
+    border-radius: 100%;
+    background-color: darkolivegreen;
+    opacity: 70%;
+}
+
+.create-game-container__prev-button {
+    left: 0;
+}
+.create-game-container__next-button {
+    right: 0;
+}
+.create-game-container__prev-button:hover {
+    opacity: 1;
 }
 
 .stage-tabs {
@@ -126,14 +153,15 @@
     width: 200px;
     height: 45px;
 }
+
 .game-items-container {
-    margin: 40px auto;
+    margin: 80px auto;
     display: flex;
-    align-content: stretch ;
+    align-content: stretch;
     column-gap: 100px;
     row-gap: 50px;
     flex-wrap: wrap;
-    width: 1600px;
+    width: 100%;
 }
 
 .game-item-card {
@@ -174,10 +202,11 @@
 
 .game-items-container__add-button-wrapper {
     width: 240px;
-    height: 274px;
+    height: 262px;
     padding-left: 90px;
     padding-top: 107px;
     border: 1px black dashed;
+    border-radius: 10px;
 }
 
 .game-item-card__forward-wrapper {

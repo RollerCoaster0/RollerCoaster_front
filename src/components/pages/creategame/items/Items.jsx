@@ -1,12 +1,12 @@
 import React, {useRef, useState} from 'react';
 import '../creategame.css'
-import ItemCard from "./cards/ItemCard";
+import ItemCard, {ItemType} from "./cards/ItemCard";
 import {IconButton} from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 const Items = ({items, setItems, idCounter}) => {
     const addItem = () => {
-        items.push({name: '', description: '', id: idCounter.current++});
+        items.push({name: '', description: '', id: idCounter.current++, itemType: ItemType.ARMOR});
         setItems(structuredClone(items));
     }
 

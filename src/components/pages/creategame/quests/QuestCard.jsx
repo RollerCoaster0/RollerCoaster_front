@@ -13,6 +13,7 @@ const QuestCard = ({quest, quests, setQuests}) => {
         setEditMode(quest?.name == '');
     }, []);
 
+
     return (
         <>
             {editMode

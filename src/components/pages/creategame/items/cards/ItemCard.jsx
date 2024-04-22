@@ -59,7 +59,7 @@ const ItemCard = ({itemsList, setItemsList, name, description, id}) => {
         setEditMode(false);
         setItemsList(itemsList.map(item => {
             if (item.id === id) {
-                return {name: newItemName, description: newItemDescription, id: id};
+                return {name: newItemName, description: newItemDescription, id: id, itemType: itemType};
             }
             return item;
         }));

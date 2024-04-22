@@ -45,8 +45,10 @@ const UserContextProvider = ({children}) => {
                 setUser({name: login});
                 //setUser(getMe());
             }
+            console.log(response)
             return toQueryResult(response.status);
         } catch (e) {
+            console.log(e)
             return queryResult.CLIENT_ERROR;
         }
     }
@@ -81,15 +83,15 @@ const UserContextProvider = ({children}) => {
 };
 
 
-function getCredentials() {
-    return localStorage.getItem(devConsts.userKey);
+export function getCredentials() {
+    return JSON.parse(localStorage.getItem(devConsts.userKey));
 }
 
-function storeCredentials(user) {
-    localStorage.setItem(devConsts.userKey, user);
+export function storeCredentials(user) {
+    localStorage.setItem(devConsts.userKey, JSON.stringify(user));
 }
 
-function removeCredentials() {
+export function removeCredentials() {
     localStorage.removeItem(devConsts.userKey);
 }
 

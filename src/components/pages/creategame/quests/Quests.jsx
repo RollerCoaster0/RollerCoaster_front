@@ -7,7 +7,7 @@ import './quests.css'
 
 const Quests = ({quests, setQuests, idCounter}) => {
     const onAdd = () => {
-        quests.push({name: '', description: '', id: idCounter.current++});
+        quests.push({name: '', description: '', id: idCounter.current++, hiddenDescription: ''});
         setQuests(structuredClone(quests));
     }
 

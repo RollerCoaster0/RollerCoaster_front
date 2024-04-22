@@ -65,7 +65,6 @@ const NPCcard = ({NPC, setNPCs, NPCs, locations}) => {
 
     const getBackgroundImage = () => {
         if (NPClocation === null || NPClocation.map === null) return null;
-        console.log(URL.createObjectURL(NPClocation.map))
         return `url(${URL.createObjectURL(NPClocation.map)})`;
     }
 
@@ -119,7 +118,8 @@ const NPCcard = ({NPC, setNPCs, NPCs, locations}) => {
                             <Collapse in={editMode} unmountOnExit={false} timeout='auto'>
                                 <p style={{
                                     textAlign: 'center',
-                                    color: errorShown ? 'red' : 'transparent',
+                                    marginBottom: 10,
+                                    color: errorShown ? 'red' : 'black',
                                     zIndex: 100,
                                     fontSize: 15,
                                 }}>{currentError.current}</p>

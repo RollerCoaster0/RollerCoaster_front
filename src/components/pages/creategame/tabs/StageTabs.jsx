@@ -1,20 +1,14 @@
 import React from 'react';
 import '../creategame.css'
-import {Breadcrumbs, Link, Typography} from "@mui/material";
+import {Breadcrumbs,} from "@mui/material";
 
-const StageTabs = ({stages}) => {
+const StageTabs = ({stages, currentStageIndex, setCurrentStageIndex}) => {
     return (
         <Breadcrumbs className='stage-tabs'>
-            {stages.map(stage => <span key={stage.name} className={stage.current.isCurrent ? 'stage-tab-active' : 'stage-tab'}
-                                       onClick={() => setCurrentStage(stages, stage.name)}>{stage.name}</span>)}
+            {stages.map((stage, ind) => <span key={stage.name} className={currentStageIndex === ind ? 'stage-tab-active' : 'stage-tab'}
+                                       onClick={() => setCurrentStageIndex(ind)}>{stage.name}</span>)}
         </Breadcrumbs>
     );
 };
-
-function setCurrentStage(stages, key) {
-    for (const stage of stages) {
-      stage.current.setIsCurrent(stage.name === key);
-    }
-}
 
 export default StageTabs;

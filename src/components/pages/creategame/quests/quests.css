@@ -1,5 +1,5 @@
 .quests-container {
-    margin: 40px auto;
+    margin: 80px auto;
     display: flex;
     gap: 50px;
     align-content: stretch;
@@ -41,6 +41,7 @@
     height: 316px ;
     width: 500px;
     border: 1px black dashed;
+    border-radius: 10px;
     padding-top: 128px ;
     padding-left: 220px;
 }

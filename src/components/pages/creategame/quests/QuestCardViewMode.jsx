@@ -16,7 +16,7 @@ const QuestCardViewMode = ({quest, quests, setQuests, setEditMode}) => {
                 <CardHeader title={<h2 className='quests__quest-card__header'>{quest?.name}</h2>}/>
                 <CardContent>
                     <h2 className='quests__quest-card__param-name'>Description:</h2>
-                    <p style={{height: 171}}>{quest?.description}</p>
+                    <p style={{height: 171, marginTop: 10}}>{quest?.description}</p>
                 </CardContent>
             </Card>
         </div>
