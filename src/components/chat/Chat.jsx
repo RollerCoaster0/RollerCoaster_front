@@ -1,39 +1,43 @@
 import './Chat.css'
 import {Button, TextField} from "@mui/material";
 import {useState} from "react";
+import MessageList from "./MessageList";
 
 
 const Chat = () => {
-    const DUMMY_DATA = [
-        {
-            senderId: "perborgen",
-            text: "who'll win?"
-        },
-        {
-            senderId: "janedoe",
-            text: "who'll win?"
+    const [newMessage, setNewMessage] = useState(""); // Состояние для нового сообщения
+    const [messages, setMessages] = useState(["Привет!", "Как дела?", "Все хорошо, спасибо!"]);
+    const handleMessageChange = (e) => {
+        setNewMessage(e.target.value);
+    };
+    const addMessage = () => {
+        if (newMessage.trim() !== "") {
+            setMessages([...messages, newMessage]);
+            setNewMessage("");
         }
-    ]
-    const [messages, setMessages] = useState(DUMMY_DATA)
+    };
 
     return(
 <main className="chat">
     <div className="chat__window">
-
 
         <div className="chat__window__input>">
 
             <div className="chat__window__input__input">
                 <div className="chat__window__input__input__wrapper">
                 <TextField id="outlined-basic"  variant="standard" InputProps={{disableUnderline: true}}
+                           value={newMessage}
+                           onChange={(e) => handleMessageChange(e)}
                            sx={{
                                width: "550px",
                                height:"30px",
                                alignSelf: "center",
 
+
                            }}/></div>
                 <div className="chat__window__input__input__button">
                 <Button variant="contained" color="success"
+                        onClick={addMessage}
                         sx={{
                             backgroundColor: "darkolivegreen",
                             width:"100px",
@@ -41,6 +45,7 @@ const Chat = () => {
                             fontSize:"10px"
                         }}>от своего имени </Button>
                 <Button variant="contained" color="success"
+                        onClick={addMessage}
                         sx={{
                             backgroundColor: "darkolivegreen",
                             width:"100px",
@@ -51,6 +56,7 @@ const Chat = () => {
             </div>
             <div className="chat__window__footer">
                 <Button variant="outlined"
+
                 sx={[{
                     backgroundColor: "#993e3e",
                     height:"30px",
@@ -104,11 +110,13 @@ const Chat = () => {
                         ]}>
                     Бросить D4
                 </Button>
-
             </div>
         </div>
 
-        <div className="chat__window__chat_field">
+        <div className="chat__window__chat_field" style={{
+            position: "relative"
+        }}>
+            <MessageList messages={messages}></MessageList>
 
         </div>
 

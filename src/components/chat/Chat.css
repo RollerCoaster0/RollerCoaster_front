@@ -4,17 +4,25 @@
     width: 800px;
     height: 850px;
     flex-wrap: wrap;
+
 }
 .chat__window__chat_field {
     display: flex;
     background: white;
+    flex-direction: row-reverse;
+    align-content: space-between;
     width: 400px;
     height: 600px;
     align-self: center;
     padding: 10px;
-
+    border-width: 2px;
+    border-color: black;
     border-radius: 15px;
+    border-style: solid ;
     -moz-border-radius: 15px;
+    overflow: scroll;
+
+
 }
 .chat__window__input__input{
     display: flex;
@@ -23,6 +31,7 @@
     width: 800px;
     background: white;
     padding: 10px;
+
     /*border: 2px solid #000;*/
     /*border-radius: 15px;*/
     /*-moz-border-radius: 15px;*/
@@ -39,6 +48,11 @@
     flex-wrap: wrap;
     align-self: flex-end;
     background: #E9ACAC;
+    border-width: 2px;
+    border-color: black;
+
+    border-style: solid ;
+    -moz-border-radius: 15px;
 }
 
 
@@ -73,4 +87,18 @@
     align-self: center;
     height: 45px;
     padding: 15px;
+}
+.message_field{
+    max-width: 350px;
+    min-width: 50px;
+    background: rgba(85, 107, 47, 0.56);
+    padding: 10px;
+    border-radius: 10px;
+    display: block;
+    text-align: right;
+    width: fit-content;
+    position: relative;
+    right: 0;
+
+
 }
