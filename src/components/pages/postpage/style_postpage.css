@@ -1,20 +1,19 @@
-.postpage {
+.post-page{
     display: flex;
-    background: gray;
-    height: 100vh;
-    justify-content: space-between;
-    gap: 10%;
+    flex-direction: column;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 605px 795px 685px 312px;
+    grid-row-gap: 20px;
+    justify-content: center;
+    align-items: center;
 
+    margin-top: 50px;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
-
-.Top-row {
-    p {
-        color: whitesmoke
-    }
-}
-
-.color {
-    p {
-        color: whitesmoke
-    }
+.list_postpage{
+    background: whitesmoke;
+    width: 400px;
+    border-radius: 15px;
 }

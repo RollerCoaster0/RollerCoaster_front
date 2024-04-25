@@ -8,6 +8,7 @@ import RegistrationPage from "./components/pages/registrationpage/RegistrationPa
 import PageLayout from "./components/pages/pagelayout/PageLayout";
 import LogInPage from "./components/pages/authentication/LogInPage";
 import CreateGamePage from "./components/pages/creategame/CreateGamePage";
+import Postpage from "./components/pages/postpage/Postpage";
 
 
 const router = createBrowserRouter([
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
             {
                 path:'creategame',
                 element: <CreateGamePage/>
+            },
+            {
+                path: 'Postpage',
+                element: <Postpage/>
             },
         ]
     },
