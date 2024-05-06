@@ -52,6 +52,7 @@ const Postpage = () => {
                         height: 150,
                         width: 240,
                         margin: "auto"
+
                     }}
                     open={openModal}
                     onClose={handleCloseModal}
