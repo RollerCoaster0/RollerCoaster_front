@@ -34,6 +34,7 @@ const Postpage = () => {
 
                     }}> Создать игру </Button>
             <Button variant="contained" color="success"
+                    onClick={handleOpenModal}
                     sx={{
                         backgroundColor: "darkolivegreen",
                         width: "300px",
@@ -46,32 +47,39 @@ const Postpage = () => {
 
             <div className="list_postpage">
                 <Modal
+                    style={{
+                        position: "absolute",
+                        height: 150,
+                        width: 240,
+                        margin: "auto"
+                    }}
                     open={openModal}
                     onClose={handleCloseModal}
                     aria-labelledby="modal-title"
                     aria-describedby="modal-description"
                 >
+
                     <div className="modal">
-                        <h2 id="modal-title">Введите ваше имя</h2>
+                        <h2 id="modal-title">Введите ваше ID</h2>
                         <TextField
                             label="IDgame"
                             variant="outlined"
                             value={IDgame}
-
                         />
                         <Button variant="contained" color="primary" onClick={handleJoinGame}>
                             Присоединиться к игре
                         </Button>
+
                     </div>
                 </Modal>
-                <div className="list_postpage__list-item">
-                    <img src="./" alt="placeholder"/>
-                    <p>Игра 1</p>
-                </div>
-                <div className="list_postpage__list-item">
-                    <img src="https://via.placeholder.com/150" alt="placeholder"/>
-                    <p>Игра 2</p>
-                </div>
+                {/*<div className="list_postpage__list-item">*/}
+                {/*    <img src="./" alt="placeholder"/>*/}
+                {/*    <p>Игра 1</p>*/}
+                {/*</div>*/}
+                {/*<div className="list_postpage__list-item">*/}
+                {/*    <img src="https://via.placeholder.com/150" alt="placeholder"/>*/}
+                {/*    <p>Игра 2</p>*/}
+                {/*</div>*/}
             </div>
         </div>
 
