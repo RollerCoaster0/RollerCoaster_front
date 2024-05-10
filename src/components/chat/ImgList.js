@@ -1,6 +1,8 @@
-import img from "./img/img.png"
+import React from 'react';
+import avatar from "./img/img.png"
+const ImgList = ({number}) =>
 
-const MessageList = ({messages}) => (
+    (
     <ul style={{
         position: "relative",
         display: "flex",
@@ -12,22 +14,23 @@ const MessageList = ({messages}) => (
         left:"0"
 
     }}>
-        {messages.map((message, index) => (
+
+        {number.map((number, index) => (
             <div className="message">
                 <div className="message_field" key={index}>
                     <li style={{
                         maxWidth: "280px",
-                        position:"relative",
-                        left:"0"
-                    }}>{message}</li>
+                        position: "relative",
+                        left: "0"
+                    }}>{number}</li>
                 </div>
-
                 <div>
                     <img className="message_field__avatar"
-                         src={img} /*onClick={() => navigate('/')} style={{cursor: 'pointer'}*/ alt="avatar"/>
+                         src={avatar} /*onClick={() => navigate('/')} style={{cursor: 'pointer'}*/ alt="avatar"/>
                 </div>
             </div>
         ))}
     </ul>
 );
-export default MessageList;
+
+export default ImgList;

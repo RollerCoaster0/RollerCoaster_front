@@ -91,21 +91,23 @@
     align-self: center;
     height: 45px;
     padding: 15px;
+    position: relative;
+    left: 0;
 }
 .message_field{
-    max-width: 250px;
+    max-width: 280px;
     min-width: 50px;
     background: rgba(85, 107, 47, 0.56);
     padding: 10px;
     border-radius: 10px;
-    display: block;
-    text-align: right;
+    display: flex;
+    flex-direction: row-reverse;
     width: fit-content;
     position: relative;
-    right: 0;
+    left: 0;
     word-break: break-all;
 }
-.message_field__avavtar{
+.message_field__avatar{
     border-radius: 50%;
 
     width: 30px;
@@ -117,4 +119,6 @@
 .message{
     display: flex;
     flex-direction: row;
+    position:relative;
+    left:0;
 }

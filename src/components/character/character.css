@@ -1,0 +1,24 @@
+.character_field{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+    background: white;
+    padding: 10px;
+    align-content: space-between;
+    height: 500px;
+
+}
+.character_field__logo__name{
+    color: darkolivegreen;
+}
+
+.character_field__logo{
+    height: 70px;
+
+}
+.character_field__logo_field{
+    display: flex;
+    flex-direction: row;
+}

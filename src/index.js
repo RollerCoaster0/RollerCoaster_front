@@ -9,6 +9,7 @@ import PageLayout from "./components/pages/pagelayout/PageLayout";
 import LogInPage from "./components/pages/authentication/LogInPage";
 import CreateGamePage from "./components/pages/creategame/CreateGamePage";
 import Chat from "./components/chat/Chat"
+import Character from "./components/character/Character";
 
 
 const router = createBrowserRouter([
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
                 path:'chat',
                 element: <Chat/>
             },
+            {
+                path:'character',
+                element:<Character/>
+            }
         ]
     },
 
