@@ -7,7 +7,7 @@ import { styled } from '@mui/system';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 
-const Characteristics = () => {
+/*const Characteristics = () => {
     const [count, setCount] = useState(1);
 
     const increaseCount = () => {
@@ -22,8 +22,9 @@ const Characteristics = () => {
 
 
     return (
+
         <div className="character_field__characteristics">
-            <BaseNumberInput></BaseNumberInput>
+            <div><BaseNumberInput></BaseNumberInput></div>
             <Button onClick={increaseCount}
                     sx={{
                         backgroundColor: "darkolivegreen",
@@ -52,10 +53,9 @@ const Characteristics = () => {
 };
 
 
-
 const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
-    return (
-        <BaseNumberInput
+
+    /*    <BaseNumberInput
             slots={{
                 root: StyledInputRoot,
                 input: StyledInput,
@@ -75,11 +75,11 @@ const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
             ref={ref}
         />
     );
-});
+});*/
 
 
 
-const blue = {
+/*const blue = {
     100: '#daecff',
     200: '#b6daff',
     300: '#66b2ff',
@@ -186,5 +186,7 @@ const StyledButton = styled('button')(
     order: 1;
   }
 `
-);
-export default Characteristics;
+//);
+//export def ault Characteristics;
+f
+ */
