@@ -2,12 +2,21 @@
 
     display: flex;
     flex-direction: column;
-    align-items: center;
     border-radius: 30px;
     background: white;
     padding: 10px;
     align-content: space-between;
     height: 500px;
+    width: 800px;
+
+    overflow: scroll;
+    scrollbar-color: darkolivegreen rgba(255, 255, 255, 0);
+    scrollbar-width: thin;
+    scrollbar-arrow-color: firebrick;
+    overflow-x: hidden;
+    margin-right: auto;
+    margin-left: auto;
+
 
 }
 .character_field__logo__name{
@@ -15,10 +24,75 @@
 }
 
 .character_field__logo{
-    height: 70px;
+
 
 }
+
 .character_field__logo_field{
+    display: flex;
+    flex-direction: row;
+}
+
+.character_field__characteristics{
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    height: 300px;
+}
+
+
+.character_field__main{
+    display: flex;
+    flex-direction: column;
+}
+
+.character_field__main__characteristics{
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    margin-bottom: 15px;
+}
+
+.character_field__characteristics__wrap{
+    padding: 25px;
+}
+
+.character_div{
+    background: darkolivegreen;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 15px;
+    height: 80px;
+    align-items: center;
+}
+.characteristics_input{
+    width: 50px;
+    height: 20px;
+    background: rgba(144, 180, 86, 0.62);
+    border-radius: 15px;
+
+}
+.character_button{
+    wight: 50px;
+    height: 50px;
+    border-radius: 90px;
+    background: darkolivegreen;
+}
+
+.character_field__main{
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+
+}
+
+.character_field__main__description{
+    display: flex;
+    flex-direction: row;
+    align-self: flex-end;
+}
+
+.character_field__choose{
     display: flex;
     flex-direction: row;
 }
