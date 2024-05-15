@@ -1,4 +1,4 @@
-/*import React from 'react';
+import React from 'react';
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import Characteristics from "./Characteristics";
 
@@ -32,5 +32,3 @@ const Classes = () => {
     );
 };
 export default Classes;
-sf
- */

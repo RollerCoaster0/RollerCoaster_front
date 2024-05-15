@@ -7,8 +7,6 @@ import Classes from "./Classes";
 
 
 const Character = () => {
-
-
     return (
         <div className="character_field">
 
@@ -41,20 +39,13 @@ const Character = () => {
                         left:"150px",
                     }}
                 ></TextField>
-
-
             </div>
             <div className="character_field__main">
                 <div className="character_field__main__characteristics">
                     <Characteristics/>
                 </div>
-
             </div>
             <div className="character_field__main__describtion">
-
-
-
-
             </div>
         </div>
 

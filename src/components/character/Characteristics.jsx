@@ -1,11 +1,13 @@
 import React from 'react';
 import {useState} from "react";
 import './character.css'
-import {Button, TextField} from "@mui/material"
+import {Button, ListItemButton, ListItemText, TextField} from "@mui/material"
 import { Unstable_NumberInput as BaseNumberInput } from '@mui/base/Unstable_NumberInput';
 import { styled } from '@mui/system';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 
 const Characteristics = () => {
     const [count, setCount] = useState(1);
@@ -24,27 +26,10 @@ const Characteristics = () => {
     return (
 
         <div className="character_field__characteristics">
-            <div><BaseNumberInput></BaseNumberInput></div>
-            <Button onClick={increaseCount}
-                    sx={{
-                        backgroundColor: "darkolivegreen",
-                        width: "50px",
-                        height: "55px",
-                        fontSize: "10px",
-                        borderRadius: "90px"
-                    }}
 
-            >+</Button>
-
-            <Button onClick={decreaseCount}
-                    sx={{
-                        backgroundColor: "red",
-                        fontSize: "10px",
-                        width: "50px",
-                        height: "55px",
-                        borderRadius: "500px"
-                    }}
-            >-</Button>
+            <ListItemButton component="a" href="#simple-list">
+                <ListItemText primary="Spam" />
+            </ListItemButton>
 
         </div>
     );

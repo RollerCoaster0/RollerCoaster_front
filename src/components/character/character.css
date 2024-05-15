@@ -35,11 +35,10 @@
 
 .character_field__characteristics{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100px;
     height: 300px;
 }
-
 
 .character_field__main{
     display: flex;
