@@ -5,8 +5,16 @@ import {GameContext} from "../../../contexts/GameContext";
 
 const GameField = ({children}) => {
     const fieldRef = useRef(null);
-    const {characters, ownedCharacters, fieldParams, pickedCharacter, waitingForMove, field, setField} = useContext(GameContext);
-    // console.log(pickedCharacter)
+    const {
+        characters,
+        ownedCharacters,
+        fieldParams,
+        pickedCharacter,
+        waitingForMove,
+        field,
+        setField
+    } = useContext(GameContext);
+
     return (
         <div className="game-field"
              style={{
@@ -31,7 +39,7 @@ function handleClick(e, waitingForMove, pickedCharacter, ownedCharacters, field,
     const y = e.clientY - fieldRef.current.getBoundingClientRect().top;
     const pos = calcPositionByCoords(x, y, cellSize); //event coords
     field = structuredClone(field);
-    move(pickedCharacter, pos,field);
+    move(pickedCharacter, pos, field, waitingForMove);
     setField(field);
 }
 
@@ -41,7 +49,7 @@ function calcPositionByCoords(x, y, cellSize) {
     return [xPos, yPos];
 }
 
-function move(pickedCharacter, pos, field) {
+function move(pickedCharacter, pos, field, waitingForMove) {
     out:
         for (let i = 0; i < field?.length; i++) {
             for (let j = 0; j < field[i].length; j++) {
@@ -51,8 +59,10 @@ function move(pickedCharacter, pos, field) {
                 }
             }
         }
-        const [x, y] = pos;
-        field[y][x] = pickedCharacter;
-        console.log(field, pickedCharacter)
+    const [x, y] = pos;
+    field[y][x] = pickedCharacter;
+    waitingForMove.current  = false;
+    console.log(field, pickedCharacter)
 }
-    export default GameField;
+
+export default GameField;
