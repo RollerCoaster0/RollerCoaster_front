@@ -62,8 +62,20 @@ const Chat = () => {
                 <main className="chat">
                     <div className="chat__window">
 
-                        <div className="chat__window__input>">
 
+                        <div className="chat__window__input>">
+                            <div className="chat__window__chat_field" style={{
+                                position: "relative"
+                            }}>
+                                <div style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "10px"
+                                }}>
+                                    <MessageList messages={messages}></MessageList>
+                                    <ImgList number={numbers}></ImgList>
+                                </div>
+                            </div>
                             <div className="chat__window__input__input">
                                 <div className="chat__window__input__input__wrapper">
                                     <TextField id="outlined-basic" variant="standard"
@@ -163,20 +175,6 @@ const Chat = () => {
                                 </Button>
                             </div>
                         </div>
-
-                        <div className="chat__window__chat_field" style={{
-                            position: "relative"
-                        }}>
-                            <div style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "10px"
-                            }}>
-                                <MessageList messages={messages}></MessageList>
-                                <ImgList number={numbers}></ImgList>
-                            </div>
-                        </div>
-
                     </div>
 
                 </main>

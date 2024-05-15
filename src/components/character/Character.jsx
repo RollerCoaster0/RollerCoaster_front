@@ -46,7 +46,7 @@ const Character = () => {
             </div>
             <div className="character_field__main">
                 <div className="character_field__main__characteristics">
-                    <Characteristics></Characteristics>
+                    <Characteristics/>
                 </div>
 
             </div>

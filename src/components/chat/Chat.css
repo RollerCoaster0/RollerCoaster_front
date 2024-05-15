@@ -2,18 +2,23 @@
     display: flex;
     flex-direction: row-reverse;
     width: 800px;
-    height: 850px;
+    height: 100%;
     flex-wrap: wrap;
+    position: static;
 
 }
 .chat__window__chat_field {
     display: flex;
     background: white;
+    position: static;
     flex-direction: row-reverse;
     align-content: space-between;
-    width: 450px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 50%;
     max-width: 450px;
-    height: 600px;
+    height: 490px;
+    max-height: 490px;
     align-self: center;
     padding: 10px;
     border-width: 2px;
@@ -32,11 +37,11 @@
     display: flex;
     flex-direction: row;
     justify-content:space-between ;
-    width: 800px;
+    position: static;
+    width: 100%;
     background: white;
     padding: 10px;
     white-space: normal;
-
     /*border: 2px solid #000;*/
     /*border-radius: 15px;*/
     /*-moz-border-radius: 15px;*/
@@ -45,7 +50,7 @@
 
 .chat__window {
     width: 800px;
-    position: absolute;
+    position: static;
     right: 0;
     height:100%;
     display: flex;
@@ -55,20 +60,17 @@
     background: #E9ACAC;
     border-width: 2px;
     border-color: black;
-
     border-style: solid ;
     -moz-border-radius: 15px;
 }
 
-
 .chat__window__input {
     display: flex;
     flex-direction: column;
-
+    position: static;
 }
 
 .chat__window__footer {
-
     height: 100px;
     /*width: 800px;*/
     flex-direction: row;
@@ -77,6 +79,7 @@
     align-items: center;
     background: darkolivegreen;
     padding: 10px;
+    position: sticky;
 }
 .chat__window__input__input__button{
     display: flex;
@@ -91,7 +94,7 @@
     align-self: center;
     height: 45px;
     padding: 15px;
-    position: relative;
+    position: static;
     left: 0;
 }
 .message_field{
@@ -103,18 +106,16 @@
     display: flex;
     flex-direction: row-reverse;
     width: fit-content;
-    position: relative;
+    position: static;
     left: 0;
     word-break: break-all;
 }
 .message_field__avatar{
     border-radius: 50%;
-
     width: 30px;
     height: 30px;
     background: no-repeat 50%;
     object-fit: cover;
-
 }
 .message{
     display: flex;
