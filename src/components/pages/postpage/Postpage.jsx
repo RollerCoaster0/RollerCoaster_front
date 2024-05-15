@@ -63,11 +63,11 @@ const Postpage = () => {
                     <div className="modal">
                         <h2 id="modal-title">Введите ваше ID</h2>
                         <TextField
-                            label="IDgame"
                             variant="outlined"
                             value={IDgame}
+                            onChange={e => setIDgame(e.target.value) }
                         />
-                        <Button variant="contained" color="primary" onClick={handleJoinGame}>
+                        <Button onClick={() => navigate(`/game/${IDgame}`)} variant="contained" color="primary" >
                             Присоединиться к игре
                         </Button>
 
