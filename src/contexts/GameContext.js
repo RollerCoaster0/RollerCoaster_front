@@ -18,6 +18,7 @@ export const GameContextProvider = ({children}) => {
         setOwnedCharacters(oC);
     }, [field]);
 
+
     return <GameContext.Provider value={{field, setField, fieldParams, characters, ownedCharacters, pickedCharacter, setPickedCharacter, waitingForMove}}>
         {children}
     </GameContext.Provider>
