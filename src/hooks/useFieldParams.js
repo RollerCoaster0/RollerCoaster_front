@@ -7,6 +7,7 @@ export function useFieldParams(id) {
     useEffect(() => {
         const p = getStaticFieldParams();
         setParams(p);
+        console.log('useFieldParams effect')
     }, []);
-    return params;
+    return [params, setParams];
 }
