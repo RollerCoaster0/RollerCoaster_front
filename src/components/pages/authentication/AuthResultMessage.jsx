@@ -2,7 +2,6 @@ import React from 'react';
 import {queryResult} from "../../../contexts/UserContext";
 
 const AuthResultMessage = ({result}) => {
-    console.log(result)
     let message;
     switch (result) {
         case queryResult.OK:

@@ -4,11 +4,11 @@ import {GameContext, gamePhaseType} from "../../../contexts/GameContext";
 import Character from "../characters/Character";
 
 const Location = ({location, locationCharacters}) => {
-    const {cellSize, gamePhase, characters, setCharacters, pickedCharacter} = useContext(GameContext)
+    const {cellSize, gamePhase,  players, setPlayers, pickedPlayer} = useContext(GameContext)
     const locRef = useRef()
     const handleClick = useRef(null)
-    const pickedCharacterRef = useRef(null)
-    const charactersRef = useRef(null)
+    const pickedPlayerRef = useRef(null)
+    const playersRef = useRef(null)
     //TODO: узнать, можно ли обойтись без костылей для замыкания  ^^^
     const onWaitingForMove = () => {
         //
@@ -18,8 +18,7 @@ const Location = ({location, locationCharacters}) => {
         const x = e.clientX - locRef.current.getBoundingClientRect().left
         const y = e.clientY - locRef.current.getBoundingClientRect().top
         const pos = calcGridPositionByCoords(x, y, cellSize)
-        console.log(pickedCharacter)
-        setCharacters(charactersRef.current.map(c => c.id === pickedCharacterRef.current.id ? {...c, pos: {x: pos.xPos, y: pos.yPos}} : c))
+        setPlayers(playersRef.current.map(c => c.id === pickedPlayerRef.current.id ? {...c, pos: {x: pos.xPos, y: pos.yPos}} : c))
     }
 
     useEffect(() => {
@@ -36,10 +35,9 @@ const Location = ({location, locationCharacters}) => {
     }, [gamePhase]);
 
     useEffect(() => {
-        console.log('EFFECT',pickedCharacter)
-        pickedCharacterRef.current = pickedCharacter
-        charactersRef.current = characters
-    }, [pickedCharacter, characters]);
+        pickedPlayerRef.current = pickedPlayer
+        playersRef.current = players
+    }, [pickedPlayer, players]);
 
 
     return (

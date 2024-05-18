@@ -19,7 +19,7 @@ export function getStaticField() {
     return fieldData;
 }
 
-export function getStaticCharacters() {
+export function getStaticPlayers() {
     const characters = [{id: 1, avatar: redAvatar, attributes: null, pos: {x: 0, y: 0}, locationId: 0}]
     return characters
 }

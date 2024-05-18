@@ -16,7 +16,6 @@ const Postpage = () => {
         setOpenModal(false);
     };
     const handleJoinGame = () => {
-        console.log("ID game:", IDgame);
         // Добавить логику для присоединения игрока к игре с использованием IDgame
     };
     return (

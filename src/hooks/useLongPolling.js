@@ -1,11 +1,14 @@
 import {useEffect, useState} from "react";
+import {fetchEvent} from "../api/updates";
 
-export function useLongPolling(pollingUrl) {
+export function useLongPolling() {
     const [pollingData, setPollingData] = useState()
     useEffect(() => {
+        console.log('POLLING HAS STARTED')
         const fetchData = async () => {
             try {
-                const response = await fetch(pollingUrl)
+                const response = await fetchEvent()
+                console.log(response)
                 if (response.status === 502) {
                     //TODO: handle error
                     fetchData()

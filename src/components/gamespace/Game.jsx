@@ -3,12 +3,12 @@ import {GameContext} from "../../contexts/GameContext"
 import Location from "./locations/Location";
 
 const Game = () => {
-     const {locations, currentLocation, characters} = useContext(GameContext)
+     const {locations, currentLocation, players} = useContext(GameContext)
 
     return (
         <>
             <Location location={currentLocation}
-                      locationCharacters={characters.filter(c => c.locationId === currentLocation.id)}/>
+                      locationCharacters={players.filter(c => c.locationId === currentLocation.id)}/>
         </>
     );
 };

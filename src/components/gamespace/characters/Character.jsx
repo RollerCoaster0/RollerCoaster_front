@@ -3,15 +3,13 @@ import '../gamespace.css'
 import {GameContext} from "../../../contexts/GameContext";
 
 const Character = ({id, avatar, pos, attributes}) => {
-    const {cellSize, characters, setPickedCharacter, pickedCharacter} = useContext(GameContext)
+    const {cellSize, players,  setPickedPlayer, pickedPlayer} = useContext(GameContext)
     const position = calcPxPosition(cellSize, pos)
     const handleClick = (e) => {
-        setPickedCharacter(characters.find(c => c.id === id))
+        setPickedPlayer(players.find(c => c.id === id))
         e.stopPropagation()
-        // console.log(pickedCharacter)
     }
 
-    // console.log(pickedCharacter)
     //TODO: добавить обработку клика в зависимости от состояния игры
     return (
         <div className="character"
