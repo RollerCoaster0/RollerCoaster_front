@@ -45,7 +45,6 @@ const UserContextProvider = ({children}) => {
                 setUser({name: login});
                 //setUser(getMe());
             }
-            console.log(response)
             return toQueryResult(response.status);
         } catch (e) {
             console.log(e)

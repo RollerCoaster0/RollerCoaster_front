@@ -19,36 +19,27 @@ export function getStaticField() {
     return fieldData;
 }
 
-export function getStaticCharacters() {
-    const characters = [{id: 1, avatar: redAvatar, attributes: null, position: {x: 0, y: 0}}];
-    const ownedCharacters = [{id: 2, avatar: greenAvatar, attributes: null, position: {x: 2, y: 3}}];
-    return [characters, ownedCharacters];
+export function getStaticPlayers() {
+    const characters = [{id: 1, avatar: redAvatar, attributes: null, pos: {x: 0, y: 0}, locationId: 0}]
+    return characters
 }
 
-export function getStaticFieldParams() {
-    return {
-        fieldSize: [8, 8],
-        cellSize: devConsts.defaultCellSize,
-        background: background
-    };
-}
+// export function getStaticFieldParams() {
+//     return {
+//         location:
+//         fieldSize: [8, 8],
+//         cellSize: devConsts.defaultCellSize,
+//         background: background
+//     };
+// }
+
 
 export function getStaticLocations() {
-    return [{
-        name: 'Location 1',
-        description: 'descr',
-        map: map,
-        id: 100
-    },
-        {
-            name: 'Location 2',
-            description: 'descr',
-            map: map,
-            id: 200
-        }, {
-            name: 'Location 3',
-            description: 'descr',
-            map: map,
-            id: 300
-        },];
+   return [{
+       id: 0,
+       name: 'loc',
+       description: '',
+       background: background,
+       size: [8, 8]
+    }]
 }

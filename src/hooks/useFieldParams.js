@@ -8,5 +8,5 @@ export function useFieldParams(id) {
         const p = getStaticFieldParams();
         setParams(p);
     }, []);
-    return params;
+    return [params, setParams];
 }

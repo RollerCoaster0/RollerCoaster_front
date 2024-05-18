@@ -15,7 +15,6 @@ const CreateGamePage = () => {
     const [gameInfo, setGameInfo] = useState({
         name: 'test', description: 'test', preview: null
     });
-    console.log(gameInfo)
     const [locations, setLocations] = useState([]);
     const [items, setItems] = useState([]);
     const [quests, setQuests] = useState([]);
