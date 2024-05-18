@@ -8,6 +8,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import FolderList from "./FolderList";
 
 const Characteristics = () => {
     const [count, setCount] = useState(1);
@@ -27,9 +28,7 @@ const Characteristics = () => {
 
         <div className="character_field__characteristics">
 
-            <ListItemButton component="a" href="#simple-list">
-                <ListItemText primary="Spam" />
-            </ListItemButton>
+            <FolderList/>
 
         </div>
     );

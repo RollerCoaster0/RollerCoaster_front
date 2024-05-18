@@ -4,6 +4,8 @@ import img from "./logo/img.png";
 import './character.css'
 import Characteristics from "./Characteristics";
 import Classes from "./Classes";
+import CharacterText from "./CharacterText";
+import FolderList from "./FolderList";
 
 
 const Character = () => {
@@ -28,17 +30,33 @@ const Character = () => {
                            }}/>
                 <Classes></Classes>
 
-                <TextField placeholder="description"
-                    sx={{
-                        width: "200px",
-                        height: "57px",
-                        fontSize: "50px",
-                        borderRadius: "5px",
-                        backgroundColor: "#849d5a",
-                        marginBottom: "40px",
-                        left:"150px",
-                    }}
-                ></TextField>
+                {/*<TextField placeholder="description" label="Multiline"*/}
+                {/*           multiline*/}
+                {/*           maxRows={15}*/}
+                {/*           scrollBar*/}
+
+                {/*    sx={{*/}
+                {/*        width: "300px",*/}
+                {/*        height: "300px",*/}
+                {/*        fontSize: "50px",*/}
+                {/*        borderRadius: "5px",*/}
+                {/*        backgroundColor: "#849d5a",*/}
+                {/*        color:"#849d5a",*/}
+                {/*        marginBottom: "40px",*/}
+                {/*        left:"50px",*/}
+
+
+                {/*    }}*/}
+                {/*></TextField>*/}
+
+
+                <div className="character_field__main__description">
+                    <CharacterText/>
+                </div>
+
+
+
+
             </div>
             <div className="character_field__main">
                 <div className="character_field__main__characteristics">
@@ -46,6 +64,8 @@ const Character = () => {
                 </div>
             </div>
             <div className="character_field__main__describtion">
+               <CharacterText/>
+
             </div>
         </div>
 

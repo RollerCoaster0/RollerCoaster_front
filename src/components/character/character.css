@@ -88,10 +88,21 @@
 .character_field__main__description{
     display: flex;
     flex-direction: row;
+    width: 80%;
+    height: 100%;
     align-self: flex-end;
+    /*background: #72884b;*/
+    background-image: url("./logo/paper.png");
+    border-radius: 10px;
 }
 
 .character_field__choose{
     display: flex;
     flex-direction: row;
+}
+
+.folder_list{
+    margin-left: 50px;
+    background: darkolivegreen;
+    width:500px;
 }
