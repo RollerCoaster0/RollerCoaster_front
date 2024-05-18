@@ -1,6 +1,7 @@
 import {createContext, useState} from "react";
 import {devConsts, getStaticPlayers, getStaticLocations} from "../util/util";
 import {useLongPolling} from "../hooks/useLongPolling";
+import {useInitGame} from "../hooks/useInitGame";
 
 export const GameContext = createContext(undefined);
 
@@ -20,50 +21,9 @@ export const eventUpdateType = {
 }
 
 export const GameContextProvider = ({children}) => {
-    const [players, setPlayers] = useState(getStaticPlayers())
-    const [locations, setLocations] = useState(getStaticLocations)
-    const [cellSize, setCellSize] = useState(devConsts.defaultCellSize)
-    const [currentLocation, setCurrentLocation] = useState(locations[0])
-    const [pickedPlayer, setPickedPlayer] = useState(players[0])
-    const [gamePhase, setGamePhase] = useState(gamePhaseType.MAKING_MOVE)
-    const eventUpdate = useLongPolling(devConsts.api +  '/longpoll')
+    const gameData = useInitGame()
 
-    switch (eventUpdate) {
-        // case eventUpdateType.MADE_MOVE:
-        //     const targetPos = eventUpdate.targetPosition.split().map(s => Number(s))
-        //     setPlayers(players.map(p => p.id === eventUpdate.fromPlayerId ? {
-        //         ...p,
-        //         pos: {x: targetPos[0], y: targetPos[1]}
-        //     } : p))
-        //     break
-        default:
-            console.log(eventUpdate)
-    }
-
-    const updatePickedCharacter = (id) => {
-        setPickedPlayer(players.find(c => c.id === id))
-    }
-
-    const updateCharacter = (id, newCharacter) => {
-        setPlayers(players.map(c => c.id === id ? newCharacter : c))
-    }
-
-    const updateCurrentLocation = (id) => {
-        setCurrentLocation(locations.find(l => l.id === id))
-    }
-
-    return <GameContext.Provider value={{
-        cellSize,
-        locations,
-        currentLocation,
-        setCurrentLocation,
-        pickedPlayer,
-        setPickedPlayer,
-        gamePhase,
-        setGamePhase,
-        players,
-        setPlayers
-    }}>
+    return <GameContext.Provider value={gameData}>
         {children}
     </GameContext.Provider>
 }

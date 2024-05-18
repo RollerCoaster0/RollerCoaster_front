@@ -15,8 +15,7 @@ const Location = ({location, locationCharacters}) => {
     }
 
     const makeMove = (e) => {
-        const x = e.clientX - locRef.current.getBoundingClientRect().left
-        const y = e.clientY - locRef.current.getBoundingClientRect().top
+        const [x, y] = getInnerCoords(locRef, e)
         const pos = calcGridPositionByCoords(x, y, cellSize)
         setPlayers(playersRef.current.map(c => c.id === pickedPlayerRef.current.id ? {...c, pos: {x: pos.xPos, y: pos.yPos}} : c))
     }
@@ -52,10 +51,10 @@ const Location = ({location, locationCharacters}) => {
 };
 
 function getInnerCoords(elRef, e) {
-    return {
-        x: e.clientX - elRef.current.getBoundingClientRect().left,
-        y: e.clientX - elRef.current.getBoundingClientRect().top
-    }
+    return [
+         e.clientX - elRef.current.getBoundingClientRect().left,
+         e.clientY - elRef.current.getBoundingClientRect().top
+    ]
 }
 
 function calcGridPositionByCoords(x, y, cellSize) {
