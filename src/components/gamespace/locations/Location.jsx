@@ -38,7 +38,6 @@ const Location = ({location, locationCharacters}) => {
         playersRef.current = players
     }, [pickedPlayer, players]);
 
-
     return (
         <div className='game-field' style={{
             backgroundImage: `url(${location.background})`,

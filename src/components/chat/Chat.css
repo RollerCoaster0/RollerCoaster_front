@@ -13,11 +13,12 @@
 
 .chat-window__chat-field {
     overflow-y: scroll;
-    scrollbar-width: thin;          /* "auto" или "thin"  */
-    scrollbar-color: #ff0000 rgba(102, 157, 6, 0.54);
+    height: calc(100vh - 60px - 130px);
+    /*scrollbar-width: thin;          !* "auto" или "thin"  *!*/
+    /*scrollbar-color: #ff0000 rgba(102, 157, 6, 0.54);*/
     background-color: white;
     width: 80%;
-    flex-grow: 1;
+    /*flex-grow: 1;*/
     padding: 0 3% 3%;
 }
 

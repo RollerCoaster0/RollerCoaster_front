@@ -1,20 +1,14 @@
 import './Chat.css'
-import {Box, Button, Drawer, Paper, TextField} from "@mui/material";
+import {Button, Drawer, Paper} from "@mui/material";
 import React, {useContext, useState} from "react";
 import MessageList from "./MessageList";
-import ImgList from "./ImgList";
 import ChatIcon from '@mui/icons-material/Chat';
-import img from "./img/img.png";
-import img1 from "./img/img.png";
 import ChatInput from "./ChatInput";
 import {GameContext} from "../../contexts/GameContext";
 
 
 const Chat = () => {
-    const [newMessage, setNewMessage] = useState("");
-    const user = {id: 0, name: 'user', avatar: img}
     const {messages, setMessages} = useContext(GameContext)
-    const currentUser = {id: 1, name: 'Mark', avatar: img1} //заглушка, юзер будет браться из контекста
     const [chatOpened, setChatOpened] = useState(false);
     return (
         <>
