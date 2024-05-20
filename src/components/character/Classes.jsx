@@ -1,9 +1,10 @@
 import React from 'react';
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import Characteristics from "./Characteristics";
+import Character from "../gamespace/characters/Character";
 
 
-const Classes = () => {
+const Classes = ({classes}) => {
     const [characterClass, setClass] = React.useState('');
 
     const handleChange = (event) => {
@@ -26,9 +27,11 @@ const Classes = () => {
                     <MenuItem value={10}>Elf</MenuItem>
                     <MenuItem value={20}>Dwarf</MenuItem>
                     <MenuItem value={30}>Human</MenuItem>
+                    {classes.map(c => <MenuItem>{c.description}</MenuItem>)}
                 </Select>
             </FormControl>
         </div>
+
     );
 };
 export default Classes;

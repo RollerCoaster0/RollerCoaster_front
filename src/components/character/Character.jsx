@@ -63,10 +63,6 @@ const Character = () => {
                     <Characteristics/>
                 </div>
             </div>
-            <div className="character_field__main__describtion">
-               <CharacterText/>
-
-            </div>
         </div>
 
     );

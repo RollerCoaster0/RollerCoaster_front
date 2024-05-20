@@ -20,16 +20,9 @@ const Characteristics = () => {
         setCount(count - 1)
     }
 
-
-
-
-
     return (
-
         <div className="character_field__characteristics">
-
             <FolderList/>
-
         </div>
     );
 
