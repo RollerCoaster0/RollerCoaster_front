@@ -13,7 +13,7 @@ export function useZoom(refEl, defaultSize, setCellSize) {
     useEffect(() => {
         refEl.current.addEventListener('wheel', applyZoom)
         return () => {
-            refEl.current.removeEventListener('wheel', applyZoom)
+            // refEl.current.removeEventListener('wheel', applyZoom)
         }
     }, []);
 

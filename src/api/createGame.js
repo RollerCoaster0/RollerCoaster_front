@@ -85,24 +85,6 @@ export async function initGame(gameInfo) {
     });
 }
 
-// async function t() {
-//     const devConsts = {
-//         defaultCellSize: 100,
-//         api: 'http://localhost:5050',
-//         tokenKey: 'RollerCoasterToken',
-//         userKey: 'RollerCoasterUser'
-//     };
-//     let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE2IiwibmJmIjoxNzEzNzE0ODM0LCJleHAiOjE3MTQ5MjQ0MzQsImlhdCI6MTcxMzcxNDgzNCwiaXNzIjoiUm9sbGVyQ29hc3RlckFQSSIsImF1ZCI6IlJvbGxlckNvYXN0ZXJXZWJDbGllbnQifQ.zs92AuvUZamkq7p7WlaFlV_3iS29wloJHAPGM3K7KqI';
-//     let gameInfo = {name: 'test', description: 'test'}
-//     let res = await fetch(devConsts.api + '/games?' + new URLSearchParams(gameInfo), {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json;charset=utf-8',
-//             'Authorization': `Bearer ${token}`
-//         },
-//     });
-//
-// }
 
 export async function createGameComponent(gameComponent, gameComponentType, gameId) {
     gameComponent = {...gameComponent, gameId};
