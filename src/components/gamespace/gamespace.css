@@ -1,8 +1,23 @@
 .game-field {
     position: relative;
-    margin: 70px auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
     background-color: darkgreen;
     background-size: cover;
+    cursor: pointer;
+}
+
+.game-field-wrapper {
+    width: 100vw;
+    height: 100vh;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    overflow: scroll;
+}
+
+.game-field-wrapper::-webkit-scrollbar {
+    display: none;
 }
 
 .character, .owned-character {

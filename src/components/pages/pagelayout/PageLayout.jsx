@@ -7,13 +7,11 @@ import UserContextProvider from "../../../contexts/UserContext";
 const PageLayout = ({children}) => {
     return (
         <>
-            <UserContextProvider>
                 <Navbar/>
                 <div className="wrapper">
                     <Outlet/>
                 </div>
                 <Footer/>
-            </UserContextProvider>
         </>
     );
 };
