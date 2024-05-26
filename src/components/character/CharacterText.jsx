@@ -5,15 +5,15 @@ import "./character.css"
 
 const CharacterText = () => {
 
-    const [text, setText] = useState('');
-    const [Class, setClass] = useState();
     const [Game,setGame] = useState();
 
     useEffect(() => {
         async function initClasses() {
-            let gameId = 1;
+            let gameId = 2;
             const token_game = getCredentials()?.token;
-            let game_response = await fetch(devConsts.api + '/games?' + String(gameId),{
+            console.log(token_game)
+            let game_response = await fetch(devConsts.api + '/games/' + gameId,{
+                method: "GET",
                 headers:{
                     'Content-Type': 'application/json;charset=utf-8',
                     'Authorization': `Bearer ${token_game}`,
@@ -21,14 +21,14 @@ const CharacterText = () => {
             })
 
             let game_data = game_response.json();
+
             setGame(await game_data);
 
-
         }
-        initClasses();
+        initClasses().then(r => console.log(Game));
     }, []);
 
-console.log(Game)
+
 
     return (
         <div>
