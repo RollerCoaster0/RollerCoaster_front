@@ -22,8 +22,9 @@ const UserContextProvider = ({children}) => {
                 method: 'POST',
             });
             if (response.ok) {
-                storeCredentials({...await response.json()})
-                setUser({name: login});
+                const creds = await response.json()
+                storeCredentials({...creds, name: login})
+                setUser({name: login, id: creds.id});
             }
             return toQueryResult(response.status);
         } catch (e) {
@@ -33,7 +34,7 @@ const UserContextProvider = ({children}) => {
 
     const logOut = () => {
         setUser(null);
-        removeCredentials();
+        clearCredentials();
     }
     const logIn = async (login, password) => {
         try {
@@ -41,9 +42,9 @@ const UserContextProvider = ({children}) => {
                 method: 'POST',
             });
             if (response.ok) {
-                storeCredentials({...await response.json()})
-                setUser({name: login});
-                //setUser(getMe());
+                const creds = await response.json()
+                storeCredentials({...creds, name: login})
+                setUser({name: login, id: creds.id});
             }
             return toQueryResult(response.status);
         } catch (e) {
@@ -52,25 +53,25 @@ const UserContextProvider = ({children}) => {
         }
     }
 
-   const getMe = async () => {
-       try {
-           const response = await fetch(devConsts.api + '/users/me', {
-               headers: {
-                   'Content-Type': 'text/plain'
-               },
-               body: JSON.stringify(getCredentials())
-           });
+    const getMe = async () => {
+        const token = getCredentials()?.token
+        try {
+            const response = await fetch(devConsts.api + '/users/me', {
+                headers: {
+                    'Content-Type': 'text/plain',
+                    'Authorization': `Bearer ${token}`
+                },
+            });
 
-           const user = await response.json();
-           setUser(user);
-           return queryResult.OK;
-       } catch (e) {
+            const userData = await response.json();
+            setUser({name: userData.login, id: userData.userId});
+            return queryResult.OK;
+        } catch (e) {
             return queryResult.CLIENT_ERROR;
-       }
-   }
+        }
+    }
 
     useEffect(() => {
-        //setUser(getMe())
         setUser(getCredentials());
     }, []);
 
@@ -90,7 +91,7 @@ export function storeCredentials(user) {
     localStorage.setItem(devConsts.userKey, JSON.stringify(user));
 }
 
-export function removeCredentials() {
+export function clearCredentials() {
     localStorage.removeItem(devConsts.userKey);
 }
 

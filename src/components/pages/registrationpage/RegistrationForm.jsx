@@ -2,30 +2,31 @@ import React, {useContext, useRef, useState} from 'react';
 import '../authentication/loginform.css'
 import {UserContext} from "../../../contexts/UserContext";
 import {useNavigate} from "react-router-dom";
-import Loader from "../../common/loader/Loader";
+import CircularProgress from "@mui/material/CircularProgress";
+import AuthResultMessage from "../authentication/AuthResultMessage";
+
+const regPhaseValue = {
+    ACCESSIBLE_TO_REG: 0,
+    PENDING: 1,
+    RESULT_SHOWN: 2,
+}
 
 const RegistrationForm = () => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [match, setMatch] = useState(null);
-    const {user, register} = useContext(UserContext);
+    const {register} = useContext(UserContext);
     const regResult = useRef(null);
     const redirect = useNavigate();
-
-    const [isAccessibleToRegister, setIsAccessibleToRegister] = useState(true);
-    const [isPending, setIsPending] = useState(false);
-    const [authResultShown, setAuthResultShown] = useState(false);
+    const [regPhase, setRegPhase] = useState(regPhaseValue.ACCESSIBLE_TO_REG)
 
     const showRegistrationResult = () => {
-        setAuthResultShown(true);
+        setRegPhase(regPhaseValue.RESULT_SHOWN)
         setTimeout(() => {
-            setAuthResultShown(false);
+            setRegPhase(regPhaseValue.ACCESSIBLE_TO_REG)
             if (regResult.current >= 200 && regResult.current < 300) {
                 redirect('/');
-            } else {
-                setAuthResultShown(false);
-                setIsAccessibleToRegister(true);
             }
         }, 2000);
     }
@@ -35,10 +36,8 @@ const RegistrationForm = () => {
     }
 
     const onRegister = async () => {
-        setIsAccessibleToRegister(false);
-        setIsPending(true);
+        setRegPhase(regPhaseValue.PENDING)
         regResult.current = await register(login, password);
-        setIsPending(false);
         showRegistrationResult();
     }
 
@@ -46,17 +45,19 @@ const RegistrationForm = () => {
         <div className="auth-form-container">
             <h1 className="auth-form__form-title">RollerCoaster</h1>
             <div className="auth-form__form-fields">
-                <input className='auth-input' type="text" placeholder="name" value={login} onChange={e => setLogin(e.target.value)}/>
+                <input className='auth-input' type="text" placeholder="name" value={login}
+                       onChange={e => setLogin(e.target.value)}/>
                 <input className='auth-input' type="password" placeholder="Password" value={password}
                        onChange={(e) => setPassword(e.target.value)}/><br/>
                 <input className='auth-input' type="password" placeholder="Repeat Password" value={confirmPassword}
                        onChange={handleConfirmPasswordChange}/>
                 {match === true ? <span>&#10004;</span> : match === false ? <span>&#10060;</span> : null}
             </div>
-            <Loader isActive={isPending}/>
-            <button className='auth-button' onClick={onRegister} disabled={!isAccessibleToRegister}>Регистрация</button>
-            {isPending ? <p style={{fontSize: 50}}>Pending...</p> : null}
-            {authResultShown ? <p style={{fontSize: 50}}>{regResult.current}</p> : null}
+            <button className='auth-button' onClick={onRegister}
+                    disabled={regPhase !== regPhaseValue.ACCESSIBLE_TO_REG}>Регистрация
+            </button>
+            {regPhase === regPhase.PENDING ? <CircularProgress sx={{color: 'darkolivegreen'}}/> : null}
+            {regPhase === regPhase.RESULT_SHOWN ? <AuthResultMessage result={regResult.current}/> : null}
         </div>
     );
 };
