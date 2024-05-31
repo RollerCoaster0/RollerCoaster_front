@@ -64,7 +64,6 @@ const CreateGamePage = () => {
                 <StageTabs stages={stages} currentStageIndex={currentStageIndex}
                            setCurrentStageIndex={setCurrentStageIndex}/>
                 {stages.map((stage, ind) => currentStageIndex === ind ? stage.form : null)}
-
             </main>
             <PrevStageButton setCurrentStageIndex={setCurrentStageIndex} currentStageIndex={currentStageIndex}/>
             <NextStageButton setCurrentStageIndex={setCurrentStageIndex} currentStageIndex={currentStageIndex}
