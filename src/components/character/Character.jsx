@@ -5,7 +5,7 @@ import './character.css'
 import Characteristics from "./Characteristics";
 import Classes from "./Classes";
 import CharacterText from "./CharacterText";
-import FolderList from "./FolderList";
+
 
 
 const Character = () => {
