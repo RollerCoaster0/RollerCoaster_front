@@ -32,7 +32,7 @@ const CharacterText = () => {
 
     return (
         <div>
-            <h1 className = "description__text">{Game?.classes[0].description}</h1>
+            <h1 className = "description__text">{Game?.classes?.[0].description}</h1>
         </div>
     );
 }

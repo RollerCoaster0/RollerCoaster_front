@@ -24,14 +24,19 @@ const Classes = ({classes}) => {
                         'Authorization': `Bearer ${token_game}`,
                     }
                 })
-                let class_data = class_response.json();
-                setClasses(await class_data);
+                if (class_response.ok) {
+                    let class_data = class_response.json();
+                    setClasses(await class_data);
+                } else {
+                    console.log('AAAAAAAAAAAA')
+                }
+                console.log('SLASS IN USEE', slass)
             }
 
             initClasses().then(r => console.log(slass));
         },
         []);
-
+    console.log('SLASS', slass)
     return (
         <div>
             {/*<FormControl sx={{m: 1, minWidth: 120, backgroundColor: "rgba(102,157,6,0.54)"}} size="small">*/}

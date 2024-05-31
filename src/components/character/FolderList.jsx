@@ -14,7 +14,7 @@ export default function FolderList() {
         setIsVisible(!isVisible);
     };
 
-    const [Game,setGames] = useState();
+    const [game,setGames] = useState([]);
 
 
     useEffect(() => {
@@ -29,26 +29,26 @@ export default function FolderList() {
                 'Authorization': `Bearer ${token_game}`,
             }
         })
-
-        let skill_data = skill_response.json();
-
-        setGames(await skill_data);
-
+        if (skill_response.ok) {
+            let skill_data = skill_response.json();
+            setGames(await skill_data);
+        } else {
+            console.log('AAAAAAAAAAAA')
+        }
 
     }
-    initSkills().then(r => console.log(Game));
+    initSkills().then(r => console.log(game));
 },
 []);
-
-
+    console.log('GAME', game)
 return (
         <List sx={{ width: '100%', maxWidth: "360px" }}>
             <ListItem>
                 <ListItemAvatar>
 
                 </ListItemAvatar>
-                {Game.map(game=>(
-                    <ListItemText primary="Skill" key={game.id} secondary= {Game.skills.name}></ListItemText>
+                {game?.map(game=>(
+                    <ListItemText primary="Skill" key={game.id} secondary= {game.skills.name}></ListItemText>
                 ))}
 
 
@@ -63,7 +63,7 @@ return (
 
                 }}
                 >-></Button>
-                {isVisible && <div>{Game?.skills[0].description}</div>}
+                {isVisible && <div>{game?.skills[0].description}</div>}
             </ListItem>
             <ListItem>
                 <ListItemAvatar>
