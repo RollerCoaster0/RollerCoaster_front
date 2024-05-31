@@ -8,7 +8,9 @@ export const GameContext = createContext(undefined);
 
 export const gamePhaseType = {
     WAITING_FOR_MOVE: 0,
-    MAKING_MOVE: 1
+    MAKING_MOVE: 1,
+    PREPARATION_PHASE: 2,
+    PAUSED: 3
 }
 
 export const eventUpdateType = {
