@@ -4,7 +4,6 @@ import {fetchEvent} from "../api/updates";
 export function useLongPolling() {
     const [pollingData, setPollingData] = useState()
     useEffect(() => {
-        console.log('POLLING HAS STARTED')
         const fetchData = async () => {
             try {
                 const response = await fetchEvent()
