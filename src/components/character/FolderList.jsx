@@ -14,13 +14,15 @@ export default function FolderList() {
         setIsVisible(!isVisible);
     };
 
-    const [Skill,setSkills] = useState();
+    const [Game,setGames] = useState();
+
+
     useEffect(() => {
     async function initSkills() {
         let Id = 2;
         const token_game = getCredentials()?.token;
         console.log(token_game)
-        let skill_response = await fetch(devConsts.api + '/skills/' + Id,{
+        let skill_response = await fetch(devConsts.api + '/games/' + Id,{
             method: "GET",
             headers:{
                 'Content-Type': 'application/json;charset=utf-8',
@@ -30,15 +32,13 @@ export default function FolderList() {
 
         let skill_data = skill_response.json();
 
-        setSkills(await skill_data);
+        setGames(await skill_data);
 
 
     }
-    initSkills().then(r => console.log(Skill));
+    initSkills().then(r => console.log(Game));
 },
 []);
-
-
 
 
 return (
@@ -47,7 +47,11 @@ return (
                 <ListItemAvatar>
 
                 </ListItemAvatar>
-                <ListItemText primary="Skill" secondary={Skill?.name}/>
+                {Game.map(game=>(
+                    <ListItemText primary="Skill" key={game.id} secondary= {Game.skills.name}></ListItemText>
+                ))}
+
+
                 <div className="folder_list">
                 </div>
                 <Button color="success" onClick={toggleVisibility}
@@ -59,7 +63,7 @@ return (
 
                 }}
                 >-></Button>
-                {isVisible && <div>{Skill?.description}</div>}
+                {isVisible && <div>{Game?.skills[0].description}</div>}
             </ListItem>
             <ListItem>
                 <ListItemAvatar>
