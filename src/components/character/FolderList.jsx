@@ -14,88 +14,102 @@ export default function FolderList() {
         setIsVisible(!isVisible);
     };
 
-    const [game,setGames] = useState([]);
+   const game =
+       {
+           "id": 0,
+           "creatorId": 0,
+           "name": "string",
+           "description": "string",
+           "baseLocationId": 0,
+           "locations": [
+               {
+                   "id": 0,
+                   "gameId": 0,
+                   "name": "string",
+                   "description": "string",
+                   "mapFilePath": "string",
+                   "width": 0,
+                   "height": 0,
+                   "basePlayersXPosition": 0,
+                   "basePlayersYPosition": 0
+               }
+           ],
+           "classes": [
+               {
+                   "id": 0,
+                   "gameId": 0,
+                   "name": "string",
+                   "description": "string"
+               }
+           ],
+           "quests": [
+               {
+                   "id": 0,
+                   "gameId": 0,
+                   "name": "string",
+                   "description": "string",
+                   "hiddenDescription": "string"
+               }
+           ],
+           "items": [
+               {
+                   "id": 0,
+                   "gameId": 0,
+                   "name": "string",
+                   "description": "string",
+                   "itemType": "string"
+               }
+           ],
+           "nonPlayableCharacters": [
+               {
+                   "id": 0,
+                   "gameId": 0,
+                   "name": "string",
+                   "baseLocationId": 0,
+                   "baseXPosition": 0,
+                   "baseYPosition": 0,
+                   "avatarFilePath": "string"
+               }
+           ],
+           "skills": [
+               {
+                   "id": 0,
+                   "gameId": 0,
+                   "name": "string",
+                   "description": "string",
+                   "availableOnlyForCharacterClassId": 0,
+                   "availableOnlyForNonPlayableCharacterId": 0
+               }
+           ]
+       }
 
-
-    useEffect(() => {
-    async function initSkills() {
-        let Id = 2;
-        const token_game = getCredentials()?.token;
-        console.log(token_game)
-        let skill_response = await fetch(devConsts.api + '/games/' + Id,{
-            method: "GET",
-            headers:{
-                'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${token_game}`,
-            }
-        })
-        if (skill_response.ok) {
-            let skill_data = skill_response.json();
-            setGames(await skill_data);
-        } else {
-            console.log('AAAAAAAAAAAA')
-        }
-
-    }
-    initSkills().then(r => console.log(game));
-},
-[]);
-    console.log('GAME', game)
 return (
-        <List sx={{ width: '100%', maxWidth: "360px" }}>
-            <ListItem>
-                <ListItemAvatar>
+    <List sx={{width: '100%', maxWidth: "360px"}}>
 
-                </ListItemAvatar>
-                {game?.map(game=>(
-                    <ListItemText primary="Skill" key={game.id} secondary= {game.skills.name}></ListItemText>
-                ))}
+
+            <ListItem>
+                <ListItemText primary="Skill" secondary={game}></ListItemText>
+
 
 
                 <div className="folder_list">
+
                 </div>
-                <Button color="success" onClick={toggleVisibility}
+
+                    <li>{game.classes}</li>
+
+
+            </ListItem>
+
+        <Button color="success" onClick={toggleVisibility}
                 sx={{
                     backgroundColor: "darkolivegreen",
-                    height:"30px",
-                    width:"100%",
-                    color:"rgba(157,33,33,0.67)"
+                    height: "30px",
+                    width: "100%",
+                    color: "rgba(157,33,33,0.67)"
 
                 }}
-                >-></Button>
-                {isVisible && <div>{game?.skills[0].description}</div>}
-            </ListItem>
-            <ListItem>
-                <ListItemAvatar>
-                </ListItemAvatar>
-                <ListItemText primary="Skill" secondary="Name skill"/>
-                <div className="folder_list"></div>
-                <Button color="success"
-                        sx={{
-                            backgroundColor: "darkolivegreen",
-                            height:"30px",
-                            width:"100%",
-                            color:"rgba(157,33,33,0.67)"
-
-                        }}
-                >Далее</Button>
-            </ListItem>
-            <ListItem>
-                <ListItemAvatar>
-
-                </ListItemAvatar>
-                <ListItemText primary="Skill" secondary="Name skill"/>
-                <div className="folder_list"></div>
-                <Button color="success"
-                        sx={{
-                            backgroundColor: "darkolivegreen",
-                            height:"30px",
-                            width:"100%",
-                            color:"rgba(157,33,33,0.67)"
-
-                        }}
-                >Далее</Button>
-            </ListItem>
-        </List>
-    );
+        >-></Button>
+    </List>
+);
 }
