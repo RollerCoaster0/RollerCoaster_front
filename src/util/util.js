@@ -1,7 +1,6 @@
 import redAvatar from "../devassets/red_player.png";
-import greenAvatar from "../devassets/green_player.png";
 import background from "../devassets/grid.png"
-import map from '../devassets/location_map.jpg'
+import d4img from '../devassets/dices/d4dice.webp'
 
 export const devConsts = {
     defaultCellSize: 100,
@@ -43,3 +42,7 @@ export function getStaticLocations() {
        size: [8, 8]
     }]
 }
+
+
+export const dices = new Map([
+])
