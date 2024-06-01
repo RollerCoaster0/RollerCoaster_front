@@ -21,7 +21,8 @@ const HomePage = () => {
                 <p>Готовы стать настоящим героем?
                     Добро пожаловать в наш мир
                 </p>
-                <button className="content__grid-item7__play-button">
+                <button className="content__grid-item7__play-button"
+                        onClick={() => navigate("/registration")}>
                     <p style={{
                         fontSize: 50,
                         fontFamily: 'Kelly Slab, serif',
