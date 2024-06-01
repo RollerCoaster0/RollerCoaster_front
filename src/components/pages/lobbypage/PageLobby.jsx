@@ -18,7 +18,7 @@ const LobbyPage = () => {
     };
 
     return (
-        <div style={{textAlign: 'center'}}>
+        <div style={{textAlign: 'center'}}>//п
             <div style={{
                 backgroundColor: 'white',
                 borderRadius: '5px',
