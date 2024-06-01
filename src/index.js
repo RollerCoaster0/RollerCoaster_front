@@ -9,6 +9,7 @@ import PageLayout from "./components/pages/pagelayout/PageLayout";
 import LogInPage from "./components/pages/authentication/LogInPage";
 import CreateGamePage from "./components/pages/creategame/CreateGamePage";
 import Postpage from "./components/pages/postpage/Postpage";
+import PageLobby from "./components/pages/lobbypage/PageLobby";
 
 
 const router = createBrowserRouter([
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
             {
                 path:'postpage',
                 element: <Postpage/>
+            },
+            {
+                path:'PageLobby',
+                element: <PageLobby/>
             },
         ]
     },
