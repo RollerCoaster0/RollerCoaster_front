@@ -1,14 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import img from "./img/x.jpg"
+import {useNavigate} from "react-router-dom";
 
 const PageLobby = () => {
     const [gameTitle, setGameTitle] = useState('');
     const [gameDescription, setGameDescription] = useState('');
     const [users, setUsers] = useState([]);
     const [gameId, setGameId] = useState('');
+    const navigate = useNavigate();
+
 
     // Функция для генерации случайного ID
     const generateId = () => {
+
         return Math.floor(Math.random() * 1000000);
     };
 
@@ -175,7 +179,9 @@ const PageLobby = () => {
                     ))}
                 </ul>
             </div>
-            <button style={{
+            <button
+                onClick={() => navigate("/game/:sessionId")}
+                style={{
 
                 display: 'flex',
                 flexDirection: 'row',
