@@ -6,9 +6,9 @@ const ChatInput = ({messages, setMessages}) => {
     const currentUser = {id: 1, name: 'Mark', avatar: img1} //заглушка
     const [message, setMessage] = useState("")
     const handleMessageSending = () => {
-        if (message === '') return
-        //send update to server
-        setMessages([...messages, {sender: currentUser, text: message}])
+        // if (message === '') return
+        // //send update to server
+        // setMessages([...messages, {sender: currentUser, text: message}])
     }
 
     return (

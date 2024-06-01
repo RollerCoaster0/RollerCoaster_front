@@ -15,12 +15,6 @@ export function useInitGame() {
     const user = {id: 0, name: 'user', avatar: img}
     const currentUser = {id: 1, name: 'Mark', avatar: img1}
     const [lastReceivedChatAction, setLastReceivedChatAction] = useState()
-    const [messages, setMessages] = useState(
-        [{sender: user, text: 'hi'}, {sender: user, text: 'hi'}, {
-            sender: currentUser,
-            text: 'lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 lorem2 '
-        }]
-    );
 
     const event = useLongPolling()
 
@@ -49,12 +43,6 @@ export function useInitGame() {
             }
         }
     }, [event])
-
-    const updateChatMessages = () => {
-        const messageData = event.chatAction.newMessage.message
-        const player = messageData.player
-        const message = {id: messageData?.id, sender: {name: player.name, id: player.userId, text: messageData.text}}
-    }
 
     const handleChatActionEvent = (event) => {
 
@@ -91,8 +79,6 @@ export function useInitGame() {
         setPickedPlayer,
         gamePhase,
         setGamePhase,
-        messages,
-        setMessages,
         lastReceivedChatAction
     }
 }

@@ -47,9 +47,9 @@ return (
                 <ListItemAvatar>
 
                 </ListItemAvatar>
-                {game?.map(game=>(
+                {game?.map(game=>
                     <ListItemText primary="Skill" key={game.id} secondary= {game.skills.name}></ListItemText>
-                ))}
+                )}
 
 
                 <div className="folder_list">

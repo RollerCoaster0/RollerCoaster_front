@@ -1,9 +1,9 @@
 import React from 'react';
 import {GameContextProvider} from "../../../contexts/GameContext";
-import Chat from "../../chat/Chat";
 import Game from "../../gamespace/Game";
-import UserContextProvider from "../../../contexts/UserContext";
 import Navbar from "../../common/navbar/Navbar";
+import Chat from "../../chat/Chat";
+import Dice from "../../gamespace/Dice";
 
 
 const GamePage = () => {
@@ -12,7 +12,10 @@ const GamePage = () => {
             <Navbar/>
             <GameContextProvider>
                 <Game/>
-                <Chat/>
+                <div className='game-field__side-panel' onClick={e => e.stopPropagation()}>
+                    <Chat/>
+                    <Dice/>
+                </div>
             </GameContextProvider>
         </>
     );

@@ -10,3 +10,13 @@ export async function fetchEvent() {
         }
     })
 }
+
+
+export async function fetchChatActions(sessionId) {
+    const token = getCredentials()?.token
+    return await fetchEvent(devConsts.api + `/chats?${new URLSearchParams({sessionId})}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        }
+    })
+}

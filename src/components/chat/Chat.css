@@ -84,8 +84,8 @@
 }
 
 .chat-message__text-area {
-    max-width: 160px;
-    padding: 5px 10px;
+    max-width: 290px;
+    padding: 5px 20px;
     margin-bottom: 20px;
     border-radius: 20px 20px 20px 0px;
     background-color: #556B2F;
