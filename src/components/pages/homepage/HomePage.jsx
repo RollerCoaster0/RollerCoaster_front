@@ -2,8 +2,10 @@ import './homepage.css'
 import img1 from './assets/slider.png'
 import img2 from './assets/Rectangle 7(1).png'
 import img3 from './assets/Rectangle 8.png'
+import {useNavigate} from "react-router-dom";
 
 const HomePage = () => {
+    const navigate = useNavigate();
     return (
         //здесь только статика, так что мне пох
         <main className="content">
@@ -22,7 +24,7 @@ const HomePage = () => {
                     Добро пожаловать в наш мир
                 </p>
                 <button className="content__grid-item7__play-button"
-                        onClick={() => navigate("/registration")}>
+                        onClick={() => navigate("/authentication")}>
                     <p style={{
                         fontSize: 50,
                         fontFamily: 'Kelly Slab, serif',
