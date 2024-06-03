@@ -5,6 +5,7 @@ import {GameContext, gamePhaseType} from "../../../contexts/GameContext";
 const Character = ({id, name, avatar, pos, attributes}) => {
     const {cellSize,  currentPlayerId, setGamePhase} = useContext(GameContext)
     const position = calcPxPosition(cellSize, pos)
+    console.log(position)
     const handleClick = (e) => {
         setGamePhase(gamePhaseType.MAKING_MOVE)
         e.stopPropagation()

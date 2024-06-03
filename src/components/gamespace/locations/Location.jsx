@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useRef} from 'react';
 import '../gamespace.css'
 import {GameContext, gamePhaseType} from "../../../contexts/GameContext";
 import Character from "../characters/Character";
-import {sendMove} from "../../../api/game";
+import {sendMove, tryAction} from "../../../api/game";
 
 const Location = ({location}) => {
     const {cellSize, gamePhase,  players, setPlayers, currentPlayerId, setGamePhase} = useContext(GameContext)
@@ -10,6 +10,7 @@ const Location = ({location}) => {
     const handleClick = useRef()
     const cellSizeRef  = useRef()
     const playersRef = useRef()
+    const gamePhaseRef = useRef()
     //TODO: узнать, можно ли обойтись без костылей для замыкания  ^^^
     const onWaitingForMove = () => {
         //
@@ -19,11 +20,13 @@ const Location = ({location}) => {
         const [x, y] = getInnerCoords(locRef, e)
         const pos = calcGridPositionByCoords(x, y, cellSizeRef.current)
         setPlayers(players => players.map(c => c.id === currentPlayerId.current ? {...c, pos: {x: pos.xPos, y: pos.yPos}} : c))
-        sendMove(pos.xPos, pos.yPos, currentPlayerId.current)
-        console.log(currentPlayerId.current)
+        const newPlayers = playersRef.current.map(c => c.id === currentPlayerId.current ? {...c, pos: {x: pos.xPos, y: pos.yPos}} : c)
+        const prevPlayers = playersRef.current
+        let promise = sendMove(pos.xPos, pos.yPos, currentPlayerId.current)
+        tryAction(promise, [prevPlayers, gamePhaseRef.current], [newPlayers, gamePhaseType.WAITING_FOR_MOVE], [setPlayers, setGamePhase] )
         setGamePhase(gamePhaseType.WAITING_FOR_MOVE)
     }
-    console.log(players)
+
     useEffect(() => {
         switch (gamePhase) {
             case gamePhaseType.WAITING_FOR_MOVE:
@@ -40,7 +43,8 @@ const Location = ({location}) => {
     useEffect(() => {
         cellSizeRef.current = cellSize
         playersRef.current = players
-    }, [cellSize, players]);
+        gamePhaseRef.current = gamePhase
+    }, [cellSize, players, gamePhase]);
 
     return (
         <div className='game-field' style={{

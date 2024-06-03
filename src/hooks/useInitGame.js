@@ -59,7 +59,7 @@ export function useInitGame() {
         const movedPlayer = event.player
         setPlayers(players => players.map(p => {
             if (p.id === movedPlayer.id) {
-                return {...p, pos: {x: event.currentXPosition, y: event.currentYPosition}}
+                return {...p, pos: {x: event.x, y: event.y}}
             }
             return p
         }))

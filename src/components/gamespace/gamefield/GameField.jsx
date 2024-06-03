@@ -12,8 +12,6 @@ const GameField = ({children}) => {
     useZoom(fieldRef, devConsts.defaultCellSize, setCellSize)
     return (
         <>
-            <Button sx={{position: 'absolute', right: '500px', top: '200px', backgroundColor:'white' }} onClick={() => setGamePhase(gamePhaseType.MAKING_MOVE)}>MAKING MOVE Phase</Button>
-            <Button sx={{position: 'absolute', right: '500px', top: '250px', backgroundColor:'white' }} onClick={() => setGamePhase(gamePhaseType.WAITING_FOR_MOVE)}>WAITING Phase</Button>
             <div ref={fieldRef} style={{width: 9000, height: 5000, backgroundImage: `url(${desk})`, cursor: 'auto'}}>
                 {children}
             </div>

@@ -2,11 +2,10 @@ import {devConsts} from "../util/util";
 import {getCredentials} from "../contexts/UserContext";
 
 export async function sendMove(x, y, id) {
-    console.log('ID',id)
     const token = getCredentials()?.token
     return await fetch(devConsts.api + `/players/${id}/move?${new URLSearchParams({X:x, Y:y})}`, {
+        method: 'POST',
         headers: {
-            method: 'POST',
             'Authorization': `Bearer ${token}`,
         }
     })
@@ -33,7 +32,7 @@ export async function snedUseSkill(id, skillId) {
 }
 
 
-export async function trySendAction(promise, prevStates, newStates, stateSetters) {
+export async function tryAction(promise, prevStates, newStates, stateSetters) {
     try {
         stateSetters.forEach((setter, i) => setter(newStates[i]))
         const response = await promise
