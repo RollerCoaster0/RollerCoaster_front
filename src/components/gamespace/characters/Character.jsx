@@ -1,12 +1,12 @@
 import React, {useContext} from 'react';
 import '../gamespace.css'
-import {GameContext} from "../../../contexts/GameContext";
+import {GameContext, gamePhaseType} from "../../../contexts/GameContext";
 
-const Character = ({id, avatar, pos, attributes}) => {
-    const {cellSize, players,  setPickedPlayer, pickedPlayer} = useContext(GameContext)
+const Character = ({id, name, avatar, pos, attributes}) => {
+    const {cellSize,  currentPlayerId, setGamePhase} = useContext(GameContext)
     const position = calcPxPosition(cellSize, pos)
     const handleClick = (e) => {
-        setPickedPlayer(players.find(c => c.id === id))
+        setGamePhase(gamePhaseType.MAKING_MOVE)
         e.stopPropagation()
     }
 
@@ -20,7 +20,7 @@ const Character = ({id, avatar, pos, attributes}) => {
                  padding: cellSize * 0.1
              }} onClick={e => handleClick(e)}>
             <img src={avatar} style={{width: cellSize * 0.8, height: cellSize * 0.8}}
-                 alt={'aboba'}/>
+                 alt={name}/>
         </div>
     );
 };

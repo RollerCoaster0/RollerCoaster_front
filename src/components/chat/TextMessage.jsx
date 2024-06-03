@@ -1,9 +1,9 @@
 import React from 'react';
 
-const RegularChatMessage = ({text}) => {
+const TextMessage = ({text}) => {
     return (
         <span>{text}</span>
     );
 };
 
-export default RegularChatMessage;
+export default TextMessage;

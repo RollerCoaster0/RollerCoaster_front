@@ -2,7 +2,7 @@ import React, {useContext, useRef, useState} from 'react';
 import '../navbar.css'
 import {Avatar, Menu, MenuItem} from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
-import userContext, {UserContext} from "../../../../contexts/UserContext";
+import {UserContext} from "../../../../contexts/UserContext";
 const UserProfile = ({isToggled}) => {
     const [anchorEl, setAnchorEl] = useState(null)
     const menuOpened = Boolean(anchorEl)

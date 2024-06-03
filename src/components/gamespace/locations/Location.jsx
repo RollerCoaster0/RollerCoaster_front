@@ -2,14 +2,14 @@ import React, {useContext, useEffect, useRef} from 'react';
 import '../gamespace.css'
 import {GameContext, gamePhaseType} from "../../../contexts/GameContext";
 import Character from "../characters/Character";
+import {sendMove} from "../../../api/game";
 
-const Location = ({location, locationCharacters}) => {
-    const {cellSize, gamePhase,  players, setPlayers, pickedPlayer} = useContext(GameContext)
+const Location = ({location}) => {
+    const {cellSize, gamePhase,  players, setPlayers, currentPlayerId, setGamePhase} = useContext(GameContext)
     const locRef = useRef()
     const handleClick = useRef()
-    const pickedPlayerRef = useRef()
-    const playersRef = useRef()
     const cellSizeRef  = useRef()
+    const playersRef = useRef()
     //TODO: узнать, можно ли обойтись без костылей для замыкания  ^^^
     const onWaitingForMove = () => {
         //
@@ -18,8 +18,12 @@ const Location = ({location, locationCharacters}) => {
     const makeMove = (e) => {
         const [x, y] = getInnerCoords(locRef, e)
         const pos = calcGridPositionByCoords(x, y, cellSizeRef.current)
-        setPlayers(playersRef.current.map(c => c.id === pickedPlayerRef.current.id ? {...c, pos: {x: pos.xPos, y: pos.yPos}} : c))
+        setPlayers(players => players.map(c => c.id === currentPlayerId.current ? {...c, pos: {x: pos.xPos, y: pos.yPos}} : c))
+        sendMove(pos.xPos, pos.yPos, currentPlayerId.current)
+        console.log(currentPlayerId.current)
+        setGamePhase(gamePhaseType.WAITING_FOR_MOVE)
     }
+    console.log(players)
     useEffect(() => {
         switch (gamePhase) {
             case gamePhaseType.WAITING_FOR_MOVE:
@@ -34,18 +38,17 @@ const Location = ({location, locationCharacters}) => {
     }, [gamePhase]);
 
     useEffect(() => {
-        pickedPlayerRef.current = pickedPlayer
-        playersRef.current = players
         cellSizeRef.current = cellSize
-    }, [pickedPlayer, players, cellSize]);
+        playersRef.current = players
+    }, [cellSize, players]);
 
     return (
         <div className='game-field' style={{
-            backgroundImage: `url(${location.background})`,
-            width: cellSize * location.size[0],
-            height: cellSize * location.size[1],
+            backgroundImage: `url(${location?.background})`,
+            width: cellSize * location?.size[0],
+            height: cellSize * location?.size[1],
         }} ref={locRef} onClick={e => handleClick.current?.(e)}>
-            {locationCharacters.map(c => <Character {...c}/>)}
+            {players.map(c => <Character key={c.id} {...c}/>)}
         </div>
     );
 };

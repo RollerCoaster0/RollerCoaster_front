@@ -7,7 +7,7 @@ import ChatInput from "./ChatInput";
 import img from "./img/img.png";
 import img1 from "./img/img.png";
 import {GameContext} from "../../contexts/GameContext";
-import {fetchChatActions} from "../../api/updates";
+import {fetchChatMessages} from "../../api/updates";
 
 export const messageType = {
     REGULAR_MESSAGE: 0,
@@ -19,41 +19,73 @@ const Chat = () => {
     const user = {id: 0, name: 'user', avatar: img}
     const currentUser = {id: 1, name: 'Mark', avatar: img1}
     const [chatOpened, setChatOpened] = useState(false);
-    const {lastChatAction} = useContext(GameContext)
-    const [messages, setMessages] = useState([{
-        id: 0,
-        type: messageType.REGULAR_MESSAGE,
-        sender: user,
-        time: '2024-06-01T09:43:20.173Z',
-        data: {text: 'lorem lorem lorem loremlorem loremlorem loremlorem loremlorem loremlorem loremlorem loremlorem loremlorem loremlorem lorem'}
-    },
+    const {lastReceivedMessage} = useContext(GameContext)
+    const [messages, setMessages] = useState([
         {
-            id: 1,
-            type: messageType.DICE_ROLL,
-            sender: user,
-            time: '2024-06-01T09:43:21.173Z',
-            data: {anpc: null, result: {result: 3, die: 6}}
-        }])
+            "id": 0,
+            "sessionId": 0,
+            "rollMessage": {
+                "senderPlayer": {
+                    "id": 0,
+                    "userId": 0,
+                    "sessionId": 0,
+                    "name": "string",
+                    "level": 0,
+                    "healthPoints": 0,
+                    "currentXPosition": 0,
+                    "currentYPosition": 0,
+                    "characterClassId": 0
+                },
+                "senderANPC": null,
+                "result": {
+                    "result": 0,
+                    "die": 0
+                }
+            },
+            "textMessage": null,
+            "usedSkillMessage": null,
 
-    useEffect(() => {
-        if (lastChatAction) {
-            setMessages(messages => [...messages, chatActionToMessage(lastChatAction)])
+        },
+        {
+            "id": 0,
+            "sessionId": 0,
+            "rollMessage" : null,
+            "textMessage": {
+                "senderPlayer": {
+                    "id": 0,
+                    "userId": 0,
+                    "sessionId": 0,
+                    "name": "string",
+                    "level": 0,
+                    "healthPoints": 0,
+                    "currentXPosition": 0,
+                    "currentYPosition": 0,
+                    "characterClassId": 0
+                },
+                "text": "string",
+                "time": "2024-06-02T18:40:20.199Z"
+            },
+            "usedSkillMessage":null
         }
-    }, [lastChatAction]);
+    ])
+    useEffect(() => {
+        if (lastReceivedMessage) {
+            setMessages(messages => [...messages, lastReceivedMessage])
+        }
+    }, [lastReceivedMessage]);
 
     useEffect(() => {
         const sessionId = 0
-        const setChatActions = async () => {
-            const response = await fetchChatActions(sessionId)
+        const setChatMessages = async () => {
+            const response = await fetchChatMessages(sessionId)
             if (!response.ok) {
                 //TODO: handle error
             } else {
-                const actions = await response.json()
-                actions.map(a => chatActionToMessage(a))
-                setMessages(actions)
+                const messages = await response.json()
+                setMessages(messages)
             }
         }
-        setChatActions()
+        setChatMessages()
     }, []);
 
     return (

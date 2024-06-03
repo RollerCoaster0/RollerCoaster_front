@@ -5,16 +5,15 @@ export async function fetchEvent() {
     const token = getCredentials()?.token
     return await fetch(devConsts.api + '/longpoll', {
         headers: {
-            'Content-Type': 'application/json;charset=utf-8',
             'Authorization': `Bearer ${token}`,
         }
     })
 }
 
 
-export async function fetchChatActions(sessionId) {
+export async function fetchChatMessages(sessionId) {
     const token = getCredentials()?.token
-    return await fetchEvent(devConsts.api + `/chats?${new URLSearchParams({sessionId})}`, {
+    return await fetch(devConsts.api + `/chats?${new URLSearchParams({sessionId})}`, {
         headers: {
             'Authorization': `Bearer ${token}`,
         }

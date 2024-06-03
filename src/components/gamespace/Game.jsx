@@ -20,8 +20,7 @@ const Game = () => {
         <>
             <div onMouseDown={onMouseDown}  ref={fieldRef} className='game-field-wrapper'>
                 <GameField>
-                    <Location location={currentLocation}
-                              locationCharacters={players.filter(c => c.locationId === currentLocation.id)}/>
+                    <Location location={currentLocation}/>
                 </GameField>
             </div>
         </>

@@ -6,8 +6,9 @@ export const devConsts = {
     defaultCellSize: 100,
     api: 'http://localhost:5050',
     tokenKey: 'RollerCoasterToken',
-    userKey: 'RollerCoasterUser'
-};
+    userKey: 'RollerCoasterUser',
+    minio: 'http://localhost:7070'
+}
 
 
 export function getStaticField() {
@@ -46,3 +47,9 @@ export function getStaticLocations() {
 
 export const dices = new Map([
 ])
+
+
+function createGame() {
+   const game = {name: 'gametest', description: 'd'}
+    const skills = [{}]
+}

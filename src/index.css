@@ -32,3 +32,7 @@ li, ul, ol, a:visited, a:hover, a:active, a:focus {
     list-style: none;
 }
 
+img {
+    font-size: 40px;
+    color: white;
+}
