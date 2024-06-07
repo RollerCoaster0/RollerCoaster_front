@@ -2,12 +2,11 @@ import {useContext, useEffect, useRef, useState} from "react";
 import {devConsts, getStaticLocations, getStaticPlayers} from "../util/util";
 import {gamePhaseType} from "../contexts/GameContext";
 import red_player from '../devassets/red_player.png'
-import {useLongPolling} from "./useLongPolling";
+import {useLongPoll, useLongPolling} from "./useLongPolling";
 import {fetchClasses, fetchGame, fetchLocationsBackground, fetchPlayers, fetchSessionInfo} from "../api/game";
 import {UserContext} from "../contexts/UserContext";
 
-export function useInitGame() {
-    let sessionId = 2
+export function useInitGame() { //session prop
     const [players, setPlayers] = useState([])
     const currentPlayerId = useRef();
     const [locations, setLocations] = useState([])
@@ -18,10 +17,11 @@ export function useInitGame() {
     const [lastReceivedMessage, setLastReceivedMessage] = useState()
     const {user} = useContext(UserContext)
 
-    const [session, setSession] = useState()
+    const [session, setSession] = useState({id: 1})
     const [game, setGame] = useState({id: 4})
+    const pollingFlag = useRef(true)
 
-    const event = useLongPolling()
+    const event = useLongPoll(pollingFlag)
 
     useEffect(() => {
         if (event) {
@@ -72,7 +72,7 @@ export function useInitGame() {
 
     useEffect(() => {
             const setGameData = async () => {
-                let response = await fetchSessionInfo(sessionId)
+                let response = await fetchSessionInfo(session.id)
                 if (!response.ok) {
                     //TODO: handle
                     console.log('FAILED TO FETCH SESSION!!!', response)
@@ -87,7 +87,7 @@ export function useInitGame() {
                     return
                 }
                 data = await response.json()
-                let fetchedPlayers = await fetchPlayers(sessionId)
+                let fetchedPlayers = await fetchPlayers(session.id)
                 let classes = await fetchClasses(fetchedPlayers.map(p => p.characterClassId))
                 let backgrounds = await fetchLocationsBackground(data.locations.map(l => l.mapFilePath))
                 setPlayers(fetchedPlayers.map(((p, i) => {
@@ -140,6 +140,7 @@ export function useInitGame() {
         gamePhase,
         setGamePhase,
         lastReceivedChatAction: lastReceivedMessage,
-        currentPlayerId
+        currentPlayerId,
+        session
     }
 }

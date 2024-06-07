@@ -19,7 +19,7 @@ const Chat = () => {
     const user = {id: 0, name: 'user', avatar: img}
     const currentUser = {id: 1, name: 'Mark', avatar: img1}
     const [chatOpened, setChatOpened] = useState(false);
-    const {lastReceivedMessage} = useContext(GameContext)
+    const {lastReceivedMessage, session} = useContext(GameContext)
     const [messages, setMessages] = useState([
         {
             "id": 0,
@@ -49,7 +49,7 @@ const Chat = () => {
         {
             "id": 0,
             "sessionId": 0,
-            "rollMessage" : null,
+            "rollMessage": null,
             "textMessage": {
                 "senderPlayer": {
                     "id": 0,
@@ -65,7 +65,7 @@ const Chat = () => {
                 "text": "string",
                 "time": "2024-06-02T18:40:20.199Z"
             },
-            "usedSkillMessage":null
+            "usedSkillMessage": null
         }
     ])
     useEffect(() => {
@@ -75,9 +75,8 @@ const Chat = () => {
     }, [lastReceivedMessage]);
 
     useEffect(() => {
-        const sessionId = 0
         const setChatMessages = async () => {
-            const response = await fetchChatMessages(sessionId)
+            const response = await fetchChatMessages(session.id)
             if (!response.ok) {
                 //TODO: handle error
             } else {
@@ -91,14 +90,15 @@ const Chat = () => {
     return (
         <>
             <ChatIcon sx={chatIconStyle} onClick={() => setChatOpened(!chatOpened)}>Open chat</ChatIcon>
-            <Drawer open={chatOpened} onClose={() => setChatOpened(false)} anchor={'left'}>
+            <Drawer hideBackdrop={true} sx={{'& .MuiDrawer-paper': {border: 'none'}}} open={chatOpened} anchor={'left'}
+                    variant={'persistent'}>
                 <div className="chat-window">
                     <Paper className='chat-window__chat-field'>
                         <MessageList messages={messages}/>
                     </Paper>
                     <div className='chat-window__bottom-panel'>
                         <div className='chat-window__bottom-panel__input__panel'>
-                            <ChatInput messages={messages} setMessages={setMessages}/>
+                            <ChatInput messages={messages} sessionId={session.id}/>
                         </div>
                         <div className='chat-window__bottom-panel__dice-panel'>
                             <Button sx={throwDiceButton}>Бросить D20</Button>
