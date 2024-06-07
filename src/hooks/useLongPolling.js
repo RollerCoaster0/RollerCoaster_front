@@ -8,6 +8,7 @@ export function useLongPolling() {
             try {
                 console.log('POLLING HAS STARTED')
                 const response = await fetchEvent()
+                console.log('POLL HAPPENDED ', response)
                 if (response.status === 502) {
                     console.log('POLL ERR',response)
                     fetchData()
@@ -27,6 +28,26 @@ export function useLongPolling() {
             }
         }
         fetchData()
+    }, []);
+    return pollingData
+}
+
+
+export async function useLongPoll(flag) {
+    const [pollingData, setPollingData] = useState(null)
+    useEffect(() => {
+        const subscribe = async () => {
+            while (flag.current) {
+                const response = await fetchEvent()
+                if (!response.ok) {
+                    console.log('POLLING ERROR', response)
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    continue
+                }
+                setPollingData(await response.json())
+            }
+        }
+        subscribe()
     }, []);
     return pollingData
 }

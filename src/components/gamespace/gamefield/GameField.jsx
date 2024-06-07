@@ -4,7 +4,6 @@ import {GameContext, gamePhaseType} from "../../../contexts/GameContext";
 import {devConsts} from "../../../util/util";
 import {useZoom} from "../../../hooks/useZoom";
 import desk from '../../../devassets/wooden_desk.jpg'
-import {Button} from "@mui/material";
 
 const GameField = ({children}) => {
     const {setCellSize, setGamePhase} = useContext(GameContext)
