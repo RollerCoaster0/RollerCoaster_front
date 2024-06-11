@@ -57,7 +57,7 @@
 }
 
 .character_div{
-    background: darkolivegreen;
+    background: rgba(85, 107, 47, 0);
     padding: 15px;
     margin: 10px;
     border-radius: 15px;
@@ -75,7 +75,7 @@
     wight: 50px;
     height: 50px;
     border-radius: 90px;
-    background: darkolivegreen;
+    background: #ff0000;
 }
 
 .character_field__main{
@@ -120,4 +120,9 @@
 
     font-size: medium;
     font-family: "Kelly Slab", serif;
+}
+.Input_wrapper{
+    display: flex;
+    flex-direction: column;
+
 }

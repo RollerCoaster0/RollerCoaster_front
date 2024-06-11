@@ -75,41 +75,44 @@ export default function FolderList() {
                {
                    "id": 0,
                    "gameId": 0,
-                   "name": "string",
-                   "description": "string",
+                   "name": "спел1",
+                   "description": "описание1",
+                   "availableOnlyForCharacterClassId": 0,
+                   "availableOnlyForNonPlayableCharacterId": 0
+               },
+               {
+                   "id": 1,
+                   "gameId": 0,
+                   "name": "спел2",
+                   "description": "описание 2",
                    "availableOnlyForCharacterClassId": 0,
                    "availableOnlyForNonPlayableCharacterId": 0
                }
            ]
        }
+    // var result = Object.keys(game).map(function(key){
+    //     return game[key].classes;
+    // });
+
 
 return (
     <List sx={{width: '100%', maxWidth: "360px"}}>
 
 
-            <ListItem>
-                <ListItemText primary="Skill" secondary={game}></ListItemText>
+
 
 
 
                 <div className="folder_list">
 
                 </div>
+                {game.skills.map((skill, index) =>
+                        <ListItem>
+                    <ListItemText primary={skill.name} key={skill.id} secondary={skill.description}>></ListItemText>
 
-                    <li>{game.classes}</li>
+                    </ListItem>
+                    )}
 
-
-            </ListItem>
-
-        <Button color="success" onClick={toggleVisibility}
-                sx={{
-                    backgroundColor: "darkolivegreen",
-                    height: "30px",
-                    width: "100%",
-                    color: "rgba(157,33,33,0.67)"
-
-                }}
-        >-></Button>
     </List>
 );
 }
