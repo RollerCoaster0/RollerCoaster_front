@@ -57,7 +57,7 @@
 }
 
 .character_div{
-    background: darkolivegreen;
+    background: rgba(85, 107, 47, 0);
     padding: 15px;
     margin: 10px;
     border-radius: 15px;
@@ -75,7 +75,7 @@
     wight: 50px;
     height: 50px;
     border-radius: 90px;
-    background: darkolivegreen;
+    background: #ff0000;
 }
 
 .character_field__main{
@@ -96,6 +96,16 @@
     overflow-y:scroll;
     word-break: break-all;
     scrollbar-width: thin;
+}
+.skill_bar{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    height: 100%;
+    align-self: flex-end;
+    border-radius: 10px;
+    word-break: break-all;
+
 }
 .description__text{
     display: flex;
@@ -120,4 +130,9 @@
 
     font-size: medium;
     font-family: "Kelly Slab", serif;
+}
+.Input_wrapper{
+    display: flex;
+    flex-direction: column;
+
 }
