@@ -97,6 +97,16 @@
     word-break: break-all;
     scrollbar-width: thin;
 }
+.skill_bar{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    height: 100%;
+    align-self: flex-end;
+    border-radius: 10px;
+    word-break: break-all;
+
+}
 .description__text{
     display: flex;
     align-self: flex-end;

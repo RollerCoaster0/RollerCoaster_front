@@ -247,12 +247,12 @@ console.log("errors",errors)
                         {errors?(
                             <p className="error">The name must be longer than 1 character and shorter than 35 characters </p  >
                         ): null}
-                <Button onClick={handleChangeButton} disabled={errors.length !== 0}
+                <Button onClick={handleChangeButton} disabled={errors.length !== 0 || name.length === 0}
                         sx={{
                             backgroundColor: "darkolivegreen",
                             color: "red"
                         }}
-                >Отправить</Button>
+                >Send</Button>
                     </form>
                </div>
 
@@ -290,14 +290,7 @@ console.log("errors",errors)
                     <FolderList/>
                 </div>
             </div>
-            <Button color="success"
-                    sx={{
-                        backgroundColor: "darkolivegreen",
-                        height: "30px",
-                        width: "15%",
-                        color: "rgba(157,33,33,0.67)"
-                    }}
-            >-></Button>
+
         </div>
 
     )
