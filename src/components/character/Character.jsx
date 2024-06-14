@@ -198,7 +198,6 @@ console.log("errors",errors)
             const response = await fetch(devConsts.api + '/players?' + new  URLSearchParams({SessionId: 6, CharacterClassId: 5, Name: name}), {
                     method: 'POST',
                     headers: {
-
                         'Authorization': `Bearer ${token}`,
                     }
                 },

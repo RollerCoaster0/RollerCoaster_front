@@ -7,15 +7,21 @@ import {getCredentials, queryResult, storeCredentials} from "../../../contexts/U
 const PageLobby = () => {
     const [gameTitle, setGameTitle] = useState('');
     const [gameDescription, setGameDescription] = useState('');
-    const [users, setUsers] = useState([]);
+    // const [users, setUsers] = useState([]);
     const [gameId, setGameId] = useState('');
     const navigate = useNavigate();
     const [game, setGames] = useState('')
+    const id = 1
+
+
+
+
+
 
     const getId = async () => {
         const token = getCredentials()?.token;
         try {
-            const response = await fetch(devConsts.api + '/sessions?', {
+            const response = await fetch(devConsts.api + '/sessions/' + id, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -25,35 +31,29 @@ const PageLobby = () => {
             if(response.ok){
                 const session = await response.json()
                 setGameId(session.id)
-            }
-        }
-        catch (e){
 
-        }
-    }
-
-    const getGame = async () => {
-        const token = getCredentials()?.token;
-        try {
-            const response = await fetch(devConsts.api + '/games?' + gameId, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
+                const response1 = await fetch(devConsts.api + '/games/' + session.id, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        }
                     }
+                );
+                if(response1.ok){
+                    const get_game = await response1.json()
+                    setGames(get_game)
                 }
-            );
-            if(response.ok){
-                const get_game = await response.json()
-                setGames(get_game)
+
             }
         }
         catch (e){
 
         }
     }
+    useEffect(() => {
+        getId()
 
-getId()
-    getGame()
+    }, []);
 
 
     return (
@@ -77,7 +77,7 @@ getId()
                 padding: '10px',
                 textAlign: 'center',
                 width: '80%',
-            }}>{gameTitle}</h1>
+            }}>{game.name}</h1>
             <img
                 src={img} // Замените на настоящий URL изображения
                 alt="Ошибка соединения позвоните на номер 8 950 715 54 47"
@@ -130,9 +130,9 @@ getId()
 
 
                 <ul>
-                    {users.map(user => (
-                        <li key={user.id}>{user.name}</li>
-                    ))}
+                    {/*{users.map(user => (*/}
+                    {/*    <li key={user.id}>{user.name}</li>*/}
+                    {/*))}*/}
                 </ul>
             </div>
             <button
