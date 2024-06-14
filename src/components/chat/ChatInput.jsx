@@ -1,14 +1,19 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, TextField} from "@mui/material";
 import img1 from "./img/img.png";
+import {UserContext} from "../../contexts/UserContext";
+import {sendTextMessage} from "../../api/updates";
+import {tryAction} from "../../api/game";
 
-const ChatInput = ({messages, setMessages}) => {
-    const currentUser = {id: 1, name: 'Mark', avatar: img1} //заглушка
+const ChatInput = ({sessionId}) => {
+    const {user} = useContext(UserContext)
     const [message, setMessage] = useState("")
-    const handleMessageSending = () => {
-        // if (message === '') return
-        // //send update to server
-        // setMessages([...messages, {sender: currentUser, text: message}])
+    const handleMessageSending = async () => {
+        setMessage('')
+        const response = await sendTextMessage(message, sessionId)
+        if (!response.ok) {
+            //TODO: proccess and alert
+        }
     }
 
     return (

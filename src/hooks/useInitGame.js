@@ -1,14 +1,12 @@
-import {useEffect, useRef, useState} from "react";
-import {devConsts, getStaticLocations, getStaticPlayers} from "../util/util";
+import {useContext, useEffect, useRef, useState} from "react";
+import {devConsts,} from "../util/util";
 import {gamePhaseType} from "../contexts/GameContext";
-import img from "../components/chat/img/img.png";
-import img1 from "../components/chat/img/img.png";
 import red_player from '../devassets/red_player.png'
-import {useLongPolling} from "./useLongPolling";
+import {useLongPoll,} from "./useLongPolling";
 import {fetchClasses, fetchGame, fetchLocationsBackground, fetchPlayers, fetchSessionInfo} from "../api/game";
+import {UserContext} from "../contexts/UserContext";
 
-export function useInitGame() {
-    let sessionId = 1
+export function useInitGame() { //session prop
     const [players, setPlayers] = useState([])
     const currentPlayerId = useRef();
     const [locations, setLocations] = useState([])
@@ -16,14 +14,14 @@ export function useInitGame() {
     const [currentLocation, setCurrentLocation] = useState()
     const [pickedPlayer, setPickedPlayer] = useState(players[0])
     const [gamePhase, setGamePhase] = useState(gamePhaseType.MAKING_MOVE)
-    const user = {id: 3, name: 'fdfdfdfsfdfasf', avatar: img}
-    const currentUser = {id: 1, name: 'Mark', avatar: img1}
     const [lastReceivedMessage, setLastReceivedMessage] = useState()
+    const {user} = useContext(UserContext)
 
-    const [session, setSession] = useState()
+    const [session, setSession] = useState({id: 1})
     const [game, setGame] = useState({id: 4})
+    const pollingFlag = useRef(true)
 
-    const event = useLongPolling()
+    const event = useLongPoll(pollingFlag)
 
     useEffect(() => {
         if (event) {
@@ -74,7 +72,7 @@ export function useInitGame() {
 
     useEffect(() => {
             const setGameData = async () => {
-                let response = await fetchSessionInfo(sessionId)
+                let response = await fetchSessionInfo(session.id)
                 if (!response.ok) {
                     //TODO: handle
                     console.log('FAILED TO FETCH SESSION!!!', response)
@@ -89,10 +87,10 @@ export function useInitGame() {
                     return
                 }
                 data = await response.json()
-                let players = await fetchPlayers(sessionId)
-                let classes = await fetchClasses(players.map(p => p.characterClassId))
+                let fetchedPlayers = await fetchPlayers(session.id)
+                let classes = await fetchClasses(fetchedPlayers.map(p => p.characterClassId))
                 let backgrounds = await fetchLocationsBackground(data.locations.map(l => l.mapFilePath))
-                setPlayers(players.map(((p, i) => {
+                setPlayers(fetchedPlayers.map(((p, i) => {
                     return {
                         id: p.id,
                         userId: p.userId,
@@ -113,16 +111,19 @@ export function useInitGame() {
                 })
                 setLocations(locs)
                 console.log('BACKGROUNDS',backgrounds)
-                currentPlayerId.current = players.find(p => p.userId === user.id).id
-                if (!currentPlayerId.current) {
-                    throw new Error('не найден текущий игрок')
-                }
+                console.log('PLAYERS',fetchedPlayers)
+                console.log('USER', user)
+
+                currentPlayerId.current = fetchedPlayers.find(p => { console.log(user, p); return  p.userId === user?.id})?.id
+                // if (!currentPlayerId.current) {
+                //     throw new Error('не найден текущий игрок')
+                // }
                 setCurrentLocation(locs[0])
             }
 
 
             setGameData()
-        }, []
+        }, [user] // в тестовых целях
     )
 
     return {
@@ -139,6 +140,7 @@ export function useInitGame() {
         gamePhase,
         setGamePhase,
         lastReceivedChatAction: lastReceivedMessage,
-        currentPlayerId
+        currentPlayerId,
+        session
     }
 }

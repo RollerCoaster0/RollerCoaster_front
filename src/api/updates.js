@@ -13,9 +13,19 @@ export async function fetchEvent() {
 
 export async function fetchChatMessages(sessionId) {
     const token = getCredentials()?.token
-    return await fetch(devConsts.api + `/chats?${new URLSearchParams({sessionId})}`, {
+    return await fetch(devConsts.api + `/messages?${new URLSearchParams({sessionId, count: 50})}`, {
         headers: {
             'Authorization': `Bearer ${token}`,
         }
     })
+}
+
+export async function sendTextMessage(text, sessionId) {
+    const token = getCredentials()?.token
+    return await fetch(devConsts.api + '/messages/sendText?' + new URLSearchParams({text, sessionId}), {
+        method: 'POST',
+        headers:  {
+            'Authorization': `Bearer ${token}`,
+        }
+    } )
 }
