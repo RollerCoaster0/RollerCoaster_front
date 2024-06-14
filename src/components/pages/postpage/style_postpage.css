@@ -1,5 +1,7 @@
 .post-page{
+    background: white;
     display: flex;
+    border-radius: 30px;
     flex-direction: column;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 605px 795px 685px 312px;
@@ -8,7 +10,8 @@
     align-items: center;
 
     margin-top: 50px;
-    width: 800px;
+    width: 30%;
+    height: 500px;
     margin-left: auto;
     margin-right: auto;
 }
