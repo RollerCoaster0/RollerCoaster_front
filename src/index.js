@@ -10,6 +10,7 @@ import LogInPage from "./components/pages/authentication/LogInPage";
 import CreateGamePage from "./components/pages/creategame/CreateGamePage";
 import Postpage from "./components/pages/postpage/Postpage";
 import PageLobby from "./components/pages/lobbypage/PageLobby";
+import UserContextProvider from "./contexts/UserContext";
 
 
 const router = createBrowserRouter([
@@ -18,31 +19,31 @@ const router = createBrowserRouter([
         element: <PageLayout/>,
         children: [
             {
-             path: '',
-             element: <HomePage/>
+                path: '',
+                element: <HomePage/>
             },
             {
                 path: 'game/:sessionId',
                 element: <GamePage/>
             },
             {
-                path:'registration',
-                element:<RegistrationPage/>
+                path: 'registration',
+                element: <RegistrationPage/>
             },
             {
-                path:'authentication',
+                path: 'authentication',
                 element: <LogInPage/>
             },
             {
-                path:'creategame',
+                path: 'creategame',
                 element: <CreateGamePage/>
             },
             {
-                path:'postpage',
+                path: 'postpage',
                 element: <Postpage/>
             },
             {
-                path:'PageLobby',
+                path: 'PageLobby',
                 element: <PageLobby/>
             },
         ]
@@ -52,8 +53,10 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-      <RouterProvider router={router}/>
-  </React.StrictMode>
+    <React.StrictMode>
+        <UserContextProvider>
+            <RouterProvider router={router}/>
+        </UserContextProvider>
+    </React.StrictMode>
 );
 

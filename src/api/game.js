@@ -32,6 +32,7 @@ export async function snedUseSkill(id, skillId) {
 }
 
 
+
 export async function tryAction(promise, prevStates, newStates, stateSetters) {
     try {
         stateSetters.forEach((setter, i) => setter(newStates[i]))

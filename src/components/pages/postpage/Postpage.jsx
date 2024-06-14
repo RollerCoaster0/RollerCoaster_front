@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Button, Modal, TextField} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import './style_postpage.css'
+import {fetchSessionInfo} from "../../../api/game";
 
 const Postpage = () => {
     const navigate = useNavigate();
@@ -11,6 +12,13 @@ const Postpage = () => {
     const handleOpenModal = () => {
         setOpenModal(true);
     };
+
+
+    const handleGameId = async (id) => {
+        const response = await fetchSessionInfo(id)
+        
+
+    }
 
     const handleCloseModal = () => {
         setOpenModal(false);
