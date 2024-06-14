@@ -1,35 +1,34 @@
 import React, {useContext} from 'react';
 import '../gamespace.css'
-import {GameContext} from "../../../contexts/GameContext";
+import {GameContext, gamePhaseType} from "../../../contexts/GameContext";
 
-const Character = ({id, avatar, attributes}) => {
-    const {field, fieldParams, setPickedCharacter} = useContext(GameContext);
-    const position = getPosition(field, fieldParams, id);
+const Character = ({id, name, avatar, pos, attributes}) => {
+    const {cellSize,  currentPlayerId, setGamePhase} = useContext(GameContext)
+    const position = calcPxPosition(cellSize, pos)
+    console.log(position)
+    const handleClick = (e) => {
+        setGamePhase(gamePhaseType.MAKING_MOVE)
+        e.stopPropagation()
+    }
+
+    //TODO: добавить обработку клика в зависимости от состояния игры
     return (
         <div className="character"
              style={{
                  transform: `translate(${position.x}px, ${position.y}px)`,
-                 width: fieldParams?.cellSize,
-                 height: fieldParams?.cellSize,
-                 padding: fieldParams?.cellSize * 0.1
-             }} onClick={(e) => {setPickedCharacter(id); e.stopPropagation();}}>
-            <img src={avatar} style={{width: fieldParams?.cellSize * 0.8, height: fieldParams?.cellSize * 0.8}}
-                 alt={'aboba'}/>
-
+                 width: cellSize,
+                 height: cellSize,
+                 padding: cellSize * 0.1
+             }} onClick={e => handleClick(e)}>
+            <img src={avatar} style={{width: cellSize * 0.8, height: cellSize * 0.8}}
+                 alt={name}/>
         </div>
     );
 };
 
 
-function getPosition(field, fieldParams, id) {
-    for (let i = 0; i < field?.length; i++) {
-        for (let j = 0; j < field[i].length; j++) {
-            if (field[i][j] === id) {
-                return {x: j * fieldParams?.cellSize, y: i * fieldParams?.cellSize}
-            }
-        }
-    }
-    return null;
+function calcPxPosition(cellSize, pos) {
+    return {x: pos.x * cellSize, y: pos.y * cellSize}
 }
 
 export default Character;

@@ -6,3 +6,4 @@ export async function register(login, password) {
         method: 'POST',
     });
 }
+

@@ -31,7 +31,7 @@
 .content__grid-item3 {
     width: 648px;
     height: 795px;
-    justify-self: start;
+    justify-self: flex-start;
 }
 
 .content__grid-item4 {

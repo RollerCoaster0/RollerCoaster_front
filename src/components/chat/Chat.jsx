@@ -1,187 +1,160 @@
 import './Chat.css'
-import {Button, Drawer, TextField} from "@mui/material";
-import React, {useState} from "react";
+import {Button, Drawer, drawerClasses, Paper} from "@mui/material";
+import React, {useContext, useEffect, useState} from "react";
 import MessageList from "./MessageList";
-import ImgList from "./ImgList";
 import ChatIcon from '@mui/icons-material/Chat';
+import ChatInput from "./ChatInput";
+import img from "./img/img.png";
+import img1 from "./img/img.png";
+import {GameContext} from "../../contexts/GameContext";
+import {fetchChatMessages} from "../../api/updates";
 
+export const messageType = {
+    REGULAR_MESSAGE: 0,
+    DICE_ROLL: 1,
+    SKILL_USED: 2,
+}
 
 const Chat = () => {
-    const [newMessage, setNewMessage] = useState(""); // Состояние для нового сообщения
-    const [messages, setMessages] = useState([]);
-    const handleMessageChange = (e) => {
-        setNewMessage(e.target.value);
-    };
-    const addMessage = () => {
-        if (newMessage.trim() !== "") {
-            setMessages([...messages, newMessage]);
-            setNewMessage("");
-        }
-
-    };
+    const user = {id: 0, name: 'user', avatar: img}
+    const currentUser = {id: 1, name: 'Mark', avatar: img1}
     const [chatOpened, setChatOpened] = useState(false);
-    // const [newPictures, setNewPictures] = useState("");
-    // const [pictures, setImg] = useState([img, img1]);
-    // const addImg = () => {
-    //     if(newPictures.trim() !== ""){
-    //     setImg([img, img1]);
-    //     setNewPictures("");}
-    // }
-    function randNum(count) {
-        var i = 0;
-        for (i <= count; i++;) {
-            var numb = [];
-            numb[i] = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
+    const {lastReceivedMessage} = useContext(GameContext)
+    const [messages, setMessages] = useState([
+        {
+            "id": 0,
+            "sessionId": 0,
+            "rollMessage": {
+                "senderPlayer": {
+                    "id": 0,
+                    "userId": 0,
+                    "sessionId": 0,
+                    "name": "string",
+                    "level": 0,
+                    "healthPoints": 0,
+                    "currentXPosition": 0,
+                    "currentYPosition": 0,
+                    "characterClassId": 0
+                },
+                "senderANPC": null,
+                "result": {
+                    "result": 0,
+                    "die": 0
+                }
+            },
+            "textMessage": null,
+            "usedSkillMessage": null,
+
+        },
+        {
+            "id": 0,
+            "sessionId": 0,
+            "rollMessage" : null,
+            "textMessage": {
+                "senderPlayer": {
+                    "id": 0,
+                    "userId": 0,
+                    "sessionId": 0,
+                    "name": "string",
+                    "level": 0,
+                    "healthPoints": 0,
+                    "currentXPosition": 0,
+                    "currentYPosition": 0,
+                    "characterClassId": 0
+                },
+                "text": "string",
+                "time": "2024-06-02T18:40:20.199Z"
+            },
+            "usedSkillMessage":null
         }
-        return numb;
-    }
+    ])
+    useEffect(() => {
+        if (lastReceivedMessage) {
+            setMessages(messages => [...messages, lastReceivedMessage])
+        }
+    }, [lastReceivedMessage]);
 
-    var num;
+    useEffect(() => {
+        const sessionId = 0
+        const setChatMessages = async () => {
+            const response = await fetchChatMessages(sessionId)
+            if (!response.ok) {
+                //TODO: handle error
+            } else {
+                const messages = await response.json()
+                setMessages(messages)
+            }
+        }
+        setChatMessages()
+    }, []);
 
-    const [numbers, setNum] = useState([])
-    const [newNumbers, setNewNumbers] = useState([]);
-
-    const addNum = () => {
-        setNum([...numbers, randNum()]);
-        setNewNumbers([]);
-    }
-    const handleNumberChange = (e) => {
-        setNewNumbers(e.target.value);
-    };
     return (
         <>
-            <ChatIcon sx={{
-                position: 'fixed',
-                width: '60px',
-                height: '60px',
-                right: '20px',
-                top: '70px',
-                zIndex: 5000
-            }} onClick={() => setChatOpened(!chatOpened)}>Open chat</ChatIcon>
-            <Drawer open={chatOpened} onClose={() => setChatOpened(false)} anchor={'right'}>
-                <main className="chat">
-                    <div className="chat__window">
-
-                        <div className="chat__window__input>">
-
-                            <div className="chat__window__input__input">
-                                <div className="chat__window__input__input__wrapper">
-                                    <TextField id="outlined-basic" variant="standard"
-                                               InputProps={{disableUnderline: true}}
-                                               value={newMessage}
-                                               onChange={(e) => handleMessageChange(e)}
-                                               sx={{
-                                                   width: "550px",
-                                                   height: "30px",
-                                                   alignSelf: "center",
-                                               }}/></div>
-                                <div className="chat__window__input__input__button">
-                                    <Button variant="contained" color="success"
-                                            onClick={addMessage}
-                                            sx={{
-                                                backgroundColor: "darkolivegreen",
-                                                width: "100px",
-                                                height: "30px",
-                                                fontSize: "10px"
-                                            }}>от своего имени </Button>
-                                    <Button variant="contained" color="success"
-                                            onClick={addMessage}
-                                            sx={{
-                                                backgroundColor: "darkolivegreen",
-                                                width: "100px",
-                                                height: "30px",
-                                                fontSize: "10px"
-                                            }}>от имени персонажа </Button>
-                                </div>
-                            </div>
-                            <div className="chat__window__footer">
-                                <TextField variant="standard" id="outlined-basic" InputProps={{disableUnderline: true}}
-                                           value={randNum()}
-                                           onChange={(e) => handleNumberChange(e)}
-
-                                           sx={{
-                                               width: "25px",
-                                               height: "30px",
-                                               alignSelf: "center",
-                                               backgroundColor: "white"
-
-                                           }}/>
-                                <Button variant="outlined"
-                                        onClick={addNum}
-                                        sx={[{
-                                            backgroundColor: "#993e3e",
-                                            height: "30px",
-                                            color: "black",
-                                            borderColor: "transparent"
-
-                                        },
-                                            {
-                                                '&:hover': {
-                                                    color: 'black',
-                                                    backgroundColor: "rgb(161,8,8)",
-                                                    borderColor: "transparent"
-                                                },
-                                            },
-                                        ]}>
-                                    Бросить D20
-                                </Button>
-                                <Button variant="outlined" color="error"
-                                        sx={[{
-                                            backgroundColor: "#993e3e",
-                                            height: "30px",
-                                            color: "black",
-                                            borderColor: "transparent"
-
-                                        },
-                                            {
-                                                '&:hover': {
-                                                    color: 'black',
-                                                    backgroundColor: "rgb(161,8,8)",
-                                                    borderColor: "transparent"
-                                                },
-                                            },
-                                        ]}>
-                                    Бросить D6
-                                </Button>
-                                <Button variant="outlined" color="error"
-                                        sx={[{
-                                            backgroundColor: "#993e3e",
-                                            height: "30px",
-                                            color: "black",
-                                            borderColor: "transparent"
-
-                                        },
-                                            {
-                                                '&:hover': {
-                                                    color: 'black',
-                                                    backgroundColor: "rgb(161,8,8)",
-                                                    borderColor: "transparent"
-                                                },
-                                            },
-                                        ]}>
-                                    Бросить D4
-                                </Button>
-                            </div>
+            <ChatIcon sx={chatIconStyle} onClick={() => setChatOpened(!chatOpened)}>Open chat</ChatIcon>
+            <Drawer open={chatOpened} onClose={() => setChatOpened(false)} anchor={'left'}>
+                <div className="chat-window">
+                    <Paper className='chat-window__chat-field'>
+                        <MessageList messages={messages}/>
+                    </Paper>
+                    <div className='chat-window__bottom-panel'>
+                        <div className='chat-window__bottom-panel__input__panel'>
+                            <ChatInput messages={messages} setMessages={setMessages}/>
                         </div>
-
-                        <div className="chat__window__chat_field" style={{
-                            position: "relative"
-                        }}>
-                            <div style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "10px"
-                            }}>
-                                <MessageList messages={messages}></MessageList>
-                                <ImgList number={numbers}></ImgList>
-                            </div>
+                        <div className='chat-window__bottom-panel__dice-panel'>
+                            <Button sx={throwDiceButton}>Бросить D20</Button>
+                            <Button sx={throwDiceButton}>Бросить D6</Button>
+                            <Button sx={throwDiceButton}>Бросить D4</Button>
                         </div>
-
                     </div>
-
-                </main>
+                </div>
             </Drawer>
         </>
     );
 }
+
+
+const throwDiceButton = {
+    backgroundColor: '#993E3E',
+    borderRadius: '5px',
+    height: '40px',
+    width: '120px',
+    color: 'black',
+    fontSize: '12px',
+    '&:hover': {
+        backgroundColor: '#993E3E',
+    },
+
+}
+const chatIconStyle = {
+    color: 'white',
+    width: '60px',
+    height: '60px',
+    zIndex: 1000,
+    transition: 'transform 0.2s ease',
+    '&:hover': {
+        transform: 'scale(1.3, 1.3)'
+    }
+}
+
+
+function chatActionToMessage(chatAction) {
+    let sender, message
+    if (chatAction.roll) {
+        if (chatAction.roll.activeNonPlayableCharacter) {
+            const anpc = chatAction.roll.activeNonPlayableCharacter
+            sender = {id: anpc.nonPlayableCharacterId, name: 'NPC', avatar: null}
+        } else {
+            const player = chatAction.roll.player
+            sender = {id: chatAction.player.id, name: player.name}
+        }
+        return {id: -1, sender, time: null, data: chatAction.roll.result}
+    } else if (chatAction.newMessage) {
+        return {
+            id: chatAction.newMessage.messageId, text: chatAction.newMessage.text, time: chatAction.newMessage.time,
+            sender: {id: chatAction.newMessage.player.id, name: chatAction.newMessage.player?.name}
+        }
+    }
+    return null
+}
+
 export default Chat;

@@ -4,7 +4,6 @@ import {useNavigate} from "react-router-dom";
 import UserProfile from "./usermenu/UserProfile";
 const Navbar = () => {
     const navigate = useNavigate();
-    const menuItems = ['Log out'];
     return (
         <>
             <nav className='navbar'>
@@ -15,7 +14,7 @@ const Navbar = () => {
                         <a className="navbar__links__item">Join a game</a>
                         <a className="navbar__links__item">Community</a>
                     </div>
-                    <UserProfile items={menuItems}/>
+                    <UserProfile />
                 </div>
             </nav>
         </>

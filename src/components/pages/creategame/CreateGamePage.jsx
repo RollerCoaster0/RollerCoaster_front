@@ -15,7 +15,6 @@ const CreateGamePage = () => {
     const [gameInfo, setGameInfo] = useState({
         name: 'test', description: 'test', preview: null
     });
-    console.log(gameInfo)
     const [locations, setLocations] = useState([]);
     const [items, setItems] = useState([]);
     const [quests, setQuests] = useState([]);
@@ -65,7 +64,6 @@ const CreateGamePage = () => {
                 <StageTabs stages={stages} currentStageIndex={currentStageIndex}
                            setCurrentStageIndex={setCurrentStageIndex}/>
                 {stages.map((stage, ind) => currentStageIndex === ind ? stage.form : null)}
-
             </main>
             <PrevStageButton setCurrentStageIndex={setCurrentStageIndex} currentStageIndex={currentStageIndex}/>
             <NextStageButton setCurrentStageIndex={setCurrentStageIndex} currentStageIndex={currentStageIndex}

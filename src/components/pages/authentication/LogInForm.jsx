@@ -1,42 +1,40 @@
 import './loginform.css'
 import React, {useContext, useRef, useState} from "react";
+import CircularProgress from '@mui/material/CircularProgress';
 import {queryResult, UserContext} from "../../../contexts/UserContext";
 import {useNavigate} from "react-router-dom";
-import Loader from "../../common/loader/Loader";
 import AuthResultMessage from "./AuthResultMessage";
+
+
+const logInPhaseValue = {
+    ACCESSIBLE_TO_LOGIN: 0,
+    PENDING: 1,
+    RESULT_SHOWN: 2,
+}
 
 const LogInForm = () => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
-    const {user, logIn} = useContext(UserContext);
-    const result = useRef(null);
+    const {logIn} = useContext(UserContext);
+    const result = useRef(null)
     const redirect = useNavigate();
-
-    const [isAccessibleToLogIn, setIsAccessibleToLogIn] = useState(true);
-    const [isPending, setIsPending] = useState(false);
-    const [authResultShown, setAuthResultShown] = useState(false);
+    const [loginPhase, setLoginPhase] = useState(logInPhaseValue.ACCESSIBLE_TO_LOGIN)
 
     const showAuthResult = () => {
-        setAuthResultShown(true);
         setTimeout(() => {
-            setAuthResultShown(false);
+            setLoginPhase(logInPhaseValue.ACCESSIBLE_TO_LOGIN)
             if (result.current === queryResult.OK) {
-                redirect('/');
+                redirect('/')
             } else {
-                setAuthResultShown(false);
-                setIsAccessibleToLogIn(true);
-                setPassword('');
+                setPassword('')
             }
-        }, 2000);
+        }, 2000)
     }
 
     const onLogin = async () => {
-        setIsAccessibleToLogIn(false);
-        setIsPending(true);
-
+        setLoginPhase(logInPhaseValue.PENDING)
         result.current = await logIn(login, password);
-        setIsPending(false);
-
+        setLoginPhase(logInPhaseValue.RESULT_SHOWN)
         showAuthResult();
     }
 
@@ -50,11 +48,11 @@ const LogInForm = () => {
                     <input className='auth-input' type="password" placeholder="password" value={password}
                            onChange={e => setPassword(e.target.value)}/>
                 </div>
-                <Loader isActive={isPending}/>
                 <button className="auth-button"
-                        onClick={onLogin} disabled={!isAccessibleToLogIn}>логин
+                        onClick={onLogin} disabled={loginPhase !== logInPhaseValue.ACCESSIBLE_TO_LOGIN}>логин
                 </button>
-                {authResultShown ? <AuthResultMessage result={result.current}/> : null}
+                {loginPhase === logInPhaseValue.PENDING ?  <CircularProgress sx={{color: 'darkolivegreen'}}/> : null}
+                {loginPhase === logInPhaseValue.RESULT_SHOWN ? <AuthResultMessage result={result.current}/> : null}
             </div>
         </div>
     );

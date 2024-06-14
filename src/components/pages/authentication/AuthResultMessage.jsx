@@ -1,27 +1,27 @@
 import React from 'react';
 import {queryResult} from "../../../contexts/UserContext";
+import {Alert} from "@mui/material";
+import CheckIcon from '@mui/icons-material/Check';
 
 const AuthResultMessage = ({result}) => {
-    console.log(result)
     let message;
     switch (result) {
         case queryResult.OK:
-            message = <div style={{border: '5px green', width: 100, height: 40}}> Success!</div>
-            break;
+            message = <Alert icon={<CheckIcon fontSize="inherit"/>} severity="success">Success!</Alert>
+            break
         case queryResult.NOT_FOUND:
-            message = <div style={{border: '5px red', width: 100, height: 40}}> User not found</div>
-            break;
+           message = <Alert severity="error">Either login or password is incorrect</Alert>
+            break
         case queryResult.SERVER_ERROR:
-            message = <div style={{border: '5px red', width: 100, height: 40}}>Something went wrong</div>
-            break;
-        case queryResult.CLIENT_ERROR:
-            message = <div style={{border: '5px red', width: 100, height: 40}}>Something went wrong</div>
-            break;
+            message = <Alert severity="error">Something went wrong. Try again!</Alert>
+            break
         default:
-            message = <div style={{border: '5px green', width: 100, height: 40}}> Success!</div>
+            message = <Alert severity="error">Something went wrong. Try again!</Alert>
     }
     return (
-        message
+        <>
+            {message}
+        </>
     );
 };
 

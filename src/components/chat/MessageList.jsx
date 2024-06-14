@@ -1,33 +1,35 @@
-import img from "./img/img.png"
+import img1 from "./img/img.png"
 
-const MessageList = ({messages}) => (
-    <ul style={{
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        gap: "10px",
-        maxWidth: "280px",
-        alignItems: "end",
-        listStyle: "none",
-        left:"0"
+import React from 'react';
+import ChatMessage from "./ChatMessage";
+import DiceRollChatMessage from "./DiceRollChatMessage";
+import TextMessage from "./TextMessage";
 
-    }}>
-        {messages.map((message, index) => (
-            <div className="message">
-                <div className="message_field" key={index}>
-                    <li style={{
-                        maxWidth: "280px",
-                        position:"relative",
-                        left:"0"
-                    }}>{message}</li>
-                </div>
+const MessageList = ({messages}) => {
+    const currentPlayer = {id: 1, name: 'Mark', avatar: img1}
+    console.log(messages)
+    return (
+        <ul className='chat-window__messages-list'>
+            {messages.map(m => {
+                    if (m.rollMessage) {
+                        let senderPlayer = m.rollMessage.senderPlayer
+                        let senderANPC = m.rollMessage.senderANPC
+                        return <ChatMessage time={null} sender={senderPlayer ?? senderANPC}
+                                            isOwn={senderPlayer?.id === currentPlayer.id}>
+                            <DiceRollChatMessage result={m.rollMessage.result}/>
+                        </ChatMessage>
+                    } else if (m.textMessage) {
+                        return <ChatMessage time={m.textMessage.time} sender={m.textMessage.senderPlayer}
+                                            isOwn={m.textMessage.senderPlayer.id === currentPlayer.id}>
+                            <TextMessage text={m.textMessage.text}/>
+                        </ChatMessage>
+                    }
+                    //....
+                }
+            )
+            }
+        </ul>
+    );
+};
 
-                <div>
-                    <img className="message_field__avatar"
-                         src={img} /*onClick={() => navigate('/')} style={{cursor: 'pointer'}*/ alt="avatar"/>
-                </div>
-            </div>
-        ))}
-    </ul>
-);
 export default MessageList;
