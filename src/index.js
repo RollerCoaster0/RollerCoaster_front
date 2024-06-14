@@ -11,6 +11,7 @@ import CreateGamePage from "./components/pages/creategame/CreateGamePage";
 import Postpage from "./components/pages/postpage/Postpage";
 import Character from "./components/character/Character";
 import UserContextProvider from "./contexts/UserContext";
+import PageLobby from "./components/pages/lobbypage/PageLobby";
 
 
 const router = createBrowserRouter([
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
                 path: 'postpage',
                 element: <Postpage/>
             },
+            {
+                path:"lobby",
+                element:<PageLobby/>
+            }
         ]
     },
     {

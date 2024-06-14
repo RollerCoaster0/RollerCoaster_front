@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import img from "./img/x.jpg"
 import {useNavigate} from "react-router-dom";
+import {devConsts} from "../../../util/util";
+import {getCredentials, queryResult, storeCredentials} from "../../../contexts/UserContext";
 
 const PageLobby = () => {
     const [gameTitle, setGameTitle] = useState('');
@@ -8,39 +10,51 @@ const PageLobby = () => {
     const [users, setUsers] = useState([]);
     const [gameId, setGameId] = useState('');
     const navigate = useNavigate();
+    const [game, setGames] = useState('')
 
+    const getId = async () => {
+        const token = getCredentials()?.token;
+        try {
+            const response = await fetch(devConsts.api + '/sessions?', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            }
+            );
+            if(response.ok){
+                const session = await response.json()
+                setGameId(session.id)
+            }
+        }
+        catch (e){
 
-    // Функция для генерации случайного ID
-    const generateId = () => {
+        }
+    }
 
-        return Math.floor(Math.random() * 1000000);
-    };
+    const getGame = async () => {
+        const token = getCredentials()?.token;
+        try {
+            const response = await fetch(devConsts.api + '/games?' + gameId, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                }
+            );
+            if(response.ok){
+                const get_game = await response.json()
+                setGames(get_game)
+            }
+        }
+        catch (e){
 
-    useEffect(() => {
-        // Генерация случайного ID при загрузке компонента
-        setGameId(generateId());
+        }
+    }
 
-        // Загрузка данных игры из бекенда
-        fetch('/api/game')
-            .then(response => response.json())
-            .then(data => {
-                setGameTitle(data.title);
-                setGameDescription(data.description);
-            })
-            .catch(error => {
-                console.error('Error fetching game data:', error);
-            });
+getId()
+    getGame()
 
-        // Загрузка списка пользователей из бекенда
-        fetch('/api/users')
-            .then(response => response.json())
-            .then(data => {
-                setUsers(data);
-            })
-            .catch(error => {
-                console.error('Error fetching users:', error);
-            });
-    }, []);
 
     return (
         <div style={{
@@ -63,7 +77,7 @@ const PageLobby = () => {
                 padding: '10px',
                 textAlign: 'center',
                 width: '80%',
-            }}>Красота{gameTitle}</h1>
+            }}>{gameTitle}</h1>
             <img
                 src={img} // Замените на настоящий URL изображения
                 alt="Ошибка соединения позвоните на номер 8 950 715 54 47"
@@ -81,66 +95,8 @@ const PageLobby = () => {
                 width: '80%',
             }}>
                 <h2 style={{textAlign: "center", fontFamily: 'Kelly Slab, serif',}}>Описание игры</h2>
-                <p> Ингредиенты
-                    Зерновые:
-                    0.7 кг (4.9%) | Курский солод - Жженый / Black (Россия) цвет = 535 L°, экстракт = 70 % | Внесение в
-                    конце затирания.
-                    10 кг (69.9%) | Курский солод - Венский / Vienna (Россия) цвет = 3.5 L°, экстракт = 81 % | Внесение
-                    в начале затирания.
-                    1 кг (7.0%) | Курский солод - Карамельный 150 (Россия) цвет = 57 L°, экстракт = 75 % | Внесение в
-                    начале затирания.
-                    1 кг (7.0%) | Курский солод - Мюнхенский тип 2 (Россия) цвет = 8.5 L°, экстракт = 78 % | Внесение в
-                    начале затирания.
-                    1 кг (7.0%) | Dingemans - Жженый / Mroost 900 (Бельгия) цвет = 340 L°, экстракт = 70 % | Внесение в
-                    начале затирания.
-                    Всего: 13.7 кг (95.8%)
-
-                    Сахаросодержащие:
-                    0.6 кг (4.2%) | Лактоза цвет = 0.5 L°, экстракт = 90 % | Внесение в котел, кипятить 30 мин.
-                    Всего: 0.6 кг (4.2%)
-
-                    Хмель:
-                    50 гр (11.9 IBU) | Каскад / Cascade (США) - в гранулах, a-к.=5.7% | Внесение в котел, кипятить 60
-                    мин.
-                    42 гр (4.7 IBU) | Ранний Московский (Россия) - в гранулах, a-к.=3.3% | Внесение в котел, кипятить 30
-                    мин.
-                    50 гр (3.7 IBU) | Жатецкий / Saaz (Чехия) - в гранулах, a-к.=3.5% | Внесение в котел, кипятить 10
-                    мин.
-                    Всего: 142 гр (20.3 IBUs)
-
-                    Дрожжи:
-                    Mangrove Jacks - Бельгийский эль M41 | Брожение: 23 °С, Аттенюация: 0 %, Флокуляция: средняя |
-                    Внесение на главное брожение.
-                    Для брожения рекомендуется 594 млрд. дрожжевых клеток: 5 свежих пакетов или флаконов жидких дрожжей
-                    или 29 грамм сухих дрожжей.
-
-                    Параметры затирания
-                    Метод затирания: Зерновой (настойное затирание)
-                    Температурные паузы:
-                    Мальтозная пауза (Прямой нагрев): 63°С - 20 мин.
-                    Осахаривание (Прямой нагрев): 67°С - 60 мин.
-                    Декстриновая пауза (Прямой нагрев): 72°С - 20 мин.
-                    Мэш аут (Прямой нагрев): 78°С - 5 мин.
-                    Потребность в воде:
-                    Заторная вода: 50.7 л (гидромодуль 3.7 л/кг) | Промывная вода: 32.6 л (абсорбция зерна 0.9 л/кг) |
-                    Всего воды: 83.3 л
-
-                    Параметры варки
-                    Эффективность варки: 72 %
-                    Время кипячения: 90 мин | Вирпул/отстой после кипячения: 0 мин | Охлаждение: 30 мин
-                    Размер партии после кипячения: 60 л. | Испарение: 15.5 % | Размер партии перед кипячением: 71 л.
-                    Плотность сусла перед кипячением: Доступно только для пользователей
-
-                    Параметры карбонизации
-                    Объем партии после брожения: 54 л. | Температура карбонизации: 23 °С
-                    Праймер:
-                    Карбонизация давлением из баллона давление: psi = 29 или bar = 2 | Итоговый объем СO2 = 2.39 (4.78
-                    г/л)
-
-                    Дополнительные параметры
-                    Энергетическая ценность: Доступно только для пользователей
-                    Оценочная стоимость рецепта: Доступно только для пользователей
-                    {gameDescription}
+                <p>
+                    {game.description}
                 </p>
             </div>
             <div style={{
