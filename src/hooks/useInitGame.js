@@ -1,8 +1,8 @@
 import {useContext, useEffect, useRef, useState} from "react";
-import {devConsts, getStaticLocations, getStaticPlayers} from "../util/util";
+import {devConsts,} from "../util/util";
 import {gamePhaseType} from "../contexts/GameContext";
 import red_player from '../devassets/red_player.png'
-import {useLongPoll, useLongPolling} from "./useLongPolling";
+import {useLongPoll,} from "./useLongPolling";
 import {fetchClasses, fetchGame, fetchLocationsBackground, fetchPlayers, fetchSessionInfo} from "../api/game";
 import {UserContext} from "../contexts/UserContext";
 
