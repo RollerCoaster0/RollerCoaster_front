@@ -29,8 +29,8 @@ const router = createBrowserRouter([
             },
             {
                 path: 'game/:sessionId',
-                loader: async ({sessionId}) => {
-                    const response = await fetchSessionInfo(sessionId);
+                loader: async ({params}) => {
+                    const response = await fetchSessionInfo(params.sessionId);
                     if (response.status === 404) {
                         throw new Error('404 Invalid session id')
                     }
@@ -56,7 +56,15 @@ const router = createBrowserRouter([
             },
             {
                 path: 'PageLobby',
-                element: <PageLobby/>
+                element: <PageLobby/>,
+                loader: async ({params}) => {
+                    console.log(params)
+                    const response = await fetchSessionInfo(params.sessionId);
+                    if (response.status === 404) {
+                        throw new Error('404 Invalid session id')
+                    }
+                    return await response.json()
+                },
             },
         ]
     },
