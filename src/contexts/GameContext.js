@@ -22,8 +22,8 @@ export const eventUpdateType = {
     SESSION_STATUS_CHANGED: 5
 }
 
-export const GameContextProvider = ({children}) => {
-    const gameData = useInitGame()
+export const GameContextProvider = ({children, session}) => {
+    const gameData = useInitGame(session)
 
     return <GameContext.Provider value={gameData}>
         {children}

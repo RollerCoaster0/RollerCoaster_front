@@ -1,22 +1,30 @@
-import React, {useState} from 'react';
-import {Button, Modal, TextField} from "@mui/material";
+import React, {useContext, useState} from 'react';
+import {Alert, Button, Modal, TextField} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import './style_postpage.css'
 import {fetchSessionInfo} from "../../../api/game";
+import {AlertContext} from "../../../contexts/AlertContext";
 
 const Postpage = () => {
     const navigate = useNavigate();
     const [openModal, setOpenModal] = useState(false);
     const [IDgame, setIDgame] = useState("");
-
+    const {showAlert} = useContext(AlertContext)
+    const [errorShown, setErrorShown] = useState(false)
     const handleOpenModal = () => {
         setOpenModal(true);
     };
 
-
     const handleGameId = async (id) => {
         const response = await fetchSessionInfo(id)
-        
+        if (response.ok) {
+            navigate(`/game/${id}`)
+        } else {
+            setErrorShown(true)
+            setOpenModal(false)
+            setIDgame('')
+            setTimeout(() => setErrorShown(false), 2000)
+        }
 
     }
 
@@ -26,6 +34,7 @@ const Postpage = () => {
     const handleJoinGame = () => {
         // Добавить логику для присоединения игрока к игре с использованием IDgame
     };
+    console.log(errorShown)
     return (
         <div className="post-page">
 
@@ -72,14 +81,16 @@ const Postpage = () => {
                         <TextField
                             variant="outlined"
                             value={IDgame}
-                            onChange={e => setIDgame(e.target.value) }
+                            onChange={e => setIDgame(e.target.value)}
                         />
-                        <Button onClick={() => navigate(`/game/${IDgame}`)} variant="contained" color="primary" >
+                        <Button onClick={() => handleGameId(IDgame)} variant="contained" color="primary">
                             Присоединиться к игре
                         </Button>
-
                     </div>
-                </Modal>
+               </Modal>
+                {errorShown ?
+                    <Alert severity={'error'}>Invalid Id</Alert> : null }
+
                 {/*<div className="list_postpage__list-item">*/}
                 {/*    <img src="./" alt="placeholder"/>*/}
                 {/*    <p>Игра 1</p>*/}

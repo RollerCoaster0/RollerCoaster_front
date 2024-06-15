@@ -1,5 +1,5 @@
 import './Chat.css'
-import {Button, Drawer, drawerClasses, Paper} from "@mui/material";
+import {Button, Drawer, Paper} from "@mui/material";
 import React, {useContext, useEffect, useState} from "react";
 import MessageList from "./MessageList";
 import ChatIcon from '@mui/icons-material/Chat';
@@ -98,7 +98,7 @@ const Chat = () => {
                     </Paper>
                     <div className='chat-window__bottom-panel'>
                         <div className='chat-window__bottom-panel__input__panel'>
-                            <ChatInput messages={messages} sessionId={session.id}/>
+                            <ChatInput messages={messages} sessionId={session?.id}/>
                         </div>
                         <div className='chat-window__bottom-panel__dice-panel'>
                             <Button sx={throwDiceButton}>Бросить D20</Button>

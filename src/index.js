@@ -11,12 +11,17 @@ import CreateGamePage from "./components/pages/creategame/CreateGamePage";
 import Postpage from "./components/pages/postpage/Postpage";
 import PageLobby from "./components/pages/lobbypage/PageLobby";
 import UserContextProvider from "./contexts/UserContext";
+import {AlertContext, AlertContextProvider} from "./contexts/AlertContext";
+import AlertMessage from "./components/common/AlertMessage";
+import {fetchSessionInfo} from "./api/game";
+import Error from "./components/error/Error";
 
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <PageLayout/>,
+        errorElement: <Error/>,
         children: [
             {
                 path: '',
@@ -24,6 +29,13 @@ const router = createBrowserRouter([
             },
             {
                 path: 'game/:sessionId',
+                loader: async ({sessionId}) => {
+                    const response = await fetchSessionInfo(sessionId);
+                    if (response.status === 404) {
+                        throw new Error('404 Invalid session id')
+                    }
+                    return await response.json()
+                },
                 element: <GamePage/>
             },
             {
@@ -54,9 +66,12 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <UserContextProvider>
-            <RouterProvider router={router}/>
-        </UserContextProvider>
+        <AlertContextProvider>
+            <AlertMessage/>
+            <UserContextProvider>
+                <RouterProvider router={router}/>
+            </UserContextProvider>
+        </AlertContextProvider>
     </React.StrictMode>
 );
 

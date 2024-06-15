@@ -6,7 +6,7 @@ import {useLongPoll,} from "./useLongPolling";
 import {fetchClasses, fetchGame, fetchLocationsBackground, fetchPlayers, fetchSessionInfo} from "../api/game";
 import {UserContext} from "../contexts/UserContext";
 
-export function useInitGame({session}) {
+export function useInitGame({session}) { //session prop
     const [players, setPlayers] = useState([])
     const currentPlayerId = useRef();
     const [locations, setLocations] = useState([])
@@ -71,13 +71,20 @@ export function useInitGame({session}) {
 
     useEffect(() => {
             const setGameData = async () => {
-                let response = await fetchGame(session.gameId)
+                let response = await fetchSessionInfo(session.id)
+                if (!response.ok) {
+                    //TODO: handle
+                    console.log('FAILED TO FETCH SESSION!!!', response)
+                    return
+                }
+                let data = await response.json()
+                response = await fetchGame(data.gameId)
                 if (!response.ok) {
                     //TODO: handle
                     console.log('FAILED TO FETCH GAME', response)
                     return
                 }
-                let data = await response.json()
+                data = await response.json()
                 let fetchedPlayers = await fetchPlayers(session.id)
                 let classes = await fetchClasses(fetchedPlayers.map(p => p.characterClassId))
                 let backgrounds = await fetchLocationsBackground(data.locations.map(l => l.mapFilePath))

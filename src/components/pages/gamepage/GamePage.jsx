@@ -1,16 +1,16 @@
 import React from 'react';
 import {GameContextProvider} from "../../../contexts/GameContext";
 import Game from "../../gamespace/Game";
-import Navbar from "../../common/navbar/Navbar";
 import Chat from "../../chat/Chat";
 import Dice from "../../gamespace/Dice";
+import {useLoaderData,} from "react-router-dom";
 
 
 const GamePage = () => {
+    const session = useLoaderData()
     return (
         <>
-            <Navbar/>
-            <GameContextProvider>
+            <GameContextProvider session={session}>
                 <Game/>
                 <div className='game-field__side-panel' onClick={e => e.stopPropagation()}>
                     <Chat/>
