@@ -32,7 +32,10 @@ const router = createBrowserRouter([
                 loader: async ({sessionId}) => {
                     const response = await fetchSessionInfo(sessionId);
                     if (response.status === 404) {
-                        throw new Error('404 Invalid session id')
+                        console.log()
+                        throw new Response("Not Found", { status: 404 });
+                    } else if (!response.ok) {
+                        throw new Response("Not Found", { status: 404 });
                     }
                     return await response.json()
                 },
@@ -55,8 +58,16 @@ const router = createBrowserRouter([
                 element: <Postpage/>
             },
             {
-                path: 'PageLobby',
-                element: <PageLobby/>
+                path: 'lobby/:sessionId',
+                element: <PageLobby/>,
+                loader: async ({params}) => {
+                    console.log(params)
+                    const response = await fetchSessionInfo(params.sessionId);
+                    if (response.status === 404) {
+                        throw new Error('404 Invalid session id')
+                    }
+                    return await response.json()
+                },
             },
         ]
     },

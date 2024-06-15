@@ -14,10 +14,6 @@ const PageLobby = () => {
     const id = 1
 
 
-
-
-
-
     const getId = async () => {
         const token = getCredentials()?.token;
         try {
