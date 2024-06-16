@@ -2,20 +2,13 @@ import React, {useState, useEffect} from 'react';
 import img from "./img/x.jpg"
 import {useNavigate} from "react-router-dom";
 import {devConsts} from "../../../util/util";
-import {getCredentials, queryResult, storeCredentials} from "../../../contexts/UserContext";
+import {getCredentials} from "../../../contexts/UserContext";
 
 const PageLobby = () => {
-    const [gameTitle, setGameTitle] = useState('');
-    const [gameDescription, setGameDescription] = useState('');
-    // const [users, setUsers] = useState([]);
     const [gameId, setGameId] = useState('');
     const navigate = useNavigate();
     const [game, setGames] = useState('')
     const id = 1
-
-
-
-
     const getId = async () => {
         const token = getCredentials()?.token;
         try {
@@ -49,11 +42,9 @@ const PageLobby = () => {
         }
     }
     useEffect(() => {
-        getId()
+        getId().then(r => console.log(gameId))
 
     }, []);
-
-
     return (
         <div style={{
             marginTop: '40px',
@@ -107,7 +98,6 @@ const PageLobby = () => {
                 alignItems: 'center',
             }}>
                 <h2 style={{textAlign: "center", fontFamily: 'Kelly Slab, serif',}}>Пользователи</h2>
-
             </div>
             <div style={{
                 marginBottom: '30px',
@@ -125,8 +115,6 @@ const PageLobby = () => {
                 <p>Федя</p>
                 <p>Володя</p>
                 <p>Коротков</p>
-
-
                 <ul>
                     {/*{users.map(user => (*/}
                     {/*    <li key={user.id}>{user.name}</li>*/}
@@ -160,5 +148,4 @@ const PageLobby = () => {
         </div>
     );
 };
-
 export default PageLobby;
