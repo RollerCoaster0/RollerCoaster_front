@@ -11,11 +11,13 @@ import CreateGamePage from "./components/pages/creategame/CreateGamePage";
 import Postpage from "./components/pages/postpage/Postpage";
 import PageLobby from "./components/pages/lobbypage/PageLobby";
 import UserContextProvider from "./contexts/UserContext";
-import {AlertContext, AlertContextProvider} from "./contexts/AlertContext";
+import {AlertContextProvider} from "./contexts/AlertContext";
 import AlertMessage from "./components/common/AlertMessage";
-import {fetchPlayers, fetchSessionInfo} from "./api/game";
+import {fetchGame, fetchPlayers, fetchSessionInfo} from "./api/game";
 import Error from "./components/error/Error";
 import Character from "./components/character/Character";
+import AuthorizedOnly from "./components/common/AuthorizedOnly";
+import CreateSession from "./components/pages/createsession/CreateSession";
 
 
 const router = createBrowserRouter([
@@ -29,17 +31,6 @@ const router = createBrowserRouter([
                 element: <HomePage/>
             },
             {
-                path: 'game/:sessionId',
-                loader: async ({params}) => {
-                    const response = await fetchSessionInfo(params.sessionId);
-                    if (response.status === 404) {
-                        throw new Error('404 Invalid session id')
-                    }
-                    return await response.json()
-                },
-                element: <GamePage/>
-            },
-            {
                 path: 'registration',
                 element: <RegistrationPage/>
             },
@@ -49,29 +40,61 @@ const router = createBrowserRouter([
             },
             {
                 path: 'creategame',
-                element: <CreateGamePage/>
+                element: <AuthorizedOnly><CreateGamePage/></AuthorizedOnly>
             },
             {
                 path: 'postpage',
-                element: <Postpage/>
+                element:<AuthorizedOnly><Postpage/></AuthorizedOnly>
             },
             {
                 path: 'lobby/:sessionId',
-                element: <PageLobby/>,
+                element: <AuthorizedOnly><PageLobby/></AuthorizedOnly>,
                 loader: async ({params}) => {
-                    console.log(params)
                     let response = await fetchSessionInfo(params.sessionId);
                     if (response.status === 404) {
                         throw new Error('404 Invalid session id')
                     }
-                    const session =  await response.json()
+                    const session = await response.json()
                     const players = await fetchPlayers(params.sessionId)
                     return {session, players}
                 },
             },
+            {
+                path: 'character/:sessionId',
+                element: <Character/>,
+                loader: async ({params}) => {
+                    const response = await fetchSessionInfo(params.sessionId);
+                    if (response.status === 404) {
+                        throw new Error('404 Invalid session id')
+                    }
+                    const sessionObj = await response.json()
+                    const responseGame = await fetchGame(sessionObj.gameId)
+                    if (!responseGame.ok) {
+                        throw new Error('404 Invalid session id')
+                    }
+                    const gameObj = await responseGame.json()
+                    return {sessionObj, gameObj}
+                }
+
+            },
+            {
+                path:'createsession',
+                element: <CreateSession/>
+            }
+
         ]
     },
-
+    {
+        path: 'game/:sessionId',
+        loader: async ({params}) => {
+            const response = await fetchSessionInfo(params.sessionId);
+            if (response.status === 404) {
+                throw new Error('404 Invalid session id')
+            }
+            return await response.json()
+        },
+        element:<AuthorizedOnly> <GamePage/></AuthorizedOnly>
+    },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

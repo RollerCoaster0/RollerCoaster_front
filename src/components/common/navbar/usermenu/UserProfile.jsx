@@ -11,6 +11,7 @@ const UserProfile = ({isToggled}) => {
         setAnchorEl(anchorEl === null ? e.currentTarget : null)
     }
     const handleClose = () => {
+        logOut()
         setAnchorEl(null)
     }
     return (
@@ -21,7 +22,7 @@ const UserProfile = ({isToggled}) => {
                 "aria-labelledby": "basic-button",
                 sx: { width: anchorEl && anchorEl.offsetWidth , borderRadius: '30px' }
             }}>
-            <MenuItem  onClick={handleClose}> <LogoutIcon onClick={logOut}/> &nbsp; Log out </MenuItem>
+            <MenuItem  onClick={handleClose} > <LogoutIcon /> &nbsp; Log out </MenuItem>
             </Menu>
         </div>
     );

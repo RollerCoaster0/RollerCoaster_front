@@ -27,8 +27,9 @@ html, body {
     margin-top: 60px;
 }
 
-li, ul, ol, a:visited, a:hover, a:active, a:focus {
+li, ul, ol, a, a:visited, a:hover, a:active, a:focus {
     text-decoration: none;
+    color: inherit;
     list-style: none;
 }
 

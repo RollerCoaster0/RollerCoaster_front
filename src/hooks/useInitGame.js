@@ -6,7 +6,7 @@ import {useLongPoll,} from "./useLongPolling";
 import {fetchClasses, fetchGame, fetchLocationsBackground, fetchPlayers, fetchSessionInfo} from "../api/game";
 import {UserContext} from "../contexts/UserContext";
 
-export function useInitGame({session}) { //session prop
+export function useInitGame(session) { //session prop
     const [players, setPlayers] = useState([])
     const currentPlayerId = useRef();
     const [locations, setLocations] = useState([])
@@ -68,17 +68,10 @@ export function useInitGame({session}) { //session prop
     const handleQuestStatusEvent = (event) => {
 
     }
-
     useEffect(() => {
             const setGameData = async () => {
-                let response = await fetchSessionInfo(session.id)
-                if (!response.ok) {
-                    //TODO: handle
-                    console.log('FAILED TO FETCH SESSION!!!', response)
-                    return
-                }
-                let data = await response.json()
-                response = await fetchGame(data.gameId)
+                let data = session
+               let response = await fetchGame(data.gameId)
                 if (!response.ok) {
                     //TODO: handle
                     console.log('FAILED TO FETCH GAME', response)
@@ -108,9 +101,6 @@ export function useInitGame({session}) { //session prop
                     }
                 })
                 setLocations(locs)
-                console.log('BACKGROUNDS',backgrounds)
-                console.log('PLAYERS',fetchedPlayers)
-                console.log('USER', user)
 
                 currentPlayerId.current = fetchedPlayers.find(p => { console.log(user, p); return  p.userId === user?.id})?.id
                 // if (!currentPlayerId.current) {

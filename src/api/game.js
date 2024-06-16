@@ -3,7 +3,7 @@ import {getCredentials} from "../contexts/UserContext";
 
 export async function sendMove(x, y, id) {
     const token = getCredentials()?.token
-    return await fetch(devConsts.api + `/players/${id}/move?${new URLSearchParams({X:x, Y:y})}`, {
+    return await fetch(devConsts.api + `/players/${id}/move?${new URLSearchParams({X: x, Y: y})}`, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -30,7 +30,6 @@ export async function snedUseSkill(id, skillId) {
         }
     })
 }
-
 
 
 export async function tryAction(promise, prevStates, newStates, stateSetters) {
@@ -106,12 +105,27 @@ export async function fetchLocationsBackground(pathes) {
 
 export async function fetchPlayers(sessionId) {
     const token = getCredentials()?.token
-    let response =  await fetch(devConsts.api + `/players?${new URLSearchParams({sessionId})}`, {
+    let response = await fetch(devConsts.api + `/players?${new URLSearchParams({sessionId})}`, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
     })
     return await response.json()
+}
+
+export async function createSession(session) {
+    const token = getCredentials()?.token
+    return await fetch(devConsts.api + '/sessions?' + new URLSearchParams({
+        Name: session.name,
+        GameId: session.id,
+        Description: session.description
+    }),
+        {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
 }
 
 export async function fetchClasses(classIds) {

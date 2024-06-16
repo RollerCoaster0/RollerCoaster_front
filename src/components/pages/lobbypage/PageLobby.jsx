@@ -1,12 +1,20 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import img from "./img/x.jpg"
 import {useLoaderData, useNavigate} from "react-router-dom";
-import {devConsts} from "../../../util/util";
-import {getCredentials, queryResult, storeCredentials} from "../../../contexts/UserContext";
+import { UserContext} from "../../../contexts/UserContext";
 
 const PageLobby = () => {
     const {session, players} = useLoaderData()
     const navigate = useNavigate()
+    const {user} = useContext(UserContext)
+    const handlePlayButton = () => {
+        const currentPlayer = players.find(p => p.userId === user.id)
+        if (currentPlayer) {
+            navigate(`/game/${session?.id}`)
+        } else {
+            navigate(`/character/${session?.id}`)
+        }
+    }
 
     return (
         <div style={{
@@ -80,7 +88,7 @@ const PageLobby = () => {
                 </ul>
             </div>
             <button
-                onClick={() => navigate("/game/:sessionId")}
+                onClick={handlePlayButton}
                 style={{
 
                 display: 'flex',

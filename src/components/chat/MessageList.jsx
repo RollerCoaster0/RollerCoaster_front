@@ -7,7 +7,6 @@ import TextMessage from "./TextMessage";
 
 const MessageList = ({messages}) => {
     const currentPlayer = {id: 1, name: 'Mark', avatar: img1}
-    console.log(messages)
     return (
         <ul className='chat-window__messages-list'>
             {messages.map(m => {

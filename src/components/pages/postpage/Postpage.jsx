@@ -16,16 +16,7 @@ const Postpage = () => {
     };
 
     const handleGameId = async (id) => {
-        const response = await fetchSessionInfo(id)
-        if (response.ok) {
-            navigate(`/game/${id}`)
-        } else {
-            setErrorShown(true)
-            setOpenModal(false)
-            setIDgame('')
-            setTimeout(() => setErrorShown(false), 2000)
-        }
-
+        navigate(`/lobby/${id}`)
     }
 
     const handleCloseModal = () => {
@@ -34,7 +25,6 @@ const Postpage = () => {
     const handleJoinGame = () => {
         // Добавить логику для присоединения игрока к игре с использованием IDgame
     };
-    console.log(errorShown)
     return (
         <div className="post-page">
 

@@ -14,7 +14,8 @@ export const queryResult = {
 export const UserContext = createContext(undefined);
 
 const UserContextProvider = ({children}) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(null)
+    console.log('CONT USER', user)
     const register = async (login, password) => {
         try {
             const response = await fetch(devConsts.api + '/auth/register?' + new URLSearchParams({login, password}), {
