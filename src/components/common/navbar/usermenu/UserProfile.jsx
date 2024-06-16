@@ -6,14 +6,13 @@ import {UserContext} from "../../../../contexts/UserContext";
 const UserProfile = ({isToggled}) => {
     const [anchorEl, setAnchorEl] = useState(null)
     const menuOpened = Boolean(anchorEl)
-    const {logOut} = useContext(UserContext)
+    const {logOut, user} = useContext(UserContext)
     const handleClick = (e) => {
         setAnchorEl(anchorEl === null ? e.currentTarget : null)
     }
     const handleClose = () => {
         setAnchorEl(null)
     }
-    const user = useContext(UserContext).user
     return (
         <div className='navbar__user-profile-container' onClick={handleClick}>
             <p style={{fontSize: 20}}>{user?.name ?? 'Guest'}</p>

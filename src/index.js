@@ -13,8 +13,9 @@ import PageLobby from "./components/pages/lobbypage/PageLobby";
 import UserContextProvider from "./contexts/UserContext";
 import {AlertContext, AlertContextProvider} from "./contexts/AlertContext";
 import AlertMessage from "./components/common/AlertMessage";
-import {fetchSessionInfo} from "./api/game";
+import {fetchPlayers, fetchSessionInfo} from "./api/game";
 import Error from "./components/error/Error";
+import Character from "./components/character/Character";
 
 
 const router = createBrowserRouter([
@@ -55,15 +56,17 @@ const router = createBrowserRouter([
                 element: <Postpage/>
             },
             {
-                path: 'PageLobby',
+                path: 'lobby/:sessionId',
                 element: <PageLobby/>,
                 loader: async ({params}) => {
                     console.log(params)
-                    const response = await fetchSessionInfo(params.sessionId);
+                    let response = await fetchSessionInfo(params.sessionId);
                     if (response.status === 404) {
                         throw new Error('404 Invalid session id')
                     }
-                    return await response.json()
+                    const session =  await response.json()
+                    const players = await fetchPlayers(params.sessionId)
+                    return {session, players}
                 },
             },
         ]

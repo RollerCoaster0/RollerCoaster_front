@@ -4,6 +4,7 @@ import {Paper} from "@mui/material";
 
 const Error = () => {
     const error = useRouteError()
+    console.error(error)
     return (
         <Paper sx={{
             backgroundColor: '#C80036',

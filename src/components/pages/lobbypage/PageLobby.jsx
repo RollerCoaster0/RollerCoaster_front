@@ -1,58 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import img from "./img/x.jpg"
-import {useNavigate} from "react-router-dom";
+import {useLoaderData, useNavigate} from "react-router-dom";
 import {devConsts} from "../../../util/util";
 import {getCredentials, queryResult, storeCredentials} from "../../../contexts/UserContext";
 
 const PageLobby = () => {
-    const [gameTitle, setGameTitle] = useState('');
-    const [gameDescription, setGameDescription] = useState('');
-    // const [users, setUsers] = useState([]);
-    const [gameId, setGameId] = useState('');
-    const navigate = useNavigate();
-    const [game, setGames] = useState('')
-    const id = 1
-
-
-
-
-    const getId = async () => {
-        const token = getCredentials()?.token;
-        try {
-            const response = await fetch(devConsts.api + '/sessions/' + id, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                }
-            }
-            );
-            if(response.ok){
-                const session = await response.json()
-                setGameId(session.id)
-
-                const response1 = await fetch(devConsts.api + '/games/' + session.id, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                        }
-                    }
-                );
-                if(response1.ok){
-                    const get_game = await response1.json()
-                    setGames(get_game)
-                }
-
-            }
-        }
-        catch (e){
-
-        }
-    }
-    useEffect(() => {
-        getId()
-
-    }, []);
-
+    const {session, players} = useLoaderData()
+    const navigate = useNavigate()
 
     return (
         <div style={{
@@ -75,13 +29,13 @@ const PageLobby = () => {
                 padding: '10px',
                 textAlign: 'center',
                 width: '80%',
-            }}>{game.name}</h1>
+            }}>{session.name}</h1>
             <img
                 src={img} // Замените на настоящий URL изображения
                 alt="Ошибка соединения позвоните на номер 8 950 715 54 47"
                 style={{marginTop: '30px', marginBottom: '30px', borderRadius: '10px', width: '80%', height: 'auto',}}
             />
-            <p style={{alignSelf: 'start',fontSize:'20px',marginLeft:'90px', fontFamily: 'Kelly Slab, serif',}}>ID игры: {gameId}</p>
+            <p style={{alignSelf: 'start',fontSize:'20px',marginLeft:'90px', fontFamily: 'Kelly Slab, serif',}}>ID игры: {session.id}</p>
             <div style={{
                 marginBottom: '30px',
                 padding: '10px',
@@ -94,7 +48,7 @@ const PageLobby = () => {
             }}>
                 <h2 style={{textAlign: "center", fontFamily: 'Kelly Slab, serif',}}>Описание игры</h2>
                 <p>
-                    {game.description}
+                    {session.description}
                 </p>
             </div>
             <div style={{
@@ -119,18 +73,10 @@ const PageLobby = () => {
                 width: '80%',
                 alignItems: 'center',
             }}>
-                <p>Скала</p>
-                <p>Дима</p>
-                <p>Гебс</p>
-                <p>Федя</p>
-                <p>Володя</p>
-                <p>Коротков</p>
 
 
                 <ul>
-                    {/*{users.map(user => (*/}
-                    {/*    <li key={user.id}>{user.name}</li>*/}
-                    {/*))}*/}
+                    {players.map(p => <li>{p.name}</li>)}
                 </ul>
             </div>
             <button
