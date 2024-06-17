@@ -32,32 +32,39 @@ const Postpage = () => {
                     onClick={() => navigate("/creategame")}
                     sx={{
                         backgroundColor: "darkolivegreen",
-                        width: "300px",
-                        height: "50px",
+                        width: "60%",
+                        height: "10%",
                         fontSize: "20px",
                         margin: "auto",
                         display: "block",
-
+                        borderRadius:"20px"
                     }}> Создать игру </Button>
             <Button variant="contained" color="success"
                     onClick={handleOpenModal}
                     sx={{
                         backgroundColor: "darkolivegreen",
-                        width: "300px",
-                        height: "50px",
+                        width: "60%",
+                        height: "10%",
                         fontSize: "20px",
                         margin: "auto",
                         display: "block",
+                        borderRadius:"20px"
 
                     }}>Войти в игру</Button>
 
             <div className="list_postpage">
                 <Modal
                     style={{
-                        position: "absolute",
-                        height: 150,
-                        width: 240,
-                        margin: "auto"
+                        display:"flex",
+                        justifyContent:"center",
+                        alignItems:"center",
+                        height: "15%",
+                        width: "20%",
+                        margin: "auto",
+                        backgroundColor: "#209B41",
+                        borderRadius:"15px",
+                        color:"white",
+
 
                     }}
                     open={openModal}
@@ -69,11 +76,15 @@ const Postpage = () => {
                     <div className="modal">
                         <h2 id="modal-title">Введите ваше ID</h2>
                         <TextField
+                            sx={{
+                                backgroundColor:"#717771CC",
+                                borderRadius:"5px"
+                            }}
                             variant="outlined"
                             value={IDgame}
                             onChange={e => setIDgame(e.target.value)}
                         />
-                        <Button onClick={() => handleGameId(IDgame)} variant="contained" color="primary">
+                        <Button onClick={() => handleGameId(IDgame)} variant="contained" color="success">
                             Присоединиться к игре
                         </Button>
                     </div>

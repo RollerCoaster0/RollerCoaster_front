@@ -1,10 +1,12 @@
 .quests-container {
     margin: 80px auto;
     display: flex;
+    min-height: 500px;
     gap: 50px;
     align-content: stretch;
     flex-wrap: wrap;
     width: 1600px;
+
 }
 
 .quests__quest-card {

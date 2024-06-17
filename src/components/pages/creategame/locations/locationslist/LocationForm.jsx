@@ -3,6 +3,8 @@ import '../../creategame.css'
 import {Box, Button, IconButton, Input, Modal, TextField} from "@mui/material";
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import CloseIcon from "@mui/icons-material/Close";
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 const LocationForm = ({
                           editableLocation,
@@ -46,7 +48,13 @@ const LocationForm = ({
 
     return (
         <Modal open={opened}
-               onClose={() => setOpened(false)}>
+               onClose={() => setOpened(false)}
+               sx={{
+                   overflow: 'auto',
+                   scrollbarWidth: 'thin',
+                   scrollbarColor: 'darkolivegreen'
+               }}
+        >
             <Box className='new-element-modal'>
                 <IconButton className='new-element-modal__close' onClick={() => setOpened(false)}>
                     <CloseIcon sx={{fontSize: 25}}/>
@@ -64,18 +72,27 @@ const LocationForm = ({
                                    setEditableLocation({...editableLocation, description: e.target.value});
                                    console.log(e.target.files)
                                }}/>
+
                     <h3 className='new-location-modal__form__label'>Size:</h3>
                     <div className='new-location-modal__form__field-size'>
                         <TextField variant='outlined' placeholder='Width'/>
                         <span style={{fontSize: 15,}}>X</span>
                         <TextField variant='outlined' placeholder='Height'/>
+
                     </div>
+
+                    <h3 className='new-location-modal__form__label'>Base location:</h3>
+                    <FormControlLabel control={<Checkbox defaultChecked/>} label="" value={1}/>
+
                     <h3 className='new-location-modal__form__label'>Upload map:</h3>
                     <div>
-                        <Input type='file' inputProps={{accept: 'image/png, image/jpg, image/jpeg'}} placeholder={`${editableLocation?.map?.name}`}
+                        <Input type='file' inputProps={{accept: 'image/png, image/jpg, image/jpeg'}}
+                               placeholder={`${editableLocation?.map?.name}`}
                                onChange={e => handleMapUpload(e)}/>
-                            <AttachFileIcon style={{fontSize: 50}}/>
+                        <AttachFileIcon style={{fontSize: 50}}/>
+
                     </div>
+
                     <Button color='success' variant='contained'
                             className='new-location-modal__form__save-button' onClick={saveLocation}>Save</Button>
                 </div>

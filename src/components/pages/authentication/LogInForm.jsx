@@ -19,6 +19,8 @@ const LogInForm = () => {
     const result = useRef(null)
     const redirect = useNavigate();
     const [loginPhase, setLoginPhase] = useState(logInPhaseValue.ACCESSIBLE_TO_LOGIN)
+    const navigate = useNavigate();
+    const handleClick = () => navigate('/registration')
 
     const showAuthResult = () => {
         setTimeout(() => {
@@ -51,7 +53,9 @@ const LogInForm = () => {
                 <button className="auth-button"
                         onClick={onLogin} disabled={loginPhase !== logInPhaseValue.ACCESSIBLE_TO_LOGIN}>логин
                 </button>
-                {loginPhase === logInPhaseValue.PENDING ?  <CircularProgress sx={{color: 'darkolivegreen'}}/> : null}
+                <button className="auth-button" onClick={handleClick}>Зарегистрироваться
+                </button>
+                {loginPhase === logInPhaseValue.PENDING ? <CircularProgress sx={{color: 'darkolivegreen'}}/> : null}
                 {loginPhase === logInPhaseValue.RESULT_SHOWN ? <AuthResultMessage result={result.current}/> : null}
             </div>
         </div>

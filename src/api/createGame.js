@@ -12,7 +12,7 @@ const gameComponentEndpoints = new Map([
     [gameComponentType.ITEM, '/items'],
     [gameComponentType.NPC, '/npc'],
     [gameComponentType.LOCATION, '/locations'],
-    [gameComponentType.QUEST, '/quest'],
+    [gameComponentType.QUEST, '/quests'],
 ]);
 
 export async function createGame(items, NPCs, quests, gameInfo, locations) {

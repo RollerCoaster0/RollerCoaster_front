@@ -43,7 +43,7 @@ const PageLobby = () => {
                 alt="Ошибка соединения позвоните на номер 8 950 715 54 47"
                 style={{marginTop: '30px', marginBottom: '30px', borderRadius: '10px', width: '80%', height: 'auto',}}
             />
-            <p style={{alignSelf: 'start',fontSize:'20px',marginLeft:'90px', fontFamily: 'Kelly Slab, serif',}}>ID игры: {session.id}</p>
+            <p style={{alignSelf: 'start',fontSize:'20px',marginLeft:'90px', fontFamily: 'Kelly Slab, serif',}}>ID сессии: {session.id}</p>
             <div style={{
                 marginBottom: '30px',
                 padding: '10px',
@@ -54,7 +54,7 @@ const PageLobby = () => {
                 background: '#D9D9D9',
                 width: '80%',
             }}>
-                <h2 style={{textAlign: "center", fontFamily: 'Kelly Slab, serif',}}>Описание игры</h2>
+                <h2 style={{textAlign: "center", fontFamily: 'Kelly Slab, serif',}}>Описание сессии</h2>
                 <p>
                     {session.description}
                 </p>

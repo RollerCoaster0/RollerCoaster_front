@@ -15,6 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 const QuestCardEditMode = ({quest, quests, setQuests, editMode, setEditMode}) => {
     const [questName, setQuestName] = useState(quest?.name);
     const [questDescription, setQuestDescription] = useState(quest?.description);
+    const [questHiddenDescription, setHiddenQuestDescription] = useState(quest?.description);
     const [errorShown, setErrorShown] = useState(false);
     const currentError = useRef('');
     const onSave = (e) => {
@@ -23,10 +24,10 @@ const QuestCardEditMode = ({quest, quests, setQuests, editMode, setEditMode}) =>
             showError('Name and description can not be empty');
             return
         }
-        console.log(questName, questDescription);
+        console.log(questName, questDescription, questHiddenDescription);
         setQuests(quests.map(q => {
             if (q.id === quest.id) {
-                return {name: questName, description: questDescription, id: q.id, hiddenDescription: ''}
+                return {name: questName, description: questDescription, id: q.id, hiddenDescription: questHiddenDescription}
             }
             return q;
         }));
@@ -59,9 +60,17 @@ const QuestCardEditMode = ({quest, quests, setQuests, editMode, setEditMode}) =>
                         }}/>}/>
                     <CardContent>
                         <h2 className='quests__quest-card__param-name'>Description:</h2>
-                        <TextField defaultValue={questDescription} onChange={e => setQuestDescription(e.target.value)} className='quests__quest-card__description-input' multiline={true}
+                        <TextField defaultValue={questDescription} onChange={e => setQuestDescription(e.target.value)}
+                                   className='quests__quest-card__description-input' multiline={true}
                                    minRows={6}
                                    maxRows={6}/>
+
+                        <h2 className='quests__quest-card__param-name'>Hidden Description:</h2>
+                        <TextField defaultValue={questHiddenDescription} onChange={e => setHiddenQuestDescription(e.target.value)}
+                                   className='quests__quest-card__description-input' multiline={true}
+                                   minRows={6}
+                                   maxRows={6}/>
+
                     </CardContent>
                     <Collapse in={editMode} unmountOnExit={false} timeout='auto'>
                         <p style={{

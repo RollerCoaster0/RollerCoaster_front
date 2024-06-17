@@ -41,6 +41,9 @@ const RegistrationForm = () => {
         showRegistrationResult();
     }
 
+    const navigate = useNavigate();
+    const handleClick = () => navigate('/authentication')
+
     return (
         <div className="auth-form-container">
             <h1 className="auth-form__form-title">RollerCoaster</h1>
@@ -55,6 +58,8 @@ const RegistrationForm = () => {
             </div>
             <button className='auth-button' onClick={onRegister}
                     disabled={regPhase !== regPhaseValue.ACCESSIBLE_TO_REG}>Регистрация
+            </button>
+            <button className='auth-button' onClick={handleClick}>Логин
             </button>
             {regPhase === regPhase.PENDING ? <CircularProgress sx={{color: 'darkolivegreen'}}/> : null}
             {regPhase === regPhase.RESULT_SHOWN ? <AuthResultMessage result={regResult.current}/> : null}

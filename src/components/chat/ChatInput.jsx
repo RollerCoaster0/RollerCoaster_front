@@ -1,9 +1,8 @@
 import React, {useContext, useState} from 'react';
 import {Button, TextField} from "@mui/material";
-import img1 from "./img/img.png";
 import {UserContext} from "../../contexts/UserContext";
 import {sendTextMessage} from "../../api/updates";
-import {tryAction} from "../../api/game";
+
 
 const ChatInput = ({sessionId}) => {
     const {user} = useContext(UserContext)
