@@ -22,7 +22,8 @@ const LocationForm = ({
                 name: editableLocation.name,
                 description: editableLocation.description,
                 map: editableLocation.map,
-                id: idCounter.current++
+                id: idCounter.current++,
+                baseLocation: baseLocation
             });
             setlocations(structuredClone(locations));
         } else {
@@ -32,7 +33,8 @@ const LocationForm = ({
                         name: editableLocation.name,
                         description: editableLocation.description,
                         map: editableLocation.map,
-                        id: editableLocation.id
+                        id: editableLocation.id,
+                        baseLocation: baseLocation
                     }
                 }
                 return location;
@@ -41,6 +43,11 @@ const LocationForm = ({
         console.log(locations)
         setOpened(false);
     }
+    const [baseLocation, setBaseLocation] = useState('');
+    const handleChange = (e) =>{
+        setBaseLocation(1);
+    }
+
 
     const handleMapUpload = (e) => {
         setEditableLocation({...editableLocation, map: e.target.files?.[0]});
@@ -82,7 +89,9 @@ const LocationForm = ({
                     </div>
 
                     <h3 className='new-location-modal__form__label'>Base location:</h3>
-                    <FormControlLabel control={<Checkbox defaultChecked/>} label="" value={1}/>
+                    <FormControlLabel control={<Checkbox defaultChecked/>} label=""
+                    onChange={handleChange}
+                    />
 
                     <h3 className='new-location-modal__form__label'>Upload map:</h3>
                     <div>

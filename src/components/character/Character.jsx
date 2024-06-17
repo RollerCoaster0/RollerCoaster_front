@@ -134,12 +134,7 @@ console.log("errors",errors)
                         {errors?(
                             <p className="error">The name must be longer than 1 character and shorter than 35 characters </p  >
                         ): null}
-                <Button onClick={handleChangeButton} disabled={errors.length !== 0 || name.length === 0}
-                        sx={{
-                            backgroundColor: "darkolivegreen",
-                            color: "red"
-                        }}
-                >Send</Button>
+
                     </form>
                </div>
 
@@ -178,7 +173,16 @@ console.log("errors",errors)
                     <FolderList game={gameObj}/>
                 </div>
             </div>
-
+            <Button onClick={handleChangeButton} disabled={errors.length !== 0 || name.length === 0}
+                    sx={{
+                        display:"flex",
+                        alignSelf:"center",
+                        backgroundColor: "darkolivegreen",
+                        color: "red",
+                        width:"25%",
+                        marginTop:'auto'
+                    }}
+            >Send</Button>
         </div>
 
     )

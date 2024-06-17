@@ -74,7 +74,7 @@ const Postpage = () => {
                 >
 
                     <div className="modal">
-                        <h2 id="modal-title">Введите ваше ID</h2>
+                        <h2 id="modal-title">Введите ID сессии</h2>
                         <TextField
                             sx={{
                                 backgroundColor:"#717771CC",
@@ -85,7 +85,7 @@ const Postpage = () => {
                             onChange={e => setIDgame(e.target.value)}
                         />
                         <Button onClick={() => handleGameId(IDgame)} variant="contained" color="success">
-                            Присоединиться к игре
+                            Присоединиться к сессии
                         </Button>
                     </div>
                </Modal>
