@@ -27,10 +27,6 @@ export default function FolderList({game}) {
 
     console.log("game", game)
 
-    // var result = Object.keys(game).map(function(key){
-    //     return game[key].classes;
-    // });
-
 
 return (
     <List sx={{width: '100%', maxWidth: "360px"}}>

@@ -136,3 +136,27 @@
     flex-direction: column;
 
 }
+
+.avatar-wrapper{
+    display: flex;
+    justify-self: left;
+    top: 20px;
+    width: 50%;
+    height: 100%;
+    border: 1px dashed gray;
+    border-radius: 80px;
+    background-size:cover;
+    background-color: rgba(216, 207, 212, 0.6);
+    z-index: 500;
+}
+.add-button {
+    display: flex;
+    top: 0;
+    bottom: 0;
+    width: 10%;
+    cursor: pointer;
+}
+.character__icon_wrapper{
+    display: flex;
+    flex-direction: row;
+}
