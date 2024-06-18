@@ -3,20 +3,19 @@
     display: flex;
     border-radius: 30px;
     flex-direction: column;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 605px 795px 685px 312px;
-    grid-row-gap: 20px;
     justify-content: center;
     align-items: center;
 
-    margin-top: 50px;
+    align-self: center;
+    margin-top: inherit;
     width: 30%;
     height: 500px;
     margin-left: auto;
     margin-right: auto;
 }
-.list_postpage{
-    background: whitesmoke;
-    width: 400px;
-    border-radius: 15px;
+
+.modal{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
