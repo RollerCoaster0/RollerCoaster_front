@@ -1,7 +1,16 @@
 import {devConsts} from "../util/util";
 import {getCredentials} from "../contexts/UserContext";
 
-export async function fetchEvent() {
+export async function fetchEvent(deviceId) {
+    const token = getCredentials()?.token
+    return await fetch(devConsts.api + '/longpoll?' + new URLSearchParams({deviceId}), {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        }
+    })
+}
+
+export async function fetchInitEvent() {
     const token = getCredentials()?.token
     return await fetch(devConsts.api + '/longpoll', {
         headers: {
@@ -9,7 +18,6 @@ export async function fetchEvent() {
         }
     })
 }
-
 
 export async function fetchChatMessages(sessionId) {
     const token = getCredentials()?.token

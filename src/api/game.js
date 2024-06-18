@@ -13,9 +13,9 @@ export async function sendMove(x, y, id) {
 
 export async function sendRoll(id, die) {
     const token = getCredentials()?.token
-    return await fetch(devConsts.api + `/players/${id}?${new URLSearchParams({die})}`, {
+    return await fetch(devConsts.api + `/players/${id}/roll?${new URLSearchParams({Die: die})}`, {
+        method: 'POST',
         headers: {
-            method: 'POST',
             'Authorization': `Bearer ${token}`,
         }
     })

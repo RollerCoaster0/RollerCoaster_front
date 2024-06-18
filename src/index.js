@@ -99,13 +99,13 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <AlertContextProvider>
             <AlertMessage/>
             <UserContextProvider>
                 <RouterProvider router={router}/>
             </UserContextProvider>
         </AlertContextProvider>
-    </React.StrictMode>
+    // </React.StrictMode>
 );
 

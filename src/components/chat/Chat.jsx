@@ -1,6 +1,6 @@
 import './Chat.css'
 import {Button, Drawer, Paper} from "@mui/material";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import MessageList from "./MessageList";
 import ChatIcon from '@mui/icons-material/Chat';
 import ChatInput from "./ChatInput";
@@ -16,60 +16,13 @@ export const messageType = {
 }
 
 const Chat = () => {
-    const user = {id: 0, name: 'user', avatar: img}
-    const currentUser = {id: 1, name: 'Mark', avatar: img1}
-    const [chatOpened, setChatOpened] = useState(false);
+    const [chatOpened, setChatOpened] = useState(false)
     const {lastReceivedMessage, session} = useContext(GameContext)
-    const [messages, setMessages] = useState([
-        {
-            "id": 0,
-            "sessionId": 0,
-            "rollMessage": {
-                "senderPlayer": {
-                    "id": 0,
-                    "userId": 0,
-                    "sessionId": 0,
-                    "name": "string",
-                    "level": 0,
-                    "healthPoints": 0,
-                    "currentXPosition": 0,
-                    "currentYPosition": 0,
-                    "characterClassId": 0
-                },
-                "senderANPC": null,
-                "result": {
-                    "result": 0,
-                    "die": 0
-                }
-            },
-            "textMessage": null,
-            "usedSkillMessage": null,
-
-        },
-        {
-            "id": 0,
-            "sessionId": 0,
-            "rollMessage": null,
-            "textMessage": {
-                "senderPlayer": {
-                    "id": 0,
-                    "userId": 0,
-                    "sessionId": 0,
-                    "name": "string",
-                    "level": 0,
-                    "healthPoints": 0,
-                    "currentXPosition": 0,
-                    "currentYPosition": 0,
-                    "characterClassId": 0
-                },
-                "text": "string",
-                "time": "2024-06-02T18:40:20.199Z"
-            },
-            "usedSkillMessage": null
-        }
-    ])
+    const [messages, setMessages] = useState([])
+    const chatRef = useRef()
     useEffect(() => {
         if (lastReceivedMessage) {
+            console.log('LRM', lastReceivedMessage)
             setMessages(messages => [...messages, lastReceivedMessage])
         }
     }, [lastReceivedMessage]);
@@ -81,19 +34,25 @@ const Chat = () => {
                 //TODO: handle error
             } else {
                 const messages = await response.json()
-                setMessages(messages)
+                setMessages(messages.reverse())
             }
         }
         setChatMessages()
     }, []);
 
+    useEffect(() => {
+        chatRef.current.scrollTop = chatRef.current.scrollHeight
+    })
+
     return (
         <>
-            <ChatIcon sx={chatIconStyle} onClick={() => setChatOpened(!chatOpened)}>Open chat</ChatIcon>
+            <div title='Chat'>
+                <ChatIcon sx={chatIconStyle} onClick={() => setChatOpened(!chatOpened)}>Open chat</ChatIcon>
+            </div>
             <Drawer hideBackdrop={true} sx={{'& .MuiDrawer-paper': {border: 'none'}}} open={chatOpened} anchor={'left'}
                     variant={'persistent'}>
                 <div className="chat-window">
-                    <Paper className='chat-window__chat-field'>
+                    <Paper ref={chatRef} className='chat-window__chat-field'>
                         <MessageList messages={messages}/>
                     </Paper>
                     <div className='chat-window__bottom-panel'>

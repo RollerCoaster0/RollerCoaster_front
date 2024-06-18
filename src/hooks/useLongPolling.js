@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react";
-import {fetchEvent} from "../api/updates";
+import {useEffect, useRef, useState} from "react";
+import {fetchEvent, fetchInitEvent} from "../api/updates";
 
 export function useLongPolling() {
     const [pollingData, setPollingData] = useState(null)
@@ -35,22 +35,38 @@ export function useLongPolling() {
 
 export function useLongPoll(flag) {
     const [pollingData, setPollingData] = useState(null)
+    const deviceId = useRef()
     useEffect(() => {
+        const getDeviceId = async () => {
+            const response = await fetchInitEvent()
+            if (!response.ok) {
+                //TODO: handle
+            } else {
+                const data = await response.json()
+                console.log('GETDEVICEID',data)
+                setPollingData(data?.update)
+                deviceId.current = data?.deviceId
+            }
+        }
         const subscribe = async () => {
             console.log('POLLING HAS STARTED')
             while (flag.current) {
                 console.log('SUBSCRIBED')
-                const response = await fetchEvent()
+                const response = await fetchEvent(deviceId.current)
                 console.log('POLL HAPPENDED ', response)
                 if (!response.ok) {
                     console.log('POLLING ERROR', response)
-                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    await new Promise(resolve => setTimeout(resolve, 3000));
                     continue
                 }
-                setPollingData(await response.json())
+                const data = await response.json()
+                console.log('SUBS DATA', data )
+                setPollingData(data?.update)
             }
         }
-        subscribe()
+        console.log('CALLED UE')
+        getDeviceId()
+            .then(subscribe)
     }, []);
     return pollingData
 }

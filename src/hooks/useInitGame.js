@@ -8,7 +8,7 @@ import {UserContext} from "../contexts/UserContext";
 
 export function useInitGame(session) { //session prop
     const [players, setPlayers] = useState([])
-    const currentPlayerId = useRef();
+    const currentPlayerId = useRef()
     const [locations, setLocations] = useState([])
     const [cellSize, setCellSize] = useState(devConsts.defaultCellSize)
     const [currentLocation, setCurrentLocation] = useState()
@@ -16,6 +16,7 @@ export function useInitGame(session) { //session prop
     const [gamePhase, setGamePhase] = useState(gamePhaseType.MAKING_MOVE)
     const [lastReceivedMessage, setLastReceivedMessage] = useState()
     const {user} = useContext(UserContext)
+    const zoomFlag = useRef(false)
 
     const [game, setGame] = useState({id: 4})
     const pollingFlag = useRef(true)
@@ -36,7 +37,6 @@ export function useInitGame(session) { //session prop
                             handleMoveEvent(event.move)
                             break
                         case 'newMessage':
-                            handleChatActionEvent(event.newMessage)
                             setLastReceivedMessage(event.newMessage)
                             break
                         case 'sessionStarted':
@@ -49,9 +49,6 @@ export function useInitGame(session) { //session prop
         }
     }, [event])
 
-    const handleChatActionEvent = (event) => {
-
-    }
     const handleMoveEvent = (event) => {
         const movedPlayer = event.player
         setPlayers(players => players.map(p => {
@@ -108,8 +105,6 @@ export function useInitGame(session) { //session prop
                 // }
                 setCurrentLocation(locs[0])
             }
-
-
             setGameData()
         }, [user] // в тестовых целях
     )
@@ -127,8 +122,9 @@ export function useInitGame(session) { //session prop
         setPickedPlayer,
         gamePhase,
         setGamePhase,
-        lastReceivedChatAction: lastReceivedMessage,
+        lastReceivedMessage,
         currentPlayerId,
-        session
+        session,
+        zoomFlag
     }
 }
