@@ -27,9 +27,10 @@ const NPCcard = ({NPC, setNPCs, NPCs, locations}) => {
     useEffect(() => {
         setEditMode(NPC?.name === '');
     }, []);
-
-    const onCancel = () => {
+    console.log(NPC)
+    const onCancel = (NPC) => {
         if (NPC.name === '' || NPC.location === null) {
+            console.log('FIRES')
             onDelete();
             return;
         }
@@ -41,6 +42,7 @@ const NPCcard = ({NPC, setNPCs, NPCs, locations}) => {
     }
 
     const onDelete = () => {
+        console.log('DELETES')
         setNPCs(NPCs.filter(npc => npc.id !== NPC.id));
     }
     const onSave = (e) => {
@@ -78,7 +80,7 @@ const NPCcard = ({NPC, setNPCs, NPCs, locations}) => {
 
     return (
         <>
-            <ClickAwayListener onClickAway={onCancel}>
+            <ClickAwayListener onClickAway={() => onCancel(NPC)}>
                 <Badge badgeContent={editMode ?
                     <IconButton onClick={onDelete}> <DeleteIcon color='error'/></IconButton> : null}>
                     <div className='npcs__npc-card-wrapper' onClick={e => onClick(e)}>

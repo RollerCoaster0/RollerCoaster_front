@@ -16,7 +16,6 @@ export function useInitGame(session) { //session prop
     const [gamePhase, setGamePhase] = useState(gamePhaseType.MAKING_MOVE)
     const [lastReceivedMessage, setLastReceivedMessage] = useState()
     const {user} = useContext(UserContext)
-    const zoomFlag = useRef(false)
 
     const [game, setGame] = useState({id: 4})
     const pollingFlag = useRef(true)
@@ -125,6 +124,5 @@ export function useInitGame(session) { //session prop
         lastReceivedMessage,
         currentPlayerId,
         session,
-        zoomFlag
     }
 }

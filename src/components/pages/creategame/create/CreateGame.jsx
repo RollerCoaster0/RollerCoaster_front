@@ -2,13 +2,11 @@ import React from 'react';
 import {Button} from "@mui/material";
 import {createGame} from "../../../../api/createGame";
 
-const CreateGame = ({gameInfo, quests, npcs, items, locations}) => {
-    console.log(gameInfo, quests, npcs, items, locations)
+const CreateGame = ({gameInfo, quests, npcs, items, locations, skills, classes}) => {
     const handleGameCreation = async () => {
-        const res = await createGame(items, npcs, quests, gameInfo, locations);
+        const res = await createGame(items, npcs, quests, gameInfo, locations, skills, classes);
         console.log(res);
     }
-
     return (
         <div>
             <Button onClick={handleGameCreation} sx={{

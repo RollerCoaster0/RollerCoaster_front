@@ -3,7 +3,6 @@ import './NPCs.css'
 import {Button, TextField} from "@mui/material";
 
 const NpCcardInfo = ({name, location, setName, setLocation, editMode, setOpenLocationPickModal}) => {
-    console.log(name)
     return (
         <>
             <div className='npcs__npc-card__npc-info'>

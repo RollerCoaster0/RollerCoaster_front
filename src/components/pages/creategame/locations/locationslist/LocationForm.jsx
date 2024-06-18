@@ -23,7 +23,9 @@ const LocationForm = ({
                 description: editableLocation.description,
                 map: editableLocation.map,
                 id: idCounter.current++,
-                baseLocation: baseLocation
+                baseLocation: baseLocation,
+                width,
+                height
             });
             setlocations(structuredClone(locations));
         } else {
@@ -40,19 +42,19 @@ const LocationForm = ({
                 return location;
             }));
         }
-        console.log(locations)
         setOpened(false);
     }
-    const [baseLocation, setBaseLocation] = useState('');
+    const [baseLocation, setBaseLocation] = useState(1)
     const handleChange = (e) =>{
-        setBaseLocation(1);
+        setBaseLocation(isBase => !isBase);
     }
 
 
     const handleMapUpload = (e) => {
         setEditableLocation({...editableLocation, map: e.target.files?.[0]});
     }
-
+    const [width, setWidth] = useState()
+    const [height, setHeight] = useState()
     return (
         <Modal open={opened}
                onClose={() => setOpened(false)}
@@ -82,9 +84,9 @@ const LocationForm = ({
 
                     <h3 className='new-location-modal__form__label'>Size:</h3>
                     <div className='new-location-modal__form__field-size'>
-                        <TextField variant='outlined' placeholder='Width'/>
+                        <TextField value={width ?? ''} variant='outlined' placeholder='Width' onChange={e => setHeight(e.target.value)}/>
                         <span style={{fontSize: 15,}}>X</span>
-                        <TextField variant='outlined' placeholder='Height'/>
+                        <TextField variant='outlined' value={height ?? ''} onChange={(e) => setHeight(e.target.value)} placeholder='Height'/>
 
                     </div>
 

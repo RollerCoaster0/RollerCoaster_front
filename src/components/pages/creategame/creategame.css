@@ -32,7 +32,7 @@
 }
 
 .stage-tabs {
-    max-width: 800px;
+    max-width: 1200px;
 }
 
 .stage-tab {
@@ -226,4 +226,27 @@
     height: 274px;
     width: 240px;
     overflow: visible;
+}
+
+
+.classes-container {
+    display: flex;
+    column-gap: 150px;
+    row-gap: 90px;
+    flex-wrap: wrap;
+    width: 1600px;
+    margin: 100px auto;
+}
+
+.class-card {
+    background-color: black;
+    color: white;
+    text-align: center;
+    width: 200px;
+    height: 50px;
+}
+
+.class-card__name {
+    font-size: 25px;
+    color: white;
 }

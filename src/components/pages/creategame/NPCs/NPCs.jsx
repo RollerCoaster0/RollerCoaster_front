@@ -8,7 +8,7 @@ const NPCs = ({NPCs, idCounter, setNPCs, locations}) => {
         NPCs.push({name: '', location: null, avatar: null, id: idCounter.current++});
         setNPCs(structuredClone(NPCs));
     }
-
+    console.log(NPCs)
     return (
         <>
             <div className='npcs-container'>

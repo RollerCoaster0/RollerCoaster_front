@@ -9,22 +9,29 @@ import PrevStageButton from "./buttons/PrevStageButton";
 import NextStageButton from "./buttons/NextStageButton";
 import GameDescription from "./description/GameDescription";
 import CreateGame from "./create/CreateGame";
+import Classes from "./classes/Classes";
+import Skill from "./Skill";
+import Skills from "./skills/Skills";
 
 
 const CreateGamePage = () => {
     const [gameInfo, setGameInfo] = useState({
-        name: 'test', description: 'test', preview: null
+        name: '', description: '', preview: null
     });
     const [locations, setLocations] = useState([]);
     const [items, setItems] = useState([]);
     const [quests, setQuests] = useState([]);
     const [npcs, setNPCs] = useState([]);
+    const [classes, setClasses] = useState([])
+    const [skills, setSkills] = useState([])
     const itemIdCounter = useRef(0);
     const locationIdCounter = useRef(0);
     const questIdCounter = useRef(0);
     const npcIdCounter = useRef(0);
+    const classTmpId = useRef(0);
+    const skillTmpId = useRef(0);
     const [currentStageIndex, setCurrentStageIndex] = useState(0);
-
+    
     const stages = [
         {
             name: 'Description',
@@ -35,6 +42,11 @@ const CreateGamePage = () => {
             name: 'Locations',
             form: <Locations key={'Locations'} locations={locations} setLocations={setLocations}
                              idCounter={locationIdCounter}/>,
+            current: useCurrent(false)
+        },
+        {
+            name: 'Classes',
+            form: <Classes classes={classes} setClasses={setClasses} classTmpId={classTmpId}/>,
             current: useCurrent(false)
         },
         {
@@ -53,10 +65,17 @@ const CreateGamePage = () => {
             current: useCurrent(false)
         },
         {
-            name: 'Create',
-            form: <CreateGame gameInfo={gameInfo} quests={quests} locations={locations} items={items} npcs={npcs}/>,
+            name: 'Skills',
+            form: <Skills skills={skills} setSkills={setSkills} skillTmpId={skillTmpId} classes={classes} npcs={npcs}/>,
             current: useCurrent(false)
-        }
+
+        },
+        {
+            name: 'Create',
+            form: <CreateGame gameInfo={gameInfo} quests={quests} locations={locations} items={items} npcs={npcs} classes={classes} skills={skills}/>,
+            current: useCurrent(false)
+        },
+
     ];
     return (
         <div style={{width: 1500, margin: '0 auto'}}>

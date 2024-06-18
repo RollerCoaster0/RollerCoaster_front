@@ -25,7 +25,7 @@ const GameDescription = ({gameInfo, setGameInfo}) => {
         }}>
             <TextField defaultValue={name} onChange={e => setGameInfo({...gameInfo, name: e.target.value})}
                        sx={{width: '600px', fontSize: '40px',}} variant='outlined'
-                       inputProps={{disableUnderline: true}}></TextField>
+                       InputProps={{disableUnderline: true}}></TextField>
             <div style={{fontSize: 40, marginTop: '100px'}}>
                 Preview:
             </div>
