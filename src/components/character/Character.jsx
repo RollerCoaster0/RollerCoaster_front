@@ -38,9 +38,9 @@ export default function Character() {
         console.log("aaaaaaEtoNenado", gameObj.classes[event.target.value])
     };
 
-const handleChangeButton = (event) =>{
-  player().then(r => console.log(name))
-    playerAvatar()
+const handleChangeButton = async (event) => {
+    const id = await player();
+    playerAvatar(id)
 };
 
 
@@ -107,18 +107,20 @@ console.log("errors",errors)
             );
             if (response.ok) {
                 const characterResp = await response.json()
+                return characterResp.id;
             }
             // return toQueryResult(response.status);
         } catch (e) {
 
         }
+
     }
-    const playerAvatar = async () => {
+    const playerAvatar = async (id) => {
         const token = getCredentials()?.token;
         const formData = new FormData();
         formData.append('file', avatar)
         try {
-            const response = await fetch(devConsts.api + `/players/${character.id}`, {
+            const response = await fetch(devConsts.api + `/players/${id}/avatar`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`,
