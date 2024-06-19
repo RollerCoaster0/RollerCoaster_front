@@ -34,15 +34,15 @@ export async function snedUseSkill(id, skillId) {
 
 export async function tryAction(promise, prevStates, newStates, stateSetters) {
     try {
-        stateSetters.forEach((setter, i) => setter(newStates[i]))
+        stateSetters?.forEach((setter, i) => setter(newStates[i]))
         const response = await promise
         if (!response.ok) {
-            stateSetters.forEach((setter, i) => setter(prevStates[i]))
+            stateSetters?.forEach((setter, i) => setter(prevStates[i]))
             console.log('ROLLBACK')
             //TODO: proccess
         }
     } catch (e) {
-        stateSetters.forEach((setter, i) => setter(prevStates[i]))
+        stateSetters?.forEach((setter, i) => setter(prevStates[i]))
         console.log('ROLLBACK')
         console.log('EVENT SENDING ERROR', e)
         //TODO: proccess
@@ -150,3 +150,25 @@ export async function startSession(id) {
         }
     })
 }
+
+
+export async function fetchAvatar(path) {
+    const token = getCredentials()?.token
+    return await fetch(devConsts.minio + path, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
+
+export async function moveNPC(id, X, Y) {
+    const token = getCredentials()?.token
+    return await fetch(devConsts.api + `npc/${id}` + new URLSearchParams({X, Y}), {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+

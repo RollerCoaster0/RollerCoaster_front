@@ -1,16 +1,15 @@
-import React, {useContext, useLayoutEffect, useRef,} from 'react';
-import '../gamespace.css'
-import {GameContext,} from "../../../contexts/GameContext";
+import React, {useContext, useLayoutEffect, useRef} from 'react';
+import {GameContext} from "../../../contexts/GameContext";
 import {gamePhaseType} from "../../pages/gamepage/GamePage";
 
-const Character = ({player}) => {
-    const {id, name, avatar, pos} = {...player}
+const Npc = ({npc}) => {
+    const {id, name, avatar, pos} = {...npc}
     const {cellSize, setGamePhase, isGm, pickedPlayerId, currentPlayerId, pickedEntity,  setPickedEntity} = useContext(GameContext)
     const position = calcPxPosition(cellSize, pos)
     const charRef = useRef()
     const handleClick = (e) => {
-        if (isGm || currentPlayerId.current === id) {
-            setPickedEntity({type: 'player', entity: player })
+        if (isGm) {
+            setPickedEntity({type: 'npc', entity: npc })
             pickedPlayerId.current = id
             setGamePhase(gamePhaseType.MAKING_MOVE)
         }
@@ -43,5 +42,4 @@ const Character = ({player}) => {
 function calcPxPosition(cellSize, pos) {
     return {x: pos.x * cellSize, y: pos.y * cellSize}
 }
-
-export default Character;
+export default Npc;

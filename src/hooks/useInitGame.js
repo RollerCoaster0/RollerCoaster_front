@@ -1,9 +1,12 @@
 import {useContext, useEffect, useRef, useState} from "react";
 import {devConsts,} from "../util/util";
 import {useLongPoll,} from "./useLongPolling";
-import {fetchClasses, fetchGame, fetchLocationsBackground, fetchPlayers, fetchSessionInfo} from "../api/game";
+import {
+    fetchGame,
+    fetchLocationsBackground,
+} from "../api/game";
 import {UserContext} from "../contexts/UserContext";
-import {gamePhaseType} from "../components/pages/gamepage/GamePage";
+import green from '../devassets/green_player.png'
 
 export function useInitGame(_session, _players) { //session prop
     console.log(_players)
@@ -13,14 +16,16 @@ export function useInitGame(_session, _players) { //session prop
     const [locations, setLocations] = useState([])
     const [cellSize, setCellSize] = useState(devConsts.defaultCellSize)
     const [currentLocation, setCurrentLocation] = useState()
-    const [pickedPlayer, setPickedPlayer] = useState()
+    const pickedPlayerId = useRef();
+    const [pickedEntity, setPickedEntity] = useState()
     const [gamePhase, setGamePhase] = useState()
+    const [npcs, setNpcs] = useState()
+    const [shownEntity, setShownEntity] = useState()
     const [lastReceivedMessage, setLastReceivedMessage] = useState()
     const {user} = useContext(UserContext)
-
     const [game, setGame] = useState()
     const pollingFlag = useRef(true)
-
+    const isGm = user.id === session.id
     const event = useLongPoll(pollingFlag)
 
     useEffect(() => {
@@ -76,6 +81,18 @@ export function useInitGame(_session, _players) { //session prop
                 }
                 data = await response.json()
                 setGame(data)
+                setNpcs(data.nonPlayableCharacters?.map(npc => {return {...npc, pos: {x: npc.baseXPosition, y: npc.baseYPosition}, avatar: green }} ))
+                let avatars = []
+                // if (players) {
+                //     for (let p of players) {
+                //         response = await fetchAvatar(p.avatarFilePath)
+                //         if (!response.ok) {
+                //             //TODO: handle
+                //         } else {
+                //             avatars.push(URL.createObjectURL(await response.blob()))
+                //         }
+                //     }
+                // }
                 // let fetchedPlayers = await fetchPlayers(session.id)
                 // let classes = await fetchClasses(players.map(p => p.characterClassId))
                 setPlayers(players => players?.map(((p, i) => {return{...p, characterClass: data.classes[i] }})))
@@ -100,7 +117,7 @@ export function useInitGame(_session, _players) { //session prop
             setGameData()
         }, [user] // в тестовых целях
     )
-
+    console.log(pickedEntity)
     return {
         players,
         setPlayers,
@@ -110,13 +127,18 @@ export function useInitGame(_session, _players) { //session prop
         setCellSize,
         currentLocation,
         setCurrentLocation,
-        pickedPlayer,
-        setPickedPlayer,
         gamePhase,
         setGamePhase,
+        pickedPlayerId,
         lastReceivedMessage,
         currentPlayerId,
         session,
-        game
+        game,
+        isGm,
+        pickedEntity,
+        setPickedEntity,
+        npcs,
+        setNpcs,
+        shownEntity, setShownEntity
     }
 }

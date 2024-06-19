@@ -8,6 +8,7 @@ import Navbar from "../../common/navbar/Navbar";
 import Skill from "../../gamespace/actions/Skill";
 import PageLobby from "../lobbypage/PageLobby";
 import Footer from "../../common/footer/Footer";
+import EntityCard from "../../gamespace/entitycard/EntityCard";
 
 
 export const gamePhaseType = {
@@ -44,6 +45,9 @@ const GamePage = () => {
                             <Chat/>
                             <Dice/>
                             <Skill/>
+                        </div>
+                        <div className='entity-card-container'>
+                            <EntityCard/>
                         </div>
                     </>
                 }
