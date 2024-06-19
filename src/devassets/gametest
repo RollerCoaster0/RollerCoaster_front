@@ -1,0 +1,39 @@
+user 1:
+    abobus1
+    aaAAA1!!@121
+   eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJuYmYiOjE3MTg1NzE4MTksImV4cCI6MTcxOTc4MTQxOSwiaWF0IjoxNzE4NTcxODE5LCJpc3MiOiJSb2xsZXJDb2FzdGVyQVBJIiwiYXVkIjoiUm9sbGVyQ29hc3RlcldlYkNsaWVudCJ9.Ijn541ZqhnDf2iaMiuw6v3qlhHtkrWErS1edeKPcPwc
+    id: 1
+user 2:
+    abobus2
+    aaAAA1!!@121
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJuYmYiOjE3MTg1NzE4MzksImV4cCI6MTcxOTc4MTQzOSwiaWF0IjoxNzE4NTcxODM5LCJpc3MiOiJSb2xsZXJDb2FzdGVyQVBJIiwiYXVkIjoiUm9sbGVyQ29hc3RlcldlYkNsaWVudCJ9.F35NALmVVqIsRoNMELPqzatLnMrpbsq__n8XhXAJli8
+    id: 2
+
+user 3:
+    abobus3
+    aaAAA1!!@121
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMiLCJuYmYiOjE3MTg1NzQzMjcsImV4cCI6MTcxOTc4MzkyNywiaWF0IjoxNzE4NTc0MzI3LCJpc3MiOiJSb2xsZXJDb2FzdGVyQVBJIiwiYXVkIjoiUm9sbGVyQ29hc3RlcldlYkNsaWVudCJ9.tj671tzHAqAow0Fdhd3MTqVapSCYObeSVMfOr55JnY8
+
+    
+game:
+    id: 1
+
+locations:
+    loc 1:
+	id: 1, base, 8x8
+    loc 2:
+	id: 2, 8x8
+
+characterClasses:
+    id: 1,
+    id: 2
+session:
+    id: 1
+
+players:
+    id: 1, class: 1
+    id: 2, class: 1
+
+skills:
+    id: 1
+
