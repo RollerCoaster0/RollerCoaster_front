@@ -27,6 +27,8 @@ export function useInitGame(_session, _players) { //session prop
     const pollingFlag = useRef(true)
     const isGm = user.id === session.id
     const event = useLongPoll(pollingFlag)
+    const [showedEntity, setShowedEntity] = useState()
+    const [skills, setSkills] = useState([])
 
     useEffect(() => {
         if (event) {
@@ -39,7 +41,11 @@ export function useInitGame(_session, _players) { //session prop
                             handleSessionStatusUpdated(event.questStatus)
                             break
                         case 'move':
-                            handleMoveEvent(event.move)
+                            if (event.move.player) {
+                                handleMoveEvent(event.move)
+                            } else {
+                                handleNpcMoveEvent(event.move)
+                            }
                             break
                         case 'newMessage':
                             setLastReceivedMessage(event.newMessage)
@@ -63,6 +69,15 @@ export function useInitGame(_session, _players) { //session prop
             return p
         }))
     }
+    const handleNpcMoveEvent = (event) => {
+        const movedNPC = event.anpc
+        setNpcs(npcs => npcs.map(n => {
+            if (n.id === movedNPC.id) {
+                return {...n, pos: {x: event.x, y: event.y}}
+            }
+            return n
+        }))
+    }
     const handleSessionStatusUpdated = (event) => {
         setSession(event)
     }
@@ -82,6 +97,7 @@ export function useInitGame(_session, _players) { //session prop
                 data = await response.json()
                 setGame(data)
                 setNpcs(data.nonPlayableCharacters?.map(npc => {return {...npc, pos: {x: npc.baseXPosition, y: npc.baseYPosition}, avatar: green }} ))
+                setSkills(data.skills)
                 let avatars = []
                 // if (players) {
                 //     for (let p of players) {
@@ -139,6 +155,9 @@ export function useInitGame(_session, _players) { //session prop
         setPickedEntity,
         npcs,
         setNpcs,
-        shownEntity, setShownEntity
+        shownEntity,
+        setShownEntity,
+        skills
+
     }
 }

@@ -33,8 +33,9 @@ export async function snedUseSkill(id, skillId) {
 
 
 export async function tryAction(promise, prevStates, newStates, stateSetters) {
+    console.log('TRYAC', prevStates, newStates, stateSetters)
     try {
-        stateSetters?.forEach((setter, i) => setter(newStates[i]))
+        stateSetters.forEach((setter, i) => setter(newStates[i]))
         const response = await promise
         if (!response.ok) {
             stateSetters?.forEach((setter, i) => setter(prevStates[i]))
@@ -42,7 +43,7 @@ export async function tryAction(promise, prevStates, newStates, stateSetters) {
             //TODO: proccess
         }
     } catch (e) {
-        stateSetters?.forEach((setter, i) => setter(prevStates[i]))
+        stateSetters.forEach((setter, i) => setter(prevStates[i]))
         console.log('ROLLBACK')
         console.log('EVENT SENDING ERROR', e)
         //TODO: proccess
@@ -164,7 +165,7 @@ export async function fetchAvatar(path) {
 
 export async function moveNPC(id, X, Y) {
     const token = getCredentials()?.token
-    return await fetch(devConsts.api + `npc/${id}` + new URLSearchParams({X, Y}), {
+    return await fetch(devConsts.api + `/anpc/${id}/move?` + new URLSearchParams({X, Y}), {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`
@@ -172,3 +173,12 @@ export async function moveNPC(id, X, Y) {
     })
 }
 
+export async function sendRollByNpc(id, die) {
+    const token = getCredentials()?.token
+    return await fetch(devConsts.api + `/anpc/${id}/roll?` + new URLSearchParams({die}), {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}

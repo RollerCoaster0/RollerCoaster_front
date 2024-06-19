@@ -29,7 +29,7 @@ const UserProfile = ({isToggled}) => {
         <div className='navbar__user-profile-container' onClick={handleClick}>
             <p style={{fontSize: 20}}>{user?.name ?? 'Guest'}</p>
             <Avatar sx={{width: '45px'}} src={user?.avatar ?? ''} alt={user?.name}/>
-            <Menu open={menuOpened} onClose={handleLogOut} anchorEl={anchorEl} MenuListProps={{
+            <Menu open={menuOpened} anchorEl={anchorEl} MenuListProps={{
                 "aria-labelledby": "basic-button",
                 sx: {width: anchorEl && anchorEl.offsetWidth, borderRadius: '30px'}
             }}>

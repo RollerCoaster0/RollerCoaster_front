@@ -1,7 +1,7 @@
 import React, {useContext, useRef, useState} from 'react';
 import '../gamespace.css'
 import CasinoIcon from '@mui/icons-material/Casino';
-import {sendRoll} from "../../../api/game";
+import {sendRoll, sendRollByNpc} from "../../../api/game";
 import {GameContext} from "../../../contexts/GameContext";
 import {Menu, MenuItem, Modal} from "@mui/material";
 import {UserContext} from "../../../contexts/UserContext";
@@ -15,12 +15,17 @@ const diceStateValue = {
 
 const Dice = () => {
     const [diceState, setDiceState] = useState(diceStateValue.IDLE)
-    const {currentPlayerId} = useContext(GameContext)
+    const {currentPlayerId, pickedEntity, isGm} = useContext(GameContext)
     const diceRes = useRef(null)
     const anchorRef = useRef()
     const handleRoll = async (die) => {
         setDiceState(diceStateValue.WAITING_FOR_RESULT)
-        const response = await sendRoll(currentPlayerId.current, die)
+        let response
+        if (!isGm) {
+             response = await sendRoll(currentPlayerId.current, die)
+        } else {
+            response = await sendRollByNpc(pickedEntity.entity.id, die)
+        }
         if (!response.ok) {
             //proccess
         } else {
@@ -39,9 +44,13 @@ const Dice = () => {
                 <CasinoIcon sx={dieIconStyle}/>
             </div>
             <Menu onClose={menuOnClose} open={diceState === diceStateValue.PICK_DIE} anchorEl={anchorRef.current}>
-                <MenuItem onClick={() => handleRoll(4)}>4D</MenuItem>
-                <MenuItem onClick={() => handleRoll(6)}>6D</MenuItem>
-                <MenuItem onClick={() => handleRoll(10)}>10D</MenuItem>
+                {isGm && !pickedEntity ? <MenuItem>Pick an NPC</MenuItem>
+                    : <>
+                        <MenuItem onClick={() => handleRoll(4)}>4D</MenuItem>
+                        <MenuItem onClick={() => handleRoll(6)}>6D</MenuItem>
+                        <MenuItem onClick={() => handleRoll(10)}>10D</MenuItem>
+                    </>
+                }
             </Menu>
             <Modal open={diceState > diceStateValue.PICK_DIE}>
                 <div>

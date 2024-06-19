@@ -7,7 +7,7 @@ import {gamePhaseType} from "../../pages/gamepage/GamePage";
 import NPC from "../characters/NPC";
 
 const Location = ({location}) => {
-    const {cellSize, gamePhase,  players, setPlayers, currentPlayerId, setGamePhase, pickedPlayerId, pickedEntity, setPickedEntity, isGm, setNpcs, npcs} = useContext(GameContext)
+    const {cellSize, gamePhase,  players, setPlayers,  setGamePhase, pickedPlayerId, pickedEntity, setPickedEntity, isGm, setNpcs, npcs, setShownEntity} = useContext(GameContext)
     const locRef = useRef()
     const handleClick = useRef()
     const cellSizeRef  = useRef()
@@ -17,12 +17,13 @@ const Location = ({location}) => {
     const npcsRef = useRef()
     //TODO: узнать, можно ли обойтись без костылей для замыкания  ^^^
     const onWaitingForMove = () => {
-        //
+        setShownEntity(null)
     }
 
     const makeMove = (e) => {
         const [x, y] = getInnerCoords(locRef, e)
         const pos = calcGridPositionByCoords(x, y, cellSizeRef.current)
+        console.log('curreeentt', pickedEntityRef.current)
         if (pickedEntityRef.current.type === 'player') {
             setPlayers(players => players.map(c => c.id === pickedPlayerId.current ? {...c, pos: {x: pos.xPos, y: pos.yPos}} : c))
             const newPlayers = playersRef.current.map(c => c.id === pickedPlayerId.current ? {...c, pos: {x: pos.xPos, y: pos.yPos}} : c)
@@ -33,10 +34,11 @@ const Location = ({location}) => {
             setNpcs(npcs => npcs.map(npc => npc.id === pickedEntityRef?.current?.entity.id ? {...npc, pos: {x: pos.xPos, y: pos.yPos}} :npc))
             const newNpcs =  npcsRef.current?.map(npc => npc.id === pickedEntityRef?.current?.entity.id ? {...npc, pos: {x: pos.xPos, y: pos.yPos}} :npc)
             const oldNpcs = npcsRef.current
-            let promise = moveNPC(pickedEntityRef.current.entity.id, pos.xPos,pos.yPos)
-            tryAction(promise, [oldNpcs, gamePhaseRef.current, pickedEntityRef.current], [newNpcs, gamePhaseType.WAITING_FOR_MOVE, null] [setNpcs, setGamePhase, setPickedEntity])
+            let promise = moveNPC(pickedEntityRef.current.entity.id, pos.xPos, pos.yPos)
+            tryAction(promise, [oldNpcs, gamePhaseRef.current, pickedEntityRef.current], [newNpcs, gamePhaseType.WAITING_FOR_MOVE, null], [setNpcs, setGamePhase, setPickedEntity])
         }
         setPickedEntity(null)
+        setShownEntity(null)
         setGamePhase(gamePhaseType.WAITING_FOR_MOVE)
         pickedPlayerId.current = null
     }
@@ -53,8 +55,8 @@ const Location = ({location}) => {
                 handleClick.current = null
         }
     }, [gamePhase]);
-
     useEffect(() => {
+        console.log('FIRES', pickedEntity)
         cellSizeRef.current = cellSize
         playersRef.current = players
         gamePhaseRef.current = gamePhase

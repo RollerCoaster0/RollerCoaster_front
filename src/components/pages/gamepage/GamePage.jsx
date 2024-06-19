@@ -46,9 +46,7 @@ const GamePage = () => {
                             <Dice/>
                             <Skill/>
                         </div>
-                        <div className='entity-card-container'>
                             <EntityCard/>
-                        </div>
                     </>
                 }
             </GameContextProvider>

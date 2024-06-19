@@ -5,7 +5,7 @@ import {gamePhaseType} from "../../pages/gamepage/GamePage";
 
 const Character = ({player}) => {
     const {id, name, avatar, pos} = {...player}
-    const {cellSize, setGamePhase, isGm, pickedPlayerId, currentPlayerId, pickedEntity,  setPickedEntity} = useContext(GameContext)
+    const {cellSize, setGamePhase, isGm, pickedPlayerId, currentPlayerId, pickedEntity,  setPickedEntity, setShownEntity} = useContext(GameContext)
     const position = calcPxPosition(cellSize, pos)
     const charRef = useRef()
     const handleClick = (e) => {
@@ -14,6 +14,7 @@ const Character = ({player}) => {
             pickedPlayerId.current = id
             setGamePhase(gamePhaseType.MAKING_MOVE)
         }
+        setShownEntity({type: 'player', entity: player})
         e.stopPropagation()
     }
 
