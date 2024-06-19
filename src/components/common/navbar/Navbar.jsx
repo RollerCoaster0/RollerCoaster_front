@@ -14,9 +14,10 @@ const Navbar = () => {
                         <Link className="navbar__links__item" to={'/postpage'}>Join a game</Link>
                         <a className="navbar__links__item">Community</a>
                     </div>
-                    <UserProfile />
+                    <UserProfile/>
                 </div>
             </nav>
+
         </>
     );
 };
