@@ -1,5 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {Button, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
+import React, {useEffect, useRef, useState} from 'react';
+import {
+    Avatar, Badge,
+    Button, Card, CardContent,
+    CardMedia,
+    ClickAwayListener, Collapse,
+    FormControl, IconButton,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField
+} from "@mui/material";
 import img from "./logo/img.png";
 import './character.css'
 import FolderList from "./FolderList";
@@ -7,6 +17,10 @@ import {devConsts} from "../../util/util";
 import {getCredentials} from "../../contexts/UserContext";
 import {fetchGame, fetchSessionInfo} from "../../api/game";
 import {useLoaderData} from "react-router-dom";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import DeleteIcon from "@mui/icons-material/Delete";
+import NPCcardInfo from "../pages/creategame/NPCs/NPCcardInfo";
+import NPClocationPickModal from "../pages/creategame/NPCs/NPClocationPickModal";
 
 export default function Character() {
     const {sessionObj, gameObj} = useLoaderData()
@@ -24,8 +38,9 @@ export default function Character() {
         console.log("aaaaaaEtoNenado", gameObj.classes[event.target.value])
     };
 
-const handleChangeButton = (event) =>{
-  player().then(r => console.log(name))
+const handleChangeButton = async (event) => {
+    const id = await player();
+    playerAvatar(id)
 };
 
 
@@ -92,6 +107,29 @@ console.log("errors",errors)
             );
             if (response.ok) {
                 const characterResp = await response.json()
+                return characterResp.id;
+            }
+            // return toQueryResult(response.status);
+        } catch (e) {
+
+        }
+
+    }
+    const playerAvatar = async (id) => {
+        const token = getCredentials()?.token;
+        const formData = new FormData();
+        formData.append('file', avatar)
+        try {
+            const response = await fetch(devConsts.api + `/players/${id}/avatar`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                body: formData,
+                },
+            );
+            if (response.ok) {
+                const characterResp = await response.json()
             }
             // return toQueryResult(response.status);
         } catch (e) {
@@ -99,44 +137,71 @@ console.log("errors",errors)
         }
     }
 
+    const [avatar, setAvatar] = useState()
 
-
+    const uploadImageRef = useRef(null);
+    const handleMapUpload = (e) => {
+        setAvatar(e.target.files?.[0]);
+    }
+    const [editMode, setEditMode] = useState(false);
+    const onClick = (e) => {
+        e.stopPropagation();
+        setEditMode(true);
+    }
 
     return (
         <div className="character_field">
+
 
             <div className="character_field__logo_field">
                 <img src={img} width={100} height={110} className="character_field__logo"/>
                 <h1 className="character_field__logo__name">Roller Coaster</h1>
             </div>
 
+                    <div className='npcs__npc-card-wrapper' onClick={e => onClick(e)}>
+
+                                 <div className='avatar-wrapper' style={{backgroundImage: avatar? `url(${URL.createObjectURL(avatar)})`: null}}>
+                                    <input type='file' accept='image/*' style={{display: "none"}} ref={uploadImageRef}
+                                           onChange={e => handleMapUpload(e)}/>
+                                    <AddCircleIcon className='add-button'
+                                                   sx={{fontSize: 60}} onClick={() => uploadImageRef.current.click()}/>
+                                </div>
+
+
+                    </div>
+
+
 
 
             <div className="character_field__choose">
-                <div className="Input_wrapper">
-                    { errors && errors.length === 0 && submitting ?(
-                        <span className="success">Successfully submitted</span>
-                    ): null}
-                    <form onSubmit={handleSubmit}>
-                <TextField id="outlined-basic" variant="outlined" color="success" placeholder="NAME"
-                           onChange={onChangeHandler}
-                           value={name.charname}
 
-                           InputProps={{disableUnderline: true}}
-                           sx={{
-                               width: "200px",
-                               height: "57px",
-                               fontSize: "50px",
-                               borderRadius: "5px",
-                               backgroundColor: "#849d5a",
-                               marginBottom: "40px",
-                           }}/>
-                        {errors?(
-                            <p className="error">The name must be longer than 1 character and shorter than 35 characters </p  >
-                        ): null}
+                <div className="Input_wrapper">
+
+
+                    {errors && errors.length === 0 && submitting ? (
+                        <span className="success">Successfully submitted</span>
+                    ) : null}
+                    <form onSubmit={handleSubmit}>
+                        <TextField id="outlined-basic" variant="outlined" color="success" placeholder="NAME"
+                                   onChange={onChangeHandler}
+                                   value={name.charname}
+
+                                   InputProps={{disableUnderline: true}}
+                                   sx={{
+                                       width: "200px",
+                                       height: "57px",
+                                       fontSize: "50px",
+                                       borderRadius: "5px",
+                                       backgroundColor: "#849d5a",
+                                       marginBottom: "40px",
+                                   }}/>
+                        {errors ? (
+                            <p className="error">The name must be longer than 1 character and shorter than 35
+                                characters </p>
+                        ) : null}
 
                     </form>
-               </div>
+                </div>
 
 
                 <div>
@@ -175,12 +240,12 @@ console.log("errors",errors)
             </div>
             <Button onClick={handleChangeButton} disabled={errors.length !== 0 || name.length === 0}
                     sx={{
-                        display:"flex",
-                        alignSelf:"center",
+                        display: "flex",
+                        alignSelf: "center",
                         backgroundColor: "darkolivegreen",
                         color: "red",
-                        width:"25%",
-                        marginTop:'auto'
+                        width: "25%",
+                        marginTop: 'auto'
                     }}
             >Send</Button>
         </div>
