@@ -16,7 +16,7 @@ const Postpage = () => {
     };
 
     const handleGameId = async (id) => {
-        navigate(`/lobby/${id}`)
+        navigate(`/game/${id}`)
     }
 
     const handleCloseModal = () => {

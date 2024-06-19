@@ -1,10 +1,10 @@
 import React, {useContext, useRef, useState} from 'react';
-import './gamespace.css'
+import '../gamespace.css'
 import CasinoIcon from '@mui/icons-material/Casino';
-import {sendRoll} from "../../api/game";
-import {GameContext} from "../../contexts/GameContext";
+import {sendRoll} from "../../../api/game";
+import {GameContext} from "../../../contexts/GameContext";
 import {Menu, MenuItem, Modal} from "@mui/material";
-import {UserContext} from "../../contexts/UserContext";
+import {UserContext} from "../../../contexts/UserContext";
 
 const diceStateValue = {
     IDLE: 0,

@@ -1,12 +1,13 @@
 import React, {useContext, useLayoutEffect, useRef,} from 'react';
 import '../gamespace.css'
-import {GameContext, gamePhaseType} from "../../../contexts/GameContext";
+import {GameContext,} from "../../../contexts/GameContext";
+import {gamePhaseType} from "../../pages/gamepage/GamePage";
 
 const Character = ({id, name, avatar, pos, attributes}) => {
     const {cellSize, setGamePhase} = useContext(GameContext)
+    console.log('POS',pos)
     const position = calcPxPosition(cellSize, pos)
     const charRef = useRef()
-
     const handleClick = (e) => {
         setGamePhase(gamePhaseType.MAKING_MOVE)
         e.stopPropagation()

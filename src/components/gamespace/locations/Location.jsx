@@ -1,8 +1,9 @@
 import React, {useContext, useEffect, useRef} from 'react';
 import '../gamespace.css'
-import {GameContext, gamePhaseType} from "../../../contexts/GameContext";
+import {GameContext} from "../../../contexts/GameContext";
 import Character from "../characters/Character";
 import {sendMove, tryAction} from "../../../api/game";
+import {gamePhaseType} from "../../pages/gamepage/GamePage";
 
 const Location = ({location}) => {
     const {cellSize, gamePhase,  players, setPlayers, currentPlayerId, setGamePhase} = useContext(GameContext)
@@ -45,7 +46,7 @@ const Location = ({location}) => {
         playersRef.current = players
         gamePhaseRef.current = gamePhase
     }, [cellSize, players, gamePhase]);
-
+    console.log('PLAYERS', players)
     return (
         <div className='game-field' style={{
             backgroundImage: `url(${location?.background})`,

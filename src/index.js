@@ -18,6 +18,7 @@ import Error from "./components/error/Error";
 import Character from "./components/character/Character";
 import AuthorizedOnly from "./components/common/AuthorizedOnly";
 import CreateSession from "./components/pages/createsession/CreateSession";
+import red_player from "./devassets/red_player.png";
 
 
 const router = createBrowserRouter([
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'postpage',
-                element:<AuthorizedOnly><Postpage/></AuthorizedOnly>
+                element: <AuthorizedOnly><Postpage/></AuthorizedOnly>
             },
             {
                 path: 'lobby/:sessionId',
@@ -78,7 +79,7 @@ const router = createBrowserRouter([
 
             },
             {
-                path:'createsession',
+                path: 'createsession',
                 element: <CreateSession/>
             }
 
@@ -87,25 +88,45 @@ const router = createBrowserRouter([
     {
         path: 'game/:sessionId',
         loader: async ({params}) => {
-            const response = await fetchSessionInfo(params.sessionId);
+            let response = await fetchSessionInfo(params.sessionId);
             if (response.status === 404) {
                 throw new Error('404 Invalid session id')
             }
-            return await response.json()
+            const session = await response.json()
+            let players = null
+            response = await fetchPlayers(params.sessionId)
+            if (response.ok) {
+                 players = await response.json()
+                players = players?.map(((p, i) => {
+                    return {
+                        id: p.id,
+                        userId: p.userId,
+                        name: p.name,
+                        pos: {x: p.currentXPosition, y: p.currentYPosition},
+                        characterClass: null,
+                        characterClassId: p.characterClassId,
+                        avatar: red_player,
+                        healthPoints: p.healthPoints
+                    }
+                }))
+            } else {
+                console.log(response)
+            }
+            return {session, players}
         },
-        element:<AuthorizedOnly> <GamePage/></AuthorizedOnly>
+        element: <AuthorizedOnly><GamePage/></AuthorizedOnly>
     },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     // <React.StrictMode>
-        <AlertContextProvider>
-            <AlertMessage/>
-            <UserContextProvider>
-                <RouterProvider router={router}/>
-            </UserContextProvider>
-        </AlertContextProvider>
+    <AlertContextProvider>
+        <AlertMessage/>
+        <UserContextProvider>
+            <RouterProvider router={router}/>
+        </UserContextProvider>
+    </AlertContextProvider>
     // </React.StrictMode>
 );
 

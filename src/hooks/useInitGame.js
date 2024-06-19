@@ -1,23 +1,24 @@
 import {useContext, useEffect, useRef, useState} from "react";
 import {devConsts,} from "../util/util";
-import {gamePhaseType} from "../contexts/GameContext";
-import red_player from '../devassets/red_player.png'
 import {useLongPoll,} from "./useLongPolling";
 import {fetchClasses, fetchGame, fetchLocationsBackground, fetchPlayers, fetchSessionInfo} from "../api/game";
 import {UserContext} from "../contexts/UserContext";
+import {gamePhaseType} from "../components/pages/gamepage/GamePage";
 
-export function useInitGame(session) { //session prop
-    const [players, setPlayers] = useState([])
+export function useInitGame(_session, _players) { //session prop
+    console.log(_players)
+    const [players, setPlayers] = useState(_players)
+    const [session, setSession] = useState(_session)
     const currentPlayerId = useRef()
     const [locations, setLocations] = useState([])
     const [cellSize, setCellSize] = useState(devConsts.defaultCellSize)
     const [currentLocation, setCurrentLocation] = useState()
-    const [pickedPlayer, setPickedPlayer] = useState(players[0])
-    const [gamePhase, setGamePhase] = useState(gamePhaseType.MAKING_MOVE)
+    const [pickedPlayer, setPickedPlayer] = useState()
+    const [gamePhase, setGamePhase] = useState()
     const [lastReceivedMessage, setLastReceivedMessage] = useState()
     const {user} = useContext(UserContext)
 
-    const [game, setGame] = useState({id: 4})
+    const [game, setGame] = useState()
     const pollingFlag = useRef(true)
 
     const event = useLongPoll(pollingFlag)
@@ -58,7 +59,7 @@ export function useInitGame(session) { //session prop
         }))
     }
     const handleSessionStatusUpdated = (event) => {
-
+        setSession(event)
     }
 
     const handleQuestStatusEvent = (event) => {
@@ -74,19 +75,11 @@ export function useInitGame(session) { //session prop
                     return
                 }
                 data = await response.json()
-                let fetchedPlayers = await fetchPlayers(session.id)
-                let classes = await fetchClasses(fetchedPlayers.map(p => p.characterClassId))
+                setGame(data)
+                // let fetchedPlayers = await fetchPlayers(session.id)
+                // let classes = await fetchClasses(players.map(p => p.characterClassId))
+                setPlayers(players => players?.map(((p, i) => {return{...p, characterClass: data.classes[i] }})))
                 let backgrounds = await fetchLocationsBackground(data.locations.map(l => l.mapFilePath))
-                setPlayers(fetchedPlayers.map(((p, i) => {
-                    return {
-                        id: p.id,
-                        userId: p.userId,
-                        name: p.name,
-                        pos: {x: p.currentXPosition, y: p.currentYPosition},
-                        characterClass: classes[i],
-                        avatar:red_player
-                    }
-                })))
                 let locs = data.locations.map((loc, i) => {
                     return {
                         id: loc.id,
@@ -98,7 +91,7 @@ export function useInitGame(session) { //session prop
                 })
                 setLocations(locs)
 
-                currentPlayerId.current = fetchedPlayers.find(p => { console.log(user, p); return  p.userId === user?.id})?.id
+                currentPlayerId.current = players?.find(p => { console.log(user, p); return  p.userId === user?.id})?.id
                 // if (!currentPlayerId.current) {
                 //     throw new Error('не найден текущий игрок')
                 // }
@@ -124,5 +117,6 @@ export function useInitGame(session) { //session prop
         lastReceivedMessage,
         currentPlayerId,
         session,
+        game
     }
 }
