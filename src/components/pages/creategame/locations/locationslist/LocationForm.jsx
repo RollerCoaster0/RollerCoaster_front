@@ -84,7 +84,7 @@ const LocationForm = ({
 
                     <h3 className='new-location-modal__form__label'>Size:</h3>
                     <div className='new-location-modal__form__field-size'>
-                        <TextField value={width ?? ''} variant='outlined' placeholder='Width' onChange={e => setHeight(e.target.value)}/>
+                        <TextField value={width ?? ''} variant='outlined' placeholder='Width' onChange={e => setWidth(e.target.value)}/>
                         <span style={{fontSize: 15,}}>X</span>
                         <TextField variant='outlined' value={height ?? ''} onChange={(e) => setHeight(e.target.value)} placeholder='Height'/>
 

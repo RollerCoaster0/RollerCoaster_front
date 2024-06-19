@@ -19,8 +19,6 @@ import {fetchGame, fetchSessionInfo} from "../../api/game";
 import {useLoaderData} from "react-router-dom";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
-import NPCcardInfo from "../pages/creategame/NPCs/NPCcardInfo";
-import NPClocationPickModal from "../pages/creategame/NPCs/NPClocationPickModal";
 
 export default function Character() {
     const {sessionObj, gameObj} = useLoaderData()
@@ -29,8 +27,6 @@ export default function Character() {
         }
     )
     const [name, setName] = useState('')
-
-
 
     const handleChange = (event) => {
         setCharacter(gameObj.classes[event.target.value]);
@@ -42,7 +38,6 @@ const handleChangeButton = async (event) => {
     const id = await player();
     playerAvatar(id)
 };
-
 
  const [errors, setErrors] = useState('');
  const[submitting, setSubmitting] = useState(false);
@@ -64,7 +59,6 @@ const handleChangeButton = async (event) => {
      }
  }
 
-
      const handleSubmit = (event) => {
          event.preventDefault();
          setSubmitting(true);
@@ -74,18 +68,14 @@ const handleChangeButton = async (event) => {
          console.log(name);
      };
      useEffect(() => {
-
          if(errors && errors.length === 0 && submitting){
              finishSubmit();
 
          }
      }, [errors]);
 
-
-
 console.log("errors",errors)
     console.log("gamearr",gameObj)
-
 
     const onChangeHandler = event => {
         validateValues(name);
@@ -93,7 +83,6 @@ console.log("errors",errors)
         console.log("aaaaaaEtoNado", name)
 
     };
-
 
     const player = async () => {
         const token = getCredentials()?.token;
@@ -113,7 +102,6 @@ console.log("errors",errors)
         } catch (e) {
 
         }
-
     }
     const playerAvatar = async (id) => {
         const token = getCredentials()?.token;
@@ -151,27 +139,18 @@ console.log("errors",errors)
 
     return (
         <div className="character_field">
-
-
             <div className="character_field__logo_field">
                 <img src={img} width={100} height={110} className="character_field__logo"/>
                 <h1 className="character_field__logo__name">Roller Coaster</h1>
             </div>
-
                     <div className='npcs__npc-card-wrapper' onClick={e => onClick(e)}>
-
                                  <div className='avatar-wrapper' style={{backgroundImage: avatar? `url(${URL.createObjectURL(avatar)})`: null}}>
                                     <input type='file' accept='image/*' style={{display: "none"}} ref={uploadImageRef}
                                            onChange={e => handleMapUpload(e)}/>
                                     <AddCircleIcon className='add-button'
                                                    sx={{fontSize: 60}} onClick={() => uploadImageRef.current.click()}/>
                                 </div>
-
-
                     </div>
-
-
-
 
             <div className="character_field__choose">
 
@@ -223,7 +202,6 @@ console.log("errors",errors)
                                     </h1>
                                 </MenuItem>
                             )}
-
                         </Select>
                     </FormControl>
                 </div>

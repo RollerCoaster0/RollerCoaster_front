@@ -11,9 +11,10 @@ const HomePage = () => {
         <main className="content">
             <p className="content__grid-item1">Добро пожаловать в мир приключений и фэнтези! </p>
             <img src={img1} className="content__grid-item2" alt="aboba"/>
-            <img src={img2} className="content__grid-item3" alt="aboba"/>
+
             <p className="content__grid-item4">Здесь вы сможете погрузиться в захватывающие миры и отправиться в
                 увлекательные приключения вместе с друзьями. </p>
+            <img src={img2} className="content__grid-item3" alt="aboba"/>
             <p className="content__grid-item5">Подготовьтесь к захватывающим сражениям, встречам с загадочными
                 существами и
                 неожиданным поворотам сюжета!
@@ -36,7 +37,6 @@ const HomePage = () => {
         </main>
     );
 };
-
 
 
 export default HomePage;
