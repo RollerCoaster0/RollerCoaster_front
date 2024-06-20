@@ -155,13 +155,25 @@ export async function startSession(id) {
 
 export async function fetchAvatar(path) {
     const token = getCredentials()?.token
-    return await fetch(devConsts.minio + path, {
+    return await fetch(devConsts.minio + `/${path}`, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
     })
 }
 
+
+export async function setAvatars(players) {
+   for (const p of players) {
+      const response = await fetchAvatar(p.avatarFilePath)
+       if (!response.ok) {
+           //TODO: handle
+       } else {
+           const blob = await response.blob()
+           p.avatar = URL.createObjectURL(blob)
+       }
+   }
+}
 
 export async function moveNPC(id, X, Y) {
     const token = getCredentials()?.token
@@ -173,6 +185,7 @@ export async function moveNPC(id, X, Y) {
     })
 }
 
+
 export async function sendRollByNpc(id, die) {
     const token = getCredentials()?.token
     return await fetch(devConsts.api + `/anpc/${id}/roll?` + new URLSearchParams({die}), {
@@ -180,5 +193,58 @@ export async function sendRollByNpc(id, die) {
         headers: {
             'Authorization': `Bearer ${token}`
         }
+    })
+}
+
+
+
+async function fetchANPC(id) {
+
+}
+export async function fethcANPCs(sessionId) {
+    const token = getCredentials()?.token
+    return await  fetch(devConsts.api + '/anpc?' + new URLSearchParams({sessionId}), {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
+export async function changeHpNpc(npcId, HP) {
+    const token = getCredentials()?.token
+    return await fetch(devConsts.api + `/anpc/${npcId}/changeHp?` + new URLSearchParams({HP}), {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    } )
+}
+
+export async function changeHpPlayer(id, HP) {
+    const token = getCredentials()?.token
+    return await fetch(devConsts.api + `/players/${id}/changeHp?` + new URLSearchParams({HP}), {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    } )
+}
+export async function sendUseSkillByNPC(skillId, anpcId) {
+        const token = getCredentials()?.token
+        return await fetch(devConsts.api + `/anpc/${anpcId}/useSkill?` + new URLSearchParams({skillId}), {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+}
+
+export async function sendUseSkill(skillId, playerId) {
+    const token = getCredentials()?.token
+    return await fetch(devConsts.api + `/players/${playerId}/useSkill?` + new URLSearchParams({skillId}), {
+       method: 'POST',
+       headers: {
+           'Authorization': `Bearer ${token}`
+       }
     })
 }

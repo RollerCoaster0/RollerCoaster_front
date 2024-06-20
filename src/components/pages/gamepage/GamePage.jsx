@@ -9,6 +9,9 @@ import Skill from "../../gamespace/actions/Skill";
 import PageLobby from "../lobbypage/PageLobby";
 import Footer from "../../common/footer/Footer";
 import EntityCard from "../../gamespace/entitycard/EntityCard";
+import Quests from "../../gamespace/actions/Quests";
+import HealthPoints from "../../gamespace/actions/HealthPoints";
+import GMonly from "../../gamespace/GMonly";
 
 
 export const gamePhaseType = {
@@ -26,7 +29,7 @@ export const userLocation = {
 const GamePage = () => {
     const {session, players} = useLoaderData()
     const [whereIsUser, setWhereIsUser] = useState(userLocation.LOBBY)
-    console.log('WHIU',whereIsUser)
+    console.log('WHIU', whereIsUser)
     return (
         <>
             <Navbar/>
@@ -34,7 +37,7 @@ const GamePage = () => {
                 {whereIsUser === userLocation.LOBBY
                     ? <>
                         <div className='wrapper'>
-                            <PageLobby  players={players} setWhereIsUser={setWhereIsUser}/>
+                            <PageLobby players={players} setWhereIsUser={setWhereIsUser}/>
                         </div>
                         <Footer/>
                     </>
@@ -45,8 +48,12 @@ const GamePage = () => {
                             <Chat/>
                             <Dice/>
                             <Skill/>
+                            <Quests/>
+                            <GMonly>
+                                <HealthPoints/>
+                            </GMonly>
                         </div>
-                            <EntityCard/>
+                        <EntityCard/>
                     </>
                 }
             </GameContextProvider>

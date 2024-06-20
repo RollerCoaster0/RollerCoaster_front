@@ -3,14 +3,11 @@ import {Avatar, Paper, Slide} from "@mui/material";
 import {GameContext} from "../../../contexts/GameContext";
 
 const EntityCard = () => {
-    const value = 60
     const max = 100
     const parentRef = useRef()
     const name = 'Name'
     const {shownEntity} = useContext(GameContext)
-    if (!shownEntity) {
-        return null
-    }
+    console.log('SHOWN ENTITY',shownEntity)
     return (
         <>
             <Slide direction={'up'} in={shownEntity} mountOnEnter >

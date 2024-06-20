@@ -19,6 +19,7 @@ import Character from "./components/character/Character";
 import AuthorizedOnly from "./components/common/AuthorizedOnly";
 import CreateSession from "./components/pages/createsession/CreateSession";
 import red_player from "./devassets/red_player.png";
+import {green} from "@mui/material/colors";
 
 
 const router = createBrowserRouter([
@@ -96,19 +97,16 @@ const router = createBrowserRouter([
             let players = null
             response = await fetchPlayers(params.sessionId)
             if (response.ok) {
-                 players = await response.json()
+                players = await response.json()
                 players = players?.map(((p, i) => {
                     return {
-                        id: p.id,
-                        userId: p.userId,
-                        name: p.name,
+                        ...p,
                         pos: {x: p.currentXPosition, y: p.currentYPosition},
                         characterClass: null,
-                        characterClassId: p.characterClassId,
-                        avatar: red_player,
-                        healthPoints: p.healthPoints
+                        avatar: null
                     }
                 }))
+                console.log('PLAYERS', players)
             } else {
                 console.log(response)
             }

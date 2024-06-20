@@ -2,27 +2,34 @@ import React, {useContext, useRef, useState} from 'react';
 import skillIcon from '../../../devassets/use.png'
 import '../gamespace.css'
 import {GameContext} from "../../../contexts/GameContext";
-import {Menu, MenuItem, Modal} from "@mui/material";
+import {Menu, MenuItem, Modal, Tooltip} from "@mui/material";
 import NotGmOnly from "../NotGmOnly";
 import GMonly from "../GMonly";
+import {sendUseSkill, sendUseSkillByNPC, useSkillByNPC} from "../../../api/game";
 
 const Skill = () => {
     const {skills, game, currentPlayerId, pickedEntity} = useContext(GameContext)
     const anchor = useRef()
     const [menuOpen, setMenuOpen] = useState(false)
-    const handleUseSkill = (s) => {
-
+    const handleUseSkill = async (s) => {
+        const response = await sendUseSkill(s.id, currentPlayerId.current)
+        if (!response.ok) {
+            //TODO: handle
+        }
     }
-    const handleUseSkillByNpc = (s) => {
-
+    const handleUseSkillByNpc = async (s) => {
+        const response = await sendUseSkillByNPC(s.id, pickedEntity.entity.id)
     }
-    console.log('skills', skills)
-    console.log(game)
     return (
         <>
-            <img ref={anchor} title='Use skill' className='game-field__side-panel__dice' src={skillIcon}
-                 onClick={() => setMenuOpen(true)}/>
-            <Menu anchorEl={anchor.current} open={menuOpen} onClose={() => setMenuOpen(false)}>
+            <Tooltip title='Use skill'>
+                <img ref={anchor}  className='game-field__side-panel__dice' src={skillIcon}
+                     onClick={() => setMenuOpen(true)}/>
+            </Tooltip>
+            <Menu anchorEl={anchor.current} open={menuOpen} onClose={() => setMenuOpen(false)} transformOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+            }}>
 
                 <NotGmOnly>
                     {skills?.filter(s => s.availableOnlyForCharacterClassId === currentPlayerId.current).map(s =>

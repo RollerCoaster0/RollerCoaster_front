@@ -121,3 +121,13 @@
     text-align: center;
     color: black;
 }
+
+
+.change-hp-item {
+    width: 400px;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+}

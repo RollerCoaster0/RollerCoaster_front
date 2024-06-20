@@ -32,7 +32,7 @@ export async function createGame(items, NPCs, quests, gameInfo, locations, skill
         for (const item of items) {
             res = await createGameComponent(item, gameComponentType.ITEM, gameId);
             if (!res.ok) {
-                return {ok: false, message: res.status}
+                console.log('NOT CREATED ITEM', item)
             }
         }
 
@@ -119,6 +119,7 @@ export async function createGame(items, NPCs, quests, gameInfo, locations, skill
 }
 
 export async function initGame(gameInfo) {
+    gameInfo = {name: gameInfo.name, description: gameInfo.description}
     const token = getCredentials()?.token;
     return await fetch(devConsts.api + '/games?' + new URLSearchParams(gameInfo), {
         method: 'POST',

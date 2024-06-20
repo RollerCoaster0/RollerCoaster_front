@@ -35,6 +35,7 @@ const Location = ({location}) => {
             const newNpcs =  npcsRef.current?.map(npc => npc.id === pickedEntityRef?.current?.entity.id ? {...npc, pos: {x: pos.xPos, y: pos.yPos}} :npc)
             const oldNpcs = npcsRef.current
             let promise = moveNPC(pickedEntityRef.current.entity.id, pos.xPos, pos.yPos)
+            console.log('MOVE RESP', promise)
             tryAction(promise, [oldNpcs, gamePhaseRef.current, pickedEntityRef.current], [newNpcs, gamePhaseType.WAITING_FOR_MOVE, null], [setNpcs, setGamePhase, setPickedEntity])
         }
         setPickedEntity(null)
@@ -56,7 +57,6 @@ const Location = ({location}) => {
         }
     }, [gamePhase]);
     useEffect(() => {
-        console.log('FIRES', pickedEntity)
         cellSizeRef.current = cellSize
         playersRef.current = players
         gamePhaseRef.current = gamePhase
@@ -65,7 +65,6 @@ const Location = ({location}) => {
     }, [cellSize, players, gamePhase, pickedEntity, npcs]);
 
 
-    console.log('PLAYERS', players)
     return (
         <div className='game-field' style={{
             backgroundImage: `url(${location?.background})`,

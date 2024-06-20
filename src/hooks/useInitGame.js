@@ -2,14 +2,14 @@ import {useContext, useEffect, useRef, useState} from "react";
 import {devConsts,} from "../util/util";
 import {useLongPoll,} from "./useLongPolling";
 import {
+    fetchAvatar,
     fetchGame,
-    fetchLocationsBackground,
+    fetchLocationsBackground, fethcANPCs, setAvatars,
 } from "../api/game";
 import {UserContext} from "../contexts/UserContext";
 import green from '../devassets/green_player.png'
 
 export function useInitGame(_session, _players) { //session prop
-    console.log(_players)
     const [players, setPlayers] = useState(_players)
     const [session, setSession] = useState(_session)
     const currentPlayerId = useRef()
@@ -27,7 +27,6 @@ export function useInitGame(_session, _players) { //session prop
     const pollingFlag = useRef(true)
     const isGm = user.id === session.id
     const event = useLongPoll(pollingFlag)
-    const [showedEntity, setShowedEntity] = useState()
     const [skills, setSkills] = useState([])
 
     useEffect(() => {
@@ -69,6 +68,8 @@ export function useInitGame(_session, _players) { //session prop
             return p
         }))
     }
+
+
     const handleNpcMoveEvent = (event) => {
         const movedNPC = event.anpc
         setNpcs(npcs => npcs.map(n => {
@@ -85,10 +86,16 @@ export function useInitGame(_session, _players) { //session prop
     const handleQuestStatusEvent = (event) => {
 
     }
+
+    const handleHpChanged = (event) => {
+
+    }
+
     useEffect(() => {
+        //game
             const setGameData = async () => {
                 let data = session
-               let response = await fetchGame(data.gameId)
+                let response = await fetchGame(data.gameId)
                 if (!response.ok) {
                     //TODO: handle
                     console.log('FAILED TO FETCH GAME', response)
@@ -96,44 +103,49 @@ export function useInitGame(_session, _players) { //session prop
                 }
                 data = await response.json()
                 setGame(data)
-                setNpcs(data.nonPlayableCharacters?.map(npc => {return {...npc, pos: {x: npc.baseXPosition, y: npc.baseYPosition}, avatar: green }} ))
+
+                //anpcs
+                response = await fethcANPCs(session.id)
+                if (!response.ok) {
+                    //TODO: handle
+                } else {
+                    let anpcs = await response.json()
+                    setNpcs(data.nonPlayableCharacters?.map((npc => {
+                        const matchedAnpc = anpcs.find(a => a.nonPlayableCharacterId === npc.id)
+                            console.log('FOUND', matchedAnpc)
+                        let n = {...npc, pos: {x: matchedAnpc.currentXPosition, y: matchedAnpc.currentYPosition}, id: matchedAnpc.id, avatar: green, healthPoints: matchedAnpc.healthPoints}
+                            console.log('CHANGED', n)
+                        return n
+                    }
+                    )))
+                }
+
+                //skills
+
                 setSkills(data.skills)
-                let avatars = []
-                // if (players) {
-                //     for (let p of players) {
-                //         response = await fetchAvatar(p.avatarFilePath)
-                //         if (!response.ok) {
-                //             //TODO: handle
-                //         } else {
-                //             avatars.push(URL.createObjectURL(await response.blob()))
-                //         }
-                //     }
-                // }
-                // let fetchedPlayers = await fetchPlayers(session.id)
-                // let classes = await fetchClasses(players.map(p => p.characterClassId))
-                setPlayers(players => players?.map(((p, i) => {return{...p, characterClass: data.classes[i] }})))
+                await setAvatars(players)
+                setPlayers(structuredClone(players))
+                setPlayers(players => players?.map(((p, i) => {
+                    return {...p, characterClass: data.classes[i]}
+                })))
+
+                //backgrounds
                 let backgrounds = await fetchLocationsBackground(data.locations.map(l => l.mapFilePath))
                 let locs = data.locations.map((loc, i) => {
-                    return {
-                        id: loc.id,
-                        name: loc.name,
-                        description: loc.description,
-                        background: backgrounds[i],
-                        size: [loc.width, loc.height],
-                    }
+                    return {...loc, background: backgrounds[i], size: [loc.width, loc.height] }
                 })
                 setLocations(locs)
 
-                currentPlayerId.current = players?.find(p => { console.log(user, p); return  p.userId === user?.id})?.id
-                // if (!currentPlayerId.current) {
-                //     throw new Error('не найден текущий игрок')
-                // }
-                setCurrentLocation(locs[0])
+                currentPlayerId.current = players?.find(p => {
+                    return p.userId === user?.id
+                })?.id
+                console.log('LOCS', locs)
+                setCurrentLocation(locs.find(l => l.id === data.baseLocationId))
             }
             setGameData()
-        }, [user] // в тестовых целях
+        }, [user]
     )
-    console.log(pickedEntity)
+console.log(players)
     return {
         players,
         setPlayers,

@@ -3,7 +3,7 @@ import '../gamespace.css'
 import CasinoIcon from '@mui/icons-material/Casino';
 import {sendRoll, sendRollByNpc} from "../../../api/game";
 import {GameContext} from "../../../contexts/GameContext";
-import {Menu, MenuItem, Modal} from "@mui/material";
+import {Menu, MenuItem, Modal, Tooltip} from "@mui/material";
 import {UserContext} from "../../../contexts/UserContext";
 
 const diceStateValue = {
@@ -22,7 +22,7 @@ const Dice = () => {
         setDiceState(diceStateValue.WAITING_FOR_RESULT)
         let response
         if (!isGm) {
-             response = await sendRoll(currentPlayerId.current, die)
+            response = await sendRoll(currentPlayerId.current, die)
         } else {
             response = await sendRollByNpc(pickedEntity.entity.id, die)
         }
@@ -37,14 +37,20 @@ const Dice = () => {
     const menuOnClose = () => {
         setDiceState(diceStateValue.IDLE)
     }
-
+    console.log(pickedEntity, isGm)
     return (
         <>
-            <div title='Roll dice' onClick={() => setDiceState(diceStateValue.PICK_DIE)} ref={anchorRef}>
-                <CasinoIcon sx={dieIconStyle}/>
-            </div>
-            <Menu onClose={menuOnClose} open={diceState === diceStateValue.PICK_DIE} anchorEl={anchorRef.current}>
-                {isGm && !pickedEntity ? <MenuItem>Pick an NPC</MenuItem>
+            <Tooltip title='Roll dice'>
+                <div onClick={() => setDiceState(diceStateValue.PICK_DIE)} ref={anchorRef}>
+                    <CasinoIcon sx={dieIconStyle}/>
+                </div>
+            </Tooltip>
+            <Menu onClose={menuOnClose} open={diceState === diceStateValue.PICK_DIE} anchorEl={anchorRef.current}
+                  transformOrigin={{
+                      vertical: "bottom",
+                      horizontal: "right",
+                  }}>
+                {isGm && pickedEntity?.type !== 'npc' ? <MenuItem>Pick an NPC</MenuItem>
                     : <>
                         <MenuItem onClick={() => handleRoll(4)}>4D</MenuItem>
                         <MenuItem onClick={() => handleRoll(6)}>6D</MenuItem>

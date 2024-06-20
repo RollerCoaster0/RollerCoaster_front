@@ -1,11 +1,9 @@
 import './Chat.css'
-import {Button, Drawer, Paper} from "@mui/material";
+import {Button, Drawer, Paper, Tooltip} from "@mui/material";
 import React, {useContext, useEffect, useRef, useState} from "react";
 import MessageList from "./MessageList";
 import ChatIcon from '@mui/icons-material/Chat';
 import ChatInput from "./ChatInput";
-import img from "./img/img.png";
-import img1 from "./img/img.png";
 import {GameContext} from "../../contexts/GameContext";
 import {fetchChatMessages} from "../../api/updates";
 
@@ -46,9 +44,9 @@ const Chat = () => {
 
     return (
         <>
-            <div title='Chat'>
+            <Tooltip title='Chat'>
                 <ChatIcon sx={chatIconStyle} onClick={() => setChatOpened(!chatOpened)}>Open chat</ChatIcon>
-            </div>
+            </Tooltip>
             <Drawer hideBackdrop={true} sx={{'& .MuiDrawer-paper': {border: 'none'}}} open={chatOpened} anchor={'left'}
                     variant={'persistent'}>
                 <div className="chat-window">
@@ -95,25 +93,5 @@ const chatIconStyle = {
     }
 }
 
-
-function chatActionToMessage(chatAction) {
-    let sender, message
-    if (chatAction.roll) {
-        if (chatAction.roll.activeNonPlayableCharacter) {
-            const anpc = chatAction.roll.activeNonPlayableCharacter
-            sender = {id: anpc.nonPlayableCharacterId, name: 'NPC', avatar: null}
-        } else {
-            const player = chatAction.roll.player
-            sender = {id: chatAction.player.id, name: player.name}
-        }
-        return {id: -1, sender, time: null, data: chatAction.roll.result}
-    } else if (chatAction.newMessage) {
-        return {
-            id: chatAction.newMessage.messageId, text: chatAction.newMessage.text, time: chatAction.newMessage.time,
-            sender: {id: chatAction.newMessage.player.id, name: chatAction.newMessage.player?.name}
-        }
-    }
-    return null
-}
 
 export default Chat;
