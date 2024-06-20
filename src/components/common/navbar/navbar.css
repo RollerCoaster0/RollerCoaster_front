@@ -1,19 +1,29 @@
 .navbar {
     width: 100%;
-    height: 7%;
+    height: 85px;
     background-color: darkolivegreen;
+    color: white;
     position: fixed;
     z-index: 1500;
     overflow: hidden;
     padding-top: 5px;
     padding-bottom: 5px;
 }
-
+.nav__logo{
+    width: 350px;
+   height: 95px;
+}
+.navbar__button{
+    display: none;
+}
+.nav__modal{
+    display: none;
+}
 .navbar__content {
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-    height: 100%;
+    height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -33,7 +43,8 @@
     gap: 20px;
     border-radius: 30px;
     width: 15%;
-    height: 100% ;
+    height: 50px ;
+    color: black;
     background-color: #f6f4f1;
     cursor: pointer;
 }
@@ -58,6 +69,7 @@
     min-width: 200px;
     min-height: 40px;
     background-color: gray;
+
     top: 54px;
     border-radius: 20px;
     opacity: 0;
@@ -76,10 +88,239 @@
     display: flex;
     width: 45%;
     margin-left: 20%;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 .navbar__links__item {
     font-size: 200%;
     font-family: Kelly Slab, serif;
     cursor: pointer;
+}
+@media(width < 1300px) and (width > 1100px) {
+    .navbar__button{
+        display: none;
+    }
+    .nav__logo{
+        width: 350px;
+        height: 95px;
+    }
+    .navbar {
+        width: 100%;
+        height: 85px;
+        background-color: darkolivegreen;
+        color: white;
+        position: fixed;
+        z-index: 1500;
+        overflow: hidden;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .navbar__content {
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+        height: 80px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+    .navbar__user-profile {
+        border-radius: 100%;
+        height: 46px;
+        aspect-ratio: 1;
+        background-color: #D9D9D9;
+    }
+
+    .navbar__user-profile-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        gap: 20px;
+        border-radius: 30px;
+        width: 15%;
+        height: 50px ;
+        color: black;
+        background-color: #f6f4f1;
+        cursor: pointer;
+    }
+
+    .navbar__user-profile__avatar {
+    }
+
+    .navbar__user-profile__user-menu {
+        position: fixed;
+        padding: 10px;
+        right: 4%;
+        min-width: 200px;
+        min-height: 40px;
+        background-color: gray;
+        top: 54px;
+        border-radius: 20px;
+        transition: opacity 0.5s;
+    }
+
+    .navbar__user-profile__user-menu-inactive {
+        position: fixed;
+        padding: 10px;
+        right: 4%;
+        min-width: 200px;
+        min-height: 40px;
+        background-color: gray;
+
+        top: 54px;
+        border-radius: 20px;
+        opacity: 0;
+        transition: height, opacity 0.5s;
+    }
+
+    .navbar__user-profile__user-menu__item {
+        font-family: "Kelly Slab", serif;
+        font-size: 100%;
+        width: 100%;
+        margin: 0 auto;
+        border-bottom: 1px black;
+        text-align: center;
+    }
+
+    .navbar__links {
+        display: flex;
+        width: 45%;
+        margin-left: 1%;
+        margin-right:10%;
+        justify-content: space-around;
+    }
+
+    .navbar__links__item {
+        font-size: 200%;
+        font-family: Kelly Slab, serif;
+        cursor: pointer;
+
+    }
+    .nav__modal{
+        display: none;
+    }
+}
+
+@media (width < 1110px){
+    .navbar__button{
+        display: flex;
+        color: black;
+        flex-direction: row;
+
+        align-items: center;
+        background-color: #ffffff;
+        border-radius: 9px;
+        width: 50px;
+        height: 50px;
+        left: 160px;
+        font-size: small;
+
+    }
+    .navbar{
+        width: 100%;
+        height: 85px;
+        background-color: darkolivegreen;
+        color: white;
+        position: fixed;
+        z-index: 1500;
+        overflow: hidden;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .nav__logo{
+        width: 350px;
+        height: 95px;
+    }
+    .navbar__content {
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+        height: 80px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+    .navbar__user-profile {
+        border-radius: 100%;
+        height: 46px;
+        aspect-ratio: 1;
+        background-color: #D9D9D9;
+    }
+
+    .navbar__user-profile-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        gap: 20px;
+        border-radius: 30px;
+        width: 15%;
+        height: 50px ;
+        color: black;
+        background-color: #f6f4f1;
+        cursor: pointer;
+    }
+
+    .navbar__user-profile__avatar {
+    }
+
+    .navbar__user-profile__user-menu {
+        position: fixed;
+        padding: 10px;
+        right: 4%;
+        min-width: 200px;
+        min-height: 40px;
+        background-color: gray;
+        top: 54px;
+        border-radius: 20px;
+        transition: opacity 0.5s;
+    }
+
+    .navbar__user-profile__user-menu-inactive {
+        position: fixed;
+        padding: 10px;
+        right: 4%;
+        min-width: 200px;
+        min-height: 40px;
+        background-color: gray;
+
+        top: 54px;
+        border-radius: 20px;
+        opacity: 0;
+        transition: height, opacity 0.5s;
+    }
+
+    .navbar__user-profile__user-menu__item {
+        font-family: "Kelly Slab", serif;
+        font-size: 60%;
+        width: 100%;
+        margin: 0 auto;
+        border-bottom: 1px black;
+        text-align: center;
+    }
+
+    .navbar__links {
+        display: none;
+
+
+    }
+
+    .navbar__links__item {
+        font-size: 200%;
+        font-family: Kelly Slab, serif;
+        cursor: pointer;
+
+    }
+    .mobile_link{
+        display: flex;
+        flex-direction: column;
+        font-size: large;
+        margin-top: 5%;
+        padding:5%;
+
+
+    }
 }

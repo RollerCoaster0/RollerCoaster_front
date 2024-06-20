@@ -3,10 +3,10 @@ import '../navbar.css'
 import {Avatar, Menu, MenuItem} from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
 import {UserContext} from "../../../../contexts/UserContext";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import LoginIcon from '@mui/icons-material/Login';
 
-const UserProfile = ({isToggled}) => {
+const UserProfile = ({isMobile}) => {
     const [anchorEl, setAnchorEl] = useState(null)
     const menuOpened = Boolean(anchorEl)
     const {logOut, user} = useContext(UserContext)
@@ -35,6 +35,11 @@ const UserProfile = ({isToggled}) => {
             }}>
                 {user ? <MenuItem onClick={handleLogOut}> <LogoutIcon/> &nbsp; Log out </MenuItem>
                     : <MenuItem onClick={handleLogIn}> <LoginIcon/> &nbsp; Log In </MenuItem>}
+                {isMobile ?
+                    <><Link className="mobile_link"  to={'/postpage'}>Play</Link>
+                    <Link  className="mobile_link" to={'/createsession'}>Create session</Link>
+                    <a className="mobile_link">Community</a></>
+                    : null}
             </Menu>
         </div>
     );

@@ -3,6 +3,7 @@
     width: 100%;
     margin: 0 auto;
     padding-top: 60px;
+
 }
 
 .create-game-container__arrow-icon {
@@ -91,6 +92,28 @@
 .location-list__item__name {
     box-sizing: content-box;
     text-align: center;
+}
+@media (width < 1300px) {
+    .locations-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        align-self: center;
+        gap: 40px;
+        width: 600px;
+        left: auto;
+        right: auto;
+        margin-right: 50%;
+        margin-left: 20%;
+    }
+    .locations-list {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
+
 }
 
 .add-element-button {
