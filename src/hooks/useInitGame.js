@@ -10,7 +10,6 @@ import {UserContext} from "../contexts/UserContext";
 import green from '../devassets/green_player.png'
 
 export function useInitGame(_session, _players) { //session prop
-    console.log('_players', _players)
     const [players, setPlayers] = useState(_players)
     const [session, setSession] = useState(_session)
     const currentPlayerId = useRef()
@@ -29,12 +28,12 @@ export function useInitGame(_session, _players) { //session prop
     const isGm = user.id === session.gameMasterUserId
     const event = useLongPoll(pollingFlag)
     const [skills, setSkills] = useState([])
+    const [quests, setQuests] = useState()
 
     useEffect(() => {
         if (event) {
             console.log('LP EVENT: ', event)
             for (const eventKey in event) {
-                //гарантируется, что за раз придет только один ивент
                 if (event[eventKey]) {
                     switch (eventKey) {
                         case 'questStatusUpdate':
@@ -54,9 +53,8 @@ export function useInitGame(_session, _players) { //session prop
                             handleSessionStatusUpdated(event.sessionStarted)
                             break
                         case 'changeHealthPoints':
-                            handleHpChange(event)
+                            handleHpChange(event.changeHealthPoints)
                             break
-
                     }
                     break
                 }
@@ -65,7 +63,14 @@ export function useInitGame(_session, _players) { //session prop
     }, [event])
 
     const handleHpChange = (event) => {
-
+        if (event.player) {
+            const chPlayer = event.player
+            console.log(event)
+            setPlayers(players => players.map(p => p.id === chPlayer.id ? {...p, healthPoints: chPlayer.healthPoints} : p))
+        } else {
+            const chNpc = event.anpc
+            setNpcs(npcs => npcs.map(n => n.id === chNpc.id ? {...n, healthPoints: chNpc.healthPoints }: n))
+        }
     }
 
     const handleMoveEvent = (event) => {
@@ -96,17 +101,15 @@ export function useInitGame(_session, _players) { //session prop
     // console.log('isGm', user.id, session, isGm)
     // console.log('PLAYERS', players)
     // console.log('NPCS', npcs)
-    console.log('GAME', game)
+    // console.log('GAME', game)
+    // console.log('LOCATIONS', locations)
     const handleQuestStatusEvent = (event) => {
 
     }
 
-    const handleHpChanged = (event) => {
-
-    }
 
     useEffect(() => {
-        //game
+            //game
             const setGameData = async () => {
                 let data = session
                 let response = await fetchGame(data.gameId)
@@ -125,12 +128,20 @@ export function useInitGame(_session, _players) { //session prop
                 } else {
                     let anpcs = await response.json()
                     setNpcs(data.nonPlayableCharacters?.map((npc => {
-                        const matchedAnpc = anpcs.find(a => a.nonPlayableCharacterId === npc.id)
+                            const matchedAnpc = anpcs.find(a => a.nonPlayableCharacterId === npc.id)
                             console.log('FOUND', matchedAnpc)
-                        let n = {...npc, pos: {x: matchedAnpc.currentXPosition, y: matchedAnpc.currentYPosition}, id: matchedAnpc.id, avatar: green, healthPoints: matchedAnpc.healthPoints}
+                            let npcId = npc.id
+                            let n = {
+                                ...npc,
+                                pos: {x: matchedAnpc.currentXPosition, y: matchedAnpc.currentYPosition},
+                                id: matchedAnpc.id,
+                                avatar: green,
+                                healthPoints: matchedAnpc.healthPoints,
+                                npcId
+                            }
                             console.log('CHANGED', n)
-                        return n
-                    }
+                            return n
+                        }
                     )))
                 }
 
@@ -147,7 +158,7 @@ export function useInitGame(_session, _players) { //session prop
                 //backgrounds
                 let backgrounds = await fetchLocationsBackground(data.locations.map(l => l.mapFilePath))
                 let locs = data.locations.map((loc, i) => {
-                    return {...loc, background: backgrounds[i], size: [loc.width, loc.height] }
+                    return {...loc, background: backgrounds[i], size: [loc.width, loc.height]}
                 })
                 setLocations(locs)
 
@@ -160,7 +171,7 @@ export function useInitGame(_session, _players) { //session prop
             setGameData()
         }, [user]
     )
-console.log(players)
+    console.log(players)
     console.log(skills, 'SKILLS')
 
     return {

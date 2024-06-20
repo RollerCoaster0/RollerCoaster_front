@@ -15,6 +15,9 @@ const MessageList = ({messages}) => {
             {messages.map(m => {
                     if (m.rollMessage) {
                         const senderPlayer = m.rollMessage.senderPlayer
+                        // console.log('roollmm',m.rollMessage)
+                        // console.log('SENDERPLAYERS',senderPlayer)
+                        // console.log('USER', user )
                         const senderANPC = m.rollMessage.senderANPC
                         const avatar = players.find(p => p.id === m.rollMessage.senderPlayer?.id)?.avatar
                             ?? npcs.find(n => n.id === m.rollMessage.senderANPC?.id)?.avatar
@@ -23,8 +26,10 @@ const MessageList = ({messages}) => {
                             <DiceRollChatMessage result={m.rollMessage.result}/>
                         </ChatMessage>
                     } else if (m.textMessage) {
-                        return <ChatMessage time={m.textMessage.time} sender={m.textMessage.senderPlayer}
-                                            isOwn={m.textMessage.senderPlayer.id === user.id}>
+                        const sPlayer = players?.find(p => m.textMessage.senderPlayer.id == p.id)
+                        console.log(m.textMessage.senderPlayer, sPlayer, 'SENDERPLAYER')
+                        return <ChatMessage   time={m.textMessage.time} sender={m.textMessage.senderPlayer}
+                                            isOwn={m.textMessage.senderPlayer.userId === user.id} avatar={sPlayer?.avatar}>
                             <TextMessage text={m.textMessage.text}/>
                         </ChatMessage>
                     } else if (m.usedSkillMessage) {

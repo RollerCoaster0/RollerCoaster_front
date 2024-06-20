@@ -3,11 +3,13 @@ import {Button, TextField} from "@mui/material";
 import {UserContext} from "../../contexts/UserContext";
 import {sendTextMessage} from "../../api/updates";
 import NotGmOnly from "../gamespace/NotGmOnly";
+import GMonly from "../gamespace/GMonly";
 
 
 const ChatInput = ({sessionId}) => {
-    const {user} = useContext(UserContext)
+    const {user, isGm} = useContext(UserContext)
     const [message, setMessage] = useState("")
+
     const handleMessageSending = async () => {
         setMessage('')
         const response = await sendTextMessage(message, sessionId)
@@ -18,17 +20,14 @@ const ChatInput = ({sessionId}) => {
 
     return (
         <>
+
             <div className='chat-window__bottom-panel__input__panel__input-wrapper'>
                 <TextField value={message} onChange={e => setMessage(e.target.value)}
                            sx={textFieldStyle} variant='standard'
                            InputProps={{disableUnderline: true}}/>
             </div>
             <div className='chat-window__bottom-panel__input__panel__buttons'>
-                <NotGmOnly>
-                    <Button onClick={handleMessageSending} sx={sendButtonStyle}>От своего
-                        имени</Button>
-                </NotGmOnly>
-                <Button sx={sendButtonStyle}>От имени персонажа</Button>
+                    <Button onClick={handleMessageSending} sx={sendButtonStyle}>Отправить</Button>
             </div>
         </>
     );

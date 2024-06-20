@@ -4,6 +4,7 @@ import {GameContext} from "../../contexts/GameContext";
 
 const ChatMessage = ({sender, isOwn, time, children, avatar}) => {
     console.log('AVATAR', avatar)
+    console.log(isOwn, 'isOwn')
     return (
         <div className={`chat-message-wrapper ${isOwn ? 'own-wrapper' : 'other-wrapper'}`}>
             <li className={`chat-message ${isOwn ? 'own-message' : 'other-message'}`}>

@@ -6,6 +6,7 @@ import ChatIcon from '@mui/icons-material/Chat';
 import ChatInput from "./ChatInput";
 import {GameContext} from "../../contexts/GameContext";
 import {fetchChatMessages} from "../../api/updates";
+import NotGmOnly from "../gamespace/NotGmOnly";
 
 export const messageType = {
     REGULAR_MESSAGE: 0,
@@ -53,16 +54,13 @@ const Chat = () => {
                     <Paper ref={chatRef} className='chat-window__chat-field'>
                         <MessageList messages={messages}/>
                     </Paper>
-                    <div className='chat-window__bottom-panel'>
-                        <div className='chat-window__bottom-panel__input__panel'>
-                            <ChatInput messages={messages} sessionId={session?.id}/>
+                    <NotGmOnly>
+                        <div className='chat-window__bottom-panel'>
+                            <div className='chat-window__bottom-panel__input__panel'>
+                                <ChatInput messages={messages} sessionId={session?.id}/>
+                            </div>
                         </div>
-                        <div className='chat-window__bottom-panel__dice-panel'>
-                            <Button sx={throwDiceButton}>Бросить D20</Button>
-                            <Button sx={throwDiceButton}>Бросить D6</Button>
-                            <Button sx={throwDiceButton}>Бросить D4</Button>
-                        </div>
-                    </div>
+                    </NotGmOnly>
                 </div>
             </Drawer>
         </>

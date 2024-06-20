@@ -52,6 +52,7 @@ export async function createGame(items, NPCs, quests, gameInfo, locations, skill
             res = await createGameComponent(loc, gameComponentType.LOCATION, gameId);
             if (!res.ok) {
                 return {ok: false, message: res.status}
+                console.log('NOT CREATED location', loc)
             }
             let locationData = await res.json();
             console.log(locationData)
@@ -111,14 +112,13 @@ export async function createGame(items, NPCs, quests, gameInfo, locations, skill
                 AvailableOnlyForNonPlayableCharacterId: npcIds.get(skill.npc.id)
             }
             res = await createGameComponent(skill, gameComponentType.SKILL, gameId)
-            console.log(skill, res)
             if (!res.ok) {
-                console.log(skill, res)
+                console.log('SKILL NOT CREATED', skill, res)
                 return {ok: false, message: res.status}
             }
 
         }
-        return {ok: true, message: null}
+        return {ok: true, message: gameId}
 
     } catch (e) {
         return {ok: false, message: e.toString()}

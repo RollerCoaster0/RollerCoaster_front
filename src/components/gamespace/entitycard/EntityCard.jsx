@@ -49,7 +49,7 @@ const EntityCard = () => {
                                         if (shownEntity.type === 'player') {
                                             return s.availableOnlyForCharacterClassId === shownEntity.entity.characterClass.id
                                         } else {
-                                            return s.availableOnlyForNonPlayableCharacterId === shownEntity.entity.id
+                                            return s.availableOnlyForNonPlayableCharacterId === shownEntity.entity?.npcId
                                         }
                                     } ).map(s => <div style={{display: 'flex', alignItems: 'center'}}>{s.name}<div className='entity-skill-description-start'>{s.description}</div></div>)}
                                 </div>

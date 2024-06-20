@@ -1,16 +1,22 @@
-import React from 'react';
-import {Button} from "@mui/material";
+import React, {useState} from 'react';
+import {Alert, Button} from "@mui/material";
 import {createGame} from "../../../../api/createGame";
 import {useNavigate} from "react-router-dom";
+import AlertMessage from "../../../common/AlertMessage";
+import CheckIcon from "@mui/icons-material/Check";
 
 const CreateGame = ({gameInfo, quests, npcs, items, locations, skills, classes}) => {
     const navigate = useNavigate()
+    const [errorMessage, setErrorMessage] = useState()
+    const [id, setId] = useState()
     const handleGameCreation = async () => {
-        const res = await createGame(items, npcs, quests, gameInfo, locations, skills, classes);
+        setErrorMessage('')
+        const res = await createGame(items, npcs, quests, gameInfo, locations, skills, classes)
+        console.log('RES' ,res)
         if (res.ok) {
-            navigate('/')
+            setId(res.message)
         } else {
-            console.log('NOT CREATED SO BAD')
+           setErrorMessage('error')
         }
         console.log(res);
     }
@@ -31,6 +37,8 @@ const CreateGame = ({gameInfo, quests, npcs, items, locations, skills, classes})
                 Create
             </Button>
 
+            {errorMessage ? <Alert severity="error">Something went wrong. Try again!</Alert> : null}
+            {id ? <Alert icon={<CheckIcon fontSize="inherit"/>} severity="success">Success! Your game ID: {id} </Alert> : null}
         </div>
     );
 };

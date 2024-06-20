@@ -60,7 +60,7 @@
 .chat-window__bottom-panel__input__panel__buttons  {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     width: 18%;
     height: 65px;
 }

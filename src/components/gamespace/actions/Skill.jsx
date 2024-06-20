@@ -44,7 +44,7 @@ const Skill = () => {
 
                 <GMonly>
                     {pickedEntity?.type !== 'npc' ? <MenuItem>Pick an
-                        NPC</MenuItem> : skills?.filter(s => s.availableOnlyForNonPlayableCharacterId === pickedEntity?.entity?.id).map(s =>
+                        NPC</MenuItem> : skills?.filter(s => s.availableOnlyForNonPlayableCharacterId === pickedEntity?.entity?.npcId).map(s =>
                         <MenuItem
                             onClick={() => handleUseSkillByNpc(s)}>{s.name}</MenuItem>)}
                 </GMonly>
