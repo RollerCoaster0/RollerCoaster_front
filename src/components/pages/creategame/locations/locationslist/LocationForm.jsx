@@ -71,7 +71,8 @@ const LocationForm = ({
                sx={{
                    overflow: 'auto',
                    scrollbarWidth: 'thin',
-                   scrollbarColor: 'darkolivegreen'
+                   scrollbarColor: 'darkolivegreen',
+
                }}
         >
             <Box className='new-element-modal'>
