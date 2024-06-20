@@ -1,5 +1,5 @@
 import './homepage.css'
-import img1 from './assets/slider.png'
+import img1 from './assets/Logotop.png'
 import img2 from './assets/Rectangle 7(1).png'
 import img3 from './assets/Rectangle 8.png'
 import {useNavigate} from "react-router-dom";
@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 const HomePage = () => {
     const navigate = useNavigate();
     return (
-        //здесь только статика, так что мне пох
+
         <main className="content">
             <p className="content__grid-item1">Добро пожаловать в мир приключений и фэнтези! </p>
             <img src={img1} className="content__grid-item2" alt="aboba"/>
