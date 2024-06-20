@@ -39,10 +39,12 @@ const RegistrationForm = () => {
         setRegPhase(regPhaseValue.PENDING)
         regResult.current = await register(login, password);
         showRegistrationResult();
+        handleClickNavigate();
     }
 
     const navigate = useNavigate();
     const handleClick = () => navigate('/authentication')
+    const handleClickNavigate = () => navigate('/')
 
     return (
         <div className="auth-form-container">

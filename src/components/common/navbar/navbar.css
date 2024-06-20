@@ -10,8 +10,8 @@
     padding-bottom: 5px;
 }
 .nav__logo{
-    width: 350px;
-   height: 95px;
+    width: 270px;
+   height: 70px;
 }
 .navbar__button{
     display: none;
@@ -100,8 +100,8 @@
         display: none;
     }
     .nav__logo{
-        width: 350px;
-        height: 95px;
+        width: 180px;
+        height: 65px;
     }
     .navbar {
         width: 100%;
