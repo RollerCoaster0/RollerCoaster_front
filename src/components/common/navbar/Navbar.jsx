@@ -1,5 +1,5 @@
 import './navbar.css'
-import logo from './logo/logo.svg'
+import logo from './logo/logo.png'
 import {Link, useNavigate} from "react-router-dom";
 import UserProfile from "./usermenu/UserProfile";
 import {useEffect, useState} from "react";
@@ -33,11 +33,9 @@ const Navbar = () => {
 
                 <div className="navbar__content">
 
-                    <img src={logo} alt="aboba" onClick={() => navigate('/')} style={{cursor: 'pointer'}}/>
+                    <img className="nav__logo" src={logo} alt="aboba" onClick={() => navigate('/')} style={{cursor: 'pointer'}}/>
                 
                     <div className="navbar__links">
-
-
 
 
                         <Link className="navbar__links__item" to={'/postpage'}>Play</Link>
@@ -45,7 +43,7 @@ const Navbar = () => {
                         <a className="navbar__links__item">Community</a>
                     </div>
 
-                    <UserProfile/>
+                    <UserProfile isMobile={isMobile}/>
                 </div>
             </nav>
 
