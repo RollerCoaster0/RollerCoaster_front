@@ -21,7 +21,7 @@ const HomePage = () => {
             </p>
             <img src={img3} className="content__grid-item6" alt="aboba"/>
             <div className="content__grid-item7">
-                <p>Готовы стать настоящим героем?
+                <p>Готовы стать настоящим героем?<br/>
                     Добро пожаловать в наш мир
                 </p>
                 <button className="content__grid-item7__play-button"

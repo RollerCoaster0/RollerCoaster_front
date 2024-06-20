@@ -50,7 +50,8 @@ const Postpage = () => {
                         display: "block",
                         borderRadius:"20px"
 
-                    }}>Войти в игру</Button>
+                    }}>Войти в сессию</Button>
+
 
             <div className="list_postpage">
                 <Modal

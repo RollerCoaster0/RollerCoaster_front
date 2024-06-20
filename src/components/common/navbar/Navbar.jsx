@@ -11,7 +11,7 @@ const Navbar = () => {
                     <img src={logo} alt="aboba" onClick={() => navigate('/')} style={{cursor: 'pointer'}}/>
                     <div className="navbar__links">
                         <Link className="navbar__links__item" to={'/postpage'}>Play</Link>
-                        <Link className="navbar__links__item" to={'/postpage'}>Join a game</Link>
+                        <Link className="navbar__links__item" to={'/createsession'}>Create session</Link>
                         <a className="navbar__links__item">Community</a>
                     </div>
                     <UserProfile/>
