@@ -34,15 +34,15 @@ const CreateGamePage = () => {
     
     const stages = [
         {
-            name: 'Description',
-            form: <GameDescription gameInfo={gameInfo} setGameInfo={setGameInfo}/>,
-            current: useCurrent(true)
-        },
-        {
             name: 'Locations',
             form: <Locations key={'Locations'} locations={locations} setLocations={setLocations}
                              idCounter={locationIdCounter}/>,
             current: useCurrent(false)
+        },
+        {
+            name: 'Description',
+            form: <GameDescription locations={locations} gameInfo={gameInfo} setGameInfo={setGameInfo}/>,
+            current: useCurrent(true)
         },
         {
             name: 'Classes',

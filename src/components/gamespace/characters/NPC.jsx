@@ -10,7 +10,9 @@ const Npc = ({npc}) => {
     const handleClick = (e, npc) => {
         console.log('NPC', npc)
         console.log('PHASE', gamePhase)
+        console.log(isGm)
         if (isGm) {
+            console.log()
             setPickedEntity({type: 'npc', entity: npc })
             pickedPlayerId.current = id
             setGamePhase(gamePhaseType.MAKING_MOVE)

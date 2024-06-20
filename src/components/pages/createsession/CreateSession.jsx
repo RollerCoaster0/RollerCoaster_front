@@ -10,17 +10,20 @@ const CreateSession = () => {
     const [errorMessage, setErrorMessage] = useState()
     const [showSuccess, setShowSuccess] = useState(false)
     const navigate = useNavigate()
+    const [sId, setSId] = useState()
+    console.log((sId))
     const onSubmit = async (session) => {
         setErrorMessage(null)
         if (session.name && session.description && session.id) {
             const response = await createSession(session)
+            console.log(session, response)
             if (!response.ok) {
                 setErrorMessage('Something went wrong')
                 return
             }
             setShowSuccess(true)
             const data = await response.json()
-            setTimeout(() => navigate(`/lobby/${data.id}`), 2000)
+            setSId(data.id)
         }
     }
     return (
@@ -49,10 +52,13 @@ const CreateSession = () => {
                                return {...s, id: e.target.value}
                            })}/>
                 </div>
-                {showSuccess ? <Alert icon={<CheckIcon fontSize="inherit"/>} severity="success">Success!</Alert> : null}
-                {errorMessage ?<Alert severity="error">Something went wrong. Try again!</Alert> : null }
+                {showSuccess ? <Alert icon={<CheckIcon fontSize="inherit"/>} severity="success">Success! Your
+                    ID: {sId}</Alert> : null}
+                {errorMessage ? <Alert severity="error">Something went wrong. Try again!</Alert> : null}
             </Paper>
-            <Button onClick={() => onSubmit(newSession)} sx={butStyle}>Создать</Button>
+            {!Boolean(sId) ?
+                <Button onClick={() => onSubmit(newSession)} sx={butStyle}>Создать</Button>
+                : null}
         </>
 
     );

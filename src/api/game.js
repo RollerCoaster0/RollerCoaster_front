@@ -164,6 +164,7 @@ export async function fetchAvatar(path) {
 
 
 export async function setAvatars(players) {
+    if (!players) return
    for (const p of players) {
       const response = await fetchAvatar(p.avatarFilePath)
        if (!response.ok) {

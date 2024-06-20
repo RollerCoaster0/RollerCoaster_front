@@ -6,9 +6,11 @@ import {Menu, MenuItem, Modal, Tooltip} from "@mui/material";
 import NotGmOnly from "../NotGmOnly";
 import GMonly from "../GMonly";
 import {sendUseSkill, sendUseSkillByNPC, useSkillByNPC} from "../../../api/game";
+import {UserContext} from "../../../contexts/UserContext";
 
 const Skill = () => {
-    const {skills, game, currentPlayerId, pickedEntity} = useContext(GameContext)
+    const {skills, game, currentPlayerId, pickedEntity, players} = useContext(GameContext)
+    const {user} = useContext(UserContext)
     const anchor = useRef()
     const [menuOpen, setMenuOpen] = useState(false)
     const handleUseSkill = async (s) => {
@@ -23,7 +25,7 @@ const Skill = () => {
     return (
         <>
             <Tooltip title='Use skill'>
-                <img ref={anchor}  className='game-field__side-panel__dice' src={skillIcon}
+                <img ref={anchor} className='game-field__side-panel__dice' src={skillIcon}
                      onClick={() => setMenuOpen(true)}/>
             </Tooltip>
             <Menu anchorEl={anchor.current} open={menuOpen} onClose={() => setMenuOpen(false)} transformOrigin={{
@@ -32,14 +34,17 @@ const Skill = () => {
             }}>
 
                 <NotGmOnly>
-                    {skills?.filter(s => s.availableOnlyForCharacterClassId === currentPlayerId.current).map(s =>
+                    {skills?.filter(s => {
+                        const currentPlayer = players.find(p => p.userId === user.id)
+                        return s.availableOnlyForCharacterClassId === currentPlayer?.characterClass.id
+                    }).map(s =>
                         <MenuItem
                             onClick={() => handleUseSkill(s)}>{s.name}</MenuItem>)}
                 </NotGmOnly>
 
                 <GMonly>
                     {pickedEntity?.type !== 'npc' ? <MenuItem>Pick an
-                        NPC</MenuItem> : skills?.filter(s => s.availableOnlyForNonPlayableCharacterId === pickedEntity.entity.id).map(s =>
+                        NPC</MenuItem> : skills?.filter(s => s.availableOnlyForNonPlayableCharacterId === pickedEntity?.entity?.id).map(s =>
                         <MenuItem
                             onClick={() => handleUseSkillByNpc(s)}>{s.name}</MenuItem>)}
                 </GMonly>

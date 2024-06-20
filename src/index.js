@@ -105,7 +105,7 @@ const router = createBrowserRouter([
                         characterClass: null,
                         avatar: null
                     }
-                }))
+                })) ?? []
                 console.log('PLAYERS', players)
             } else {
                 console.log(response)

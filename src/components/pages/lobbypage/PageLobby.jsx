@@ -12,12 +12,13 @@ import {startSession} from "../../../api/game";
 const PageLobby = ({setWhereIsUser}) => {
     const navigate = useNavigate()
     const {user} = useContext(UserContext)
-    const {session, players, setGamePhase, gamePhase} = useContext(GameContext)
+    const {session, players, setGamePhase, gamePhase, isGm} = useContext(GameContext)
     const buttonHandler = useRef();
+    console.log(gamePhase)
+    console.log(isGm, players, )
     useEffect(() => {
         let req = players?.find(p => p.userId === user.id)
-        console.log('REQ', req)
-        console.log('SESSION IS',session)
+        console.log(req, session.gameMasterUserId, user.id)
         if (!req && user.id !== session.gameMasterUserId) {
             setGamePhase(gamePhaseType.HAS_NOT_PLAYER)
         } else {

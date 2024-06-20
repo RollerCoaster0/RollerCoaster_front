@@ -119,7 +119,6 @@ console.log("errors",errors)
             if (response.ok) {
                 const characterResp = await response.json()
             }
-            // return toQueryResult(response.status);
         } catch (e) {
 
         }

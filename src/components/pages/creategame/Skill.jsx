@@ -35,7 +35,7 @@ const Skill = ({skill, skills, setSkills, skillTmpId, classes, npcs}) => {
         }
     }
 
-
+console.log(skill)
     const onCancel = (name, description) => {
         console.log(skill, name, description)
         if (name === '' || description === '') {

@@ -42,20 +42,23 @@ export async function createGame(items, NPCs, quests, gameInfo, locations, skill
             const map = loc.map;
             const id = loc.id;
             let width = loc.width
-            let heigth = loc.width
+            let height = loc.height
+            let basePlayerXPosition = loc.basePlayerXPosition
+            let basePlayerYPosition = loc.basePlayerYPosition
+            console.log(loc)
+            console.log(basePlayerXPosition, basePlayerYPosition, 'POSITIONSJ')
 
-            loc = {name: loc.name, description: loc.description, isBase: loc.baseLocation ? 1 : 0};
+            loc = {name: loc.name, description: loc.description, isBase: loc.isBase ? 1 : 0, };
             res = await createGameComponent(loc, gameComponentType.LOCATION, gameId);
             if (!res.ok) {
                 return {ok: false, message: res.status}
             }
             let locationData = await res.json();
             console.log(locationData)
-            res = await setLocationMap(map, locationData.id, width, heigth);
+            res = await setLocationMap(map, locationData.id, width, height, basePlayerXPosition, basePlayerYPosition);
             if (!res.ok) {
-                return {ok: false, message: res.status}
+                console.log('NOT CREATED map', res )
             }
-
             locationIds.set(id, locationData.id);
         }
         let chClassIds = new Map()
@@ -63,21 +66,25 @@ export async function createGame(items, NPCs, quests, gameInfo, locations, skill
 
         for (let npc of NPCs) {
             let id = npc.id
-            npc = {name: npc.name, locationId: locationIds.get(npc.location.id)}
+            let avatar = npc.avatar
+            npc = {name: npc.name, baseLocationId: locationIds.get(npc.location.id)}
             res = await createGameComponent(npc, gameComponentType.NPC, gameId);
             let data = await res.json()
             npcIds.set(id, data.id)
+            res = await createNPCavatar(npcIds.get(id), avatar)
             if (!res.ok) {
-                return {ok: false, message: res.status}
+                console.log('NOT CREATED npcAvatar', npc, npcIds )
             }
         }
+
+
 
         for (let quest of quests) {
             let id = quest.id
             quest = {name: quest.name, description: quest.description, hiddenDescription: quest.hiddenDescription}
             res = await createGameComponent(quest, gameComponentType.QUEST, gameId)
             if (!res.ok) {
-                return {ok: false, message: res.status}
+                console.log('NOT CREATED npc', quest )
             }
 
         }
@@ -85,7 +92,7 @@ export async function createGame(items, NPCs, quests, gameInfo, locations, skill
 
         for (let characterClass of characterClasses) {
             let id = characterClass.id
-            characterClass = {name: characterClass, description: characterClass.description}
+            characterClass = {name: characterClass.name, description: characterClass.description}
             res = await createGameComponent(characterClass, gameComponentType.CLASS, gameId)
             if (!res.ok) {
                 console.log(characterClass, res)
@@ -143,15 +150,30 @@ export async function createGameComponent(gameComponent, gameComponentType, game
     });
 }
 
-async function setLocationMap(map, locationId) {
+async function setLocationMap(map, id, width, height, basePlayerXPosition, basePlayerYPosition) {
     const formData = new FormData();
     const token = getCredentials()?.token;
     formData.append('file', map);
-    return await fetch(devConsts.api + `/locations/${locationId}/map`, {
+    return await fetch(devConsts.api + `/locations/${id}/map?` + new URLSearchParams({width, height, basePlayerXPosition, basePlayerYPosition}), {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`
         },
         body: formData,
     });
+}
+
+
+async function createNPCavatar(id, avatar) {
+    const formData = new FormData();
+    const token = getCredentials()?.token;
+    formData.append('file', avatar);
+    return await fetch(devConsts.api + `/npc/${id}/avatar`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        body: formData
+    })
+
 }

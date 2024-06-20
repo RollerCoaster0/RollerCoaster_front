@@ -10,6 +10,7 @@ import {UserContext} from "../contexts/UserContext";
 import green from '../devassets/green_player.png'
 
 export function useInitGame(_session, _players) { //session prop
+    console.log('_players', _players)
     const [players, setPlayers] = useState(_players)
     const [session, setSession] = useState(_session)
     const currentPlayerId = useRef()
@@ -25,7 +26,7 @@ export function useInitGame(_session, _players) { //session prop
     const {user} = useContext(UserContext)
     const [game, setGame] = useState()
     const pollingFlag = useRef(true)
-    const isGm = user.id === session.id
+    const isGm = user.id === session.gameMasterUserId
     const event = useLongPoll(pollingFlag)
     const [skills, setSkills] = useState([])
 
@@ -52,12 +53,20 @@ export function useInitGame(_session, _players) { //session prop
                         case 'sessionStarted':
                             handleSessionStatusUpdated(event.sessionStarted)
                             break
+                        case 'changeHealthPoints':
+                            handleHpChange(event)
+                            break
+
                     }
                     break
                 }
             }
         }
     }, [event])
+
+    const handleHpChange = (event) => {
+
+    }
 
     const handleMoveEvent = (event) => {
         const movedPlayer = event.player
@@ -80,9 +89,14 @@ export function useInitGame(_session, _players) { //session prop
         }))
     }
     const handleSessionStatusUpdated = (event) => {
+        console.log(event)
         setSession(event)
     }
-
+    // console.log('PICKED', pickedEntity)
+    // console.log('isGm', user.id, session, isGm)
+    // console.log('PLAYERS', players)
+    // console.log('NPCS', npcs)
+    console.log('GAME', game)
     const handleQuestStatusEvent = (event) => {
 
     }
@@ -123,6 +137,7 @@ export function useInitGame(_session, _players) { //session prop
                 //skills
 
                 setSkills(data.skills)
+                console.log('PLSDRSADF AAARAE', players)
                 await setAvatars(players)
                 setPlayers(structuredClone(players))
                 setPlayers(players => players?.map(((p, i) => {
@@ -146,6 +161,8 @@ export function useInitGame(_session, _players) { //session prop
         }, [user]
     )
 console.log(players)
+    console.log(skills, 'SKILLS')
+
     return {
         players,
         setPlayers,

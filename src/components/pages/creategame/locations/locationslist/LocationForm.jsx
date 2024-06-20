@@ -23,9 +23,11 @@ const LocationForm = ({
                 description: editableLocation.description,
                 map: editableLocation.map,
                 id: idCounter.current++,
-                baseLocation: baseLocation,
+                isBase,
                 width,
-                height
+                height,
+                basePlayerXPosition,
+                basePlayerYPosition,
             });
             setlocations(structuredClone(locations));
         } else {
@@ -36,7 +38,11 @@ const LocationForm = ({
                         description: editableLocation.description,
                         map: editableLocation.map,
                         id: editableLocation.id,
-                        baseLocation: baseLocation
+                        isBase,
+                        width,
+                        height,
+                        basePlayerXPosition,
+                        basePlayerYPosition
                     }
                 }
                 return location;
@@ -44,17 +50,21 @@ const LocationForm = ({
         }
         setOpened(false);
     }
-    const [baseLocation, setBaseLocation] = useState(1)
-    const handleChange = (e) =>{
-        setBaseLocation(isBase => !isBase);
-    }
 
+    const [isBase, setIsBase] = useState(editableLocation?.isBase)
+    const handleChange = (e) =>{
+        setIsBase(e.target.checked);
+    }
 
     const handleMapUpload = (e) => {
         setEditableLocation({...editableLocation, map: e.target.files?.[0]});
     }
-    const [width, setWidth] = useState()
-    const [height, setHeight] = useState()
+
+    const [width, setWidth] = useState(editableLocation?.width ?? 8)
+    const [height, setHeight] = useState(editableLocation?.height ?? 8)
+    const [basePlayerXPosition, setBasePlayerXPosition] = useState(editableLocation?.baseXPosition ?? 0)
+    const [basePlayerYPosition, setBasePlayerYPosition] = useState(editableLocation?.baseYPosition ?? 0)
+    console.log(locations)
     return (
         <Modal open={opened}
                onClose={() => setOpened(false)}
@@ -84,16 +94,24 @@ const LocationForm = ({
 
                     <h3 className='new-location-modal__form__label'>Size:</h3>
                     <div className='new-location-modal__form__field-size'>
-                        <TextField value={width ?? ''} variant='outlined' placeholder='Width' onChange={e => setWidth(e.target.value)}/>
-                        <span style={{fontSize: 15,}}>X</span>
-                        <TextField variant='outlined' value={height ?? ''} onChange={(e) => setHeight(e.target.value)} placeholder='Height'/>
+                        <TextField value={width ?? ''} variant='outlined' placeholder='Width'
+                                   onChange={e => setWidth(e.target.value)}/>
+                        <span style={{fontSize: 15}}>X</span>
+                        <TextField variant='outlined' value={height ?? ''} onChange={(e) => setHeight(e.target.value)}
+                                   placeholder='Height'/>
+                    </div>
 
+                    <h3 className='new-location-modal__form__label'>Base player position:</h3>
+                    <div className='new-location-modal__form__field-size'>
+                        <TextField value={basePlayerXPosition ?? ''} variant='outlined' placeholder='X'
+                                   onChange={e => setBasePlayerXPosition(e.target.value)}/>
+                        <TextField variant='outlined' value={basePlayerYPosition ?? ''} onChange={(e) =>setBasePlayerYPosition(e.target.value)}
+                                   placeholder='Y'/>
                     </div>
 
                     <h3 className='new-location-modal__form__label'>Base location:</h3>
                     <FormControlLabel control={<Checkbox defaultChecked/>} label=""
-                    onChange={handleChange}
-                    />
+                                      onChange={handleChange}/>
 
                     <h3 className='new-location-modal__form__label'>Upload map:</h3>
                     <div>

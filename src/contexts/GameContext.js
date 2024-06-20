@@ -14,8 +14,8 @@ export const eventUpdateType = {
 }
 
 export const GameContextProvider = ({children, session, players}) => {
+    console.log('GMCOTPR', players)
     const gameData = useInitGame(session, players)
-
     return <GameContext.Provider value={gameData}>
         {children}
     </GameContext.Provider>

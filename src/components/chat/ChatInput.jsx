@@ -2,6 +2,7 @@ import React, {useContext, useState} from 'react';
 import {Button, TextField} from "@mui/material";
 import {UserContext} from "../../contexts/UserContext";
 import {sendTextMessage} from "../../api/updates";
+import NotGmOnly from "../gamespace/NotGmOnly";
 
 
 const ChatInput = ({sessionId}) => {
@@ -23,8 +24,10 @@ const ChatInput = ({sessionId}) => {
                            InputProps={{disableUnderline: true}}/>
             </div>
             <div className='chat-window__bottom-panel__input__panel__buttons'>
-                <Button onClick={handleMessageSending} sx={sendButtonStyle}>От своего
-                    имени</Button>
+                <NotGmOnly>
+                    <Button onClick={handleMessageSending} sx={sendButtonStyle}>От своего
+                        имени</Button>
+                </NotGmOnly>
                 <Button sx={sendButtonStyle}>От имени персонажа</Button>
             </div>
         </>

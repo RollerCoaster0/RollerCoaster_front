@@ -135,7 +135,7 @@ const NPCcard = ({NPC, setNPCs, NPCs, locations}) => {
                                         }}
                                         variant='contained' color='success'>Save</Button>
                             </Collapse>
-                            <NPClocationPickModal location={NPClocation} locations={locations}
+                            <NPClocationPickModal  locations={locations}
                                                   setLocation={setNPClocation} open={openLocationsPickModal}
                                                   setOpen={setOpenLocationsPickModal}/>
                         </Card>

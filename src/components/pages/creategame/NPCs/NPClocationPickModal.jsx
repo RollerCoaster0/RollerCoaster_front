@@ -2,7 +2,7 @@ import React from 'react';
 import {Box, List, ListItem, ListItemIcon, ListItemText, Modal} from "@mui/material";
 import '../creategame.css'
 
-const NPClocationPickModal = ({location, setLocation, locations, open, setOpen}) => {
+const NPClocationPickModal = ({ setLocation, locations, open, setOpen}) => {
     const noElements = locations.length === 0;
     const handleLocationPick = (location) => {
         setLocation(location);
