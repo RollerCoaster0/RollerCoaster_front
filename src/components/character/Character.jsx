@@ -16,7 +16,7 @@ import FolderList from "./FolderList";
 import {devConsts} from "../../util/util";
 import {getCredentials} from "../../contexts/UserContext";
 import {fetchGame, fetchSessionInfo} from "../../api/game";
-import {useLoaderData} from "react-router-dom";
+import {useLoaderData, useNavigate} from "react-router-dom";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -37,6 +37,7 @@ export default function Character() {
 const handleChangeButton = async (event) => {
     const id = await player();
     playerAvatar(id)
+    handleClick()
 };
 
  const [errors, setErrors] = useState('');
@@ -135,6 +136,8 @@ console.log("errors",errors)
         e.stopPropagation();
         setEditMode(true);
     }
+    const navigate = useNavigate();
+    const handleClick = () => navigate(`/game/${sessionObj.id}`)
 
     return (
         <div className="character_field">
